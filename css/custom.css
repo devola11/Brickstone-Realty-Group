@@ -1,0 +1,278 @@
+/* ============================================
+   BRICKSTONE REALTY GROUP — Custom Styles
+   ============================================
+   Supplements Tailwind CSS with custom animations,
+   transitions, and effects not achievable via utility classes.
+   ============================================ */
+
+
+/* ----------------------------------------
+   GLOBAL & BASE STYLES
+   ---------------------------------------- */
+/* scroll-behavior handled by JS to account for sticky nav offset */
+
+::selection {
+  background-color: #C9A84C;
+  color: #0B1C2D;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+
+/* ----------------------------------------
+   NAVIGATION
+   ---------------------------------------- */
+
+/* Default transparent state */
+#navbar {
+  background: transparent;
+}
+
+/* Scrolled solid state */
+#navbar.scrolled {
+  background: rgba(11, 28, 45, 0.97);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 1px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Nav link colors — transparent state */
+.nav-link {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.nav-link:hover {
+  color: #C9A84C;
+}
+
+.nav-logo-text {
+  color: #ffffff;
+}
+
+/* Nav link underline animation */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: #C9A84C;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Hamburger line colors follow nav text */
+.hamburger-line {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Hamburger open state */
+#menu-toggle.active .hamburger-line:nth-child(1) {
+  transform: translateY(4px) rotate(45deg);
+}
+
+#menu-toggle.active .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+#menu-toggle.active .hamburger-line:nth-child(3) {
+  width: 1.5rem;
+  transform: translateY(-4px) rotate(-45deg);
+}
+
+/* Mobile menu open state */
+#mobile-menu.open {
+  transform: translateX(0);
+}
+
+
+/* ----------------------------------------
+   HERO ANIMATIONS
+   ---------------------------------------- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounceSlow {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(8px);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInUp 1s ease-out 0.3s both;
+}
+
+.animate-bounce-slow {
+  animation: bounceSlow 2.5s ease-in-out infinite;
+}
+
+
+/* ----------------------------------------
+   SCROLL REVEAL ANIMATIONS
+   ---------------------------------------- */
+.reveal-element {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal-element.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger children in grids */
+.reveal-element:nth-child(2) {
+  transition-delay: 0.1s;
+}
+
+.reveal-element:nth-child(3) {
+  transition-delay: 0.2s;
+}
+
+.reveal-element:nth-child(4) {
+  transition-delay: 0.3s;
+}
+
+.reveal-element:nth-child(5) {
+  transition-delay: 0.15s;
+}
+
+.reveal-element:nth-child(6) {
+  transition-delay: 0.25s;
+}
+
+
+/* ----------------------------------------
+   FORM STYLES
+   ---------------------------------------- */
+
+/* Error state for form inputs */
+.form-group input.error,
+.form-group textarea.error {
+  border-color: #f87171 !important;
+}
+
+/* Error message visibility */
+.error-message.visible {
+  display: block;
+}
+
+/* Success message animation — only plays when .show is added */
+#form-success.show {
+  display: block;
+  animation: fadeInUp 0.5s ease-out;
+}
+
+
+/* ----------------------------------------
+   PROPERTY CARD ENHANCEMENTS
+   ---------------------------------------- */
+.property-card {
+  overflow: hidden;
+}
+
+
+/* ----------------------------------------
+   MOBILE MENU LINK ANIMATION
+   ---------------------------------------- */
+.mobile-nav-link {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease, color 0.3s ease;
+}
+
+#mobile-menu.open .mobile-nav-link {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#mobile-menu.open .mobile-nav-link:nth-child(1) { transition-delay: 0.15s; }
+#mobile-menu.open .mobile-nav-link:nth-child(2) { transition-delay: 0.25s; }
+#mobile-menu.open .mobile-nav-link:nth-child(3) { transition-delay: 0.35s; }
+#mobile-menu.open .mobile-nav-link:nth-child(4) { transition-delay: 0.45s; }
+
+.mobile-nav-link:hover {
+  color: #C9A84C;
+}
+
+
+/* ----------------------------------------
+   SCROLLBAR STYLING (Webkit)
+   ---------------------------------------- */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0B1C2D;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C9A84C;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #D4B96A;
+}
+
+
+/* ----------------------------------------
+   FOCUS STYLES (Keyboard Accessibility)
+   ---------------------------------------- */
+*:focus-visible {
+  outline: 2px solid #C9A84C;
+  outline-offset: 2px;
+}
+
+/* Remove default outline for mouse users */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+
+/* ----------------------------------------
+   REDUCED MOTION (Accessibility)
+   ---------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal-element {
+    opacity: 1;
+    transform: none;
+  }
+
+  .animate-fade-in {
+    animation: none;
+    opacity: 1;
+  }
+
+  .animate-bounce-slow {
+    animation: none;
+  }
+}
