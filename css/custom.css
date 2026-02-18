@@ -1,173 +1,142 @@
 /* ============================================
    BRICKSTONE REALTY GROUP — Custom Styles
+   Mobile-first. Optimised for 80% mobile users.
    ============================================ */
 
-
 /* ----------------------------------------
-   GLOBAL & BASE
+   BASE
    ---------------------------------------- */
-::selection {
-  background-color: #C9A84C;
-  color: #0B1C2D;
-}
+*, *::before, *::after { box-sizing: border-box; }
 
-body {
-  overflow-x: hidden;
+::selection { background-color: #C9A84C; color: #0B1C2D; }
+
+body { overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+/* Safe area for notched phones */
+.safe-bottom { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+
+/* Hero grid pattern */
+.hero-grid-pattern {
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255,255,255,.12) 50px, rgba(255,255,255,.12) 51px),
+    repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255,255,255,.12) 50px, rgba(255,255,255,.12) 51px);
 }
 
 
 /* ----------------------------------------
-   NAVIGATION — transparent default state
+   NAVIGATION
    ---------------------------------------- */
 #navbar {
   background: transparent;
+  /* Will-change for GPU compositing */
+  will-change: background-color;
 }
 
 #navbar.scrolled {
   background: rgba(11, 28, 45, 0.97);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 1px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 24px rgba(0,0,0,.18);
 }
 
-/* Nav link colours (transparent / scrolled state) */
 .nav-link {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255,255,255,.8);
+  transition: color .25s ease;
 }
+.nav-link:hover { color: #C9A84C; }
 
-.nav-link:hover {
-  color: #C9A84C;
-}
-
-.nav-logo-text {
-  color: #ffffff;
-}
-
-/* Underline animation */
 .nav-link::after {
   content: '';
   position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background-color: #C9A84C;
-  transition: width 0.3s ease;
+  bottom: -3px; left: 0;
+  width: 0; height: 1px;
+  background: #C9A84C;
+  transition: width .3s ease;
 }
-
-.nav-link:hover::after {
-  width: 100%;
-}
+.nav-link:hover::after { width: 100%; }
 
 
 /* ----------------------------------------
-   HAMBURGER BUTTON
+   HAMBURGER
    ---------------------------------------- */
-
-/* Lines always white so they show on any bg */
 .hamburger-line {
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(255,255,255,.95);
+  transition: transform .3s ease, opacity .2s ease, width .3s ease;
+  display: block;
 }
 
-/* X state */
+/* X animation */
 #menu-toggle.active .hamburger-line:nth-child(1) {
-  transform: translateY(8px) rotate(45deg);
+  transform: translateY(7px) rotate(45deg);
 }
-
 #menu-toggle.active .hamburger-line:nth-child(2) {
   opacity: 0;
   transform: scaleX(0);
 }
-
 #menu-toggle.active .hamburger-line:nth-child(3) {
-  width: 1.5rem;
-  margin-left: 0;
-  transform: translateY(-8px) rotate(-45deg);
+  width: 100%;
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 
 /* ----------------------------------------
-   MOBILE MENU PANEL
-   — Slides DOWN below the navbar bar.
-   — The navbar itself (logo + hamburger)
-     stays fully visible at all times.
+   MOBILE MENU
+   Slides DOWN below the navbar — logo & button
+   are NEVER covered.
    ---------------------------------------- */
 .mobile-menu-panel {
-  /* Position it directly under the navbar bar
-     by using top: 100% so it starts at the
-     bottom edge of the <nav> element. */
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
+  position: absolute;   /* relative to #navbar */
+  top: 100%;            /* starts at bottom of nav bar */
+  left: 0; right: 0;
   background: rgba(11, 28, 45, 0.98);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-top: 1px solid rgba(201, 168, 76, 0.2);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(201,168,76,.25);
+  box-shadow: 0 12px 40px rgba(0,0,0,.45);
 
-  /* Slide-down animation */
+  /* Slide-down */
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-              opacity 0.3s ease;
   opacity: 0;
   pointer-events: none;
+  transition: max-height .4s cubic-bezier(.4,0,.2,1), opacity .3s ease;
 }
 
 .mobile-menu-panel.open {
-  max-height: 600px;
+  max-height: 650px;
   opacity: 1;
   pointer-events: auto;
 }
 
-
-/* ----------------------------------------
-   MOBILE NAV LINKS — stagger-in animation
-   ---------------------------------------- */
+/* Nav link slide-in */
 .mobile-nav-link {
   display: block;
   opacity: 0;
-  transform: translateX(-12px);
-  transition: opacity 0.35s ease, transform 0.35s ease, color 0.2s ease;
+  transform: translateX(-14px);
+  transition: opacity .35s ease, transform .35s ease, color .2s ease;
 }
-
-.mobile-menu-panel.open .mobile-nav-link {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.mobile-menu-panel.open .mobile-nav-link:nth-child(1) { transition-delay: 0.07s; }
-.mobile-menu-panel.open .mobile-nav-link:nth-child(2) { transition-delay: 0.12s; }
-.mobile-menu-panel.open .mobile-nav-link:nth-child(3) { transition-delay: 0.17s; }
-.mobile-menu-panel.open .mobile-nav-link:nth-child(4) { transition-delay: 0.22s; }
-.mobile-menu-panel.open .mobile-nav-link:nth-child(5) { transition-delay: 0.27s; }
-.mobile-menu-panel.open .mobile-nav-link:nth-child(6) { transition-delay: 0.32s; }
-
-.mobile-nav-link:hover {
-  color: #C9A84C;
-}
+.mobile-menu-panel.open .mobile-nav-link { opacity: 1; transform: translateX(0); }
+.mobile-menu-panel.open .mobile-nav-link:nth-child(1) { transition-delay:.06s; }
+.mobile-menu-panel.open .mobile-nav-link:nth-child(2) { transition-delay:.11s; }
+.mobile-menu-panel.open .mobile-nav-link:nth-child(3) { transition-delay:.16s; }
+.mobile-menu-panel.open .mobile-nav-link:nth-child(4) { transition-delay:.21s; }
+.mobile-menu-panel.open .mobile-nav-link:nth-child(5) { transition-delay:.26s; }
+.mobile-menu-panel.open .mobile-nav-link:nth-child(6) { transition-delay:.31s; }
+.mobile-menu-panel.open .mobile-nav-link:nth-child(7) { transition-delay:.36s; }
+.mobile-menu-panel.open .mobile-nav-link:nth-child(8) { transition-delay:.41s; }
+.mobile-nav-link:hover { color: #C9A84C; }
 
 
 /* ----------------------------------------
    HERO ANIMATIONS
    ---------------------------------------- */
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes bounceSlow {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50%       { transform: translateX(-50%) translateY(8px); }
+  from { opacity:0; transform:translateY(28px); }
+  to   { opacity:1; transform:translateY(0); }
 }
 
 .animate-fade-in {
-  animation: fadeInUp 1s ease-out 0.3s both;
-}
-
-.animate-bounce-slow {
-  animation: bounceSlow 2.5s ease-in-out infinite;
+  animation: fadeInUp .9s ease-out .25s both;
 }
 
 
@@ -176,119 +145,122 @@ body {
    ---------------------------------------- */
 .reveal-element {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.75s ease, transform 0.75s ease;
+  transform: translateY(24px);
+  transition: opacity .7s ease, transform .7s ease;
 }
-
 .reveal-element.revealed {
   opacity: 1;
   transform: translateY(0);
 }
-
-.reveal-element:nth-child(2) { transition-delay: 0.08s; }
-.reveal-element:nth-child(3) { transition-delay: 0.16s; }
-.reveal-element:nth-child(4) { transition-delay: 0.24s; }
-.reveal-element:nth-child(5) { transition-delay: 0.14s; }
-.reveal-element:nth-child(6) { transition-delay: 0.22s; }
+/* Gentle stagger */
+.reveal-element:nth-child(2) { transition-delay:.07s; }
+.reveal-element:nth-child(3) { transition-delay:.14s; }
+.reveal-element:nth-child(4) { transition-delay:.21s; }
+.reveal-element:nth-child(5) { transition-delay:.11s; }
+.reveal-element:nth-child(6) { transition-delay:.18s; }
 
 
 /* ----------------------------------------
-   FILTER BUTTONS (property grid)
+   FILTER BUTTONS
    ---------------------------------------- */
 .filter-btn {
-  border-color: #d1d5db;
+  display: inline-block;
+  padding: .45rem 1rem;
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  border: 1px solid #d1d5db;
   color: #6B7280;
   background: transparent;
   cursor: pointer;
+  transition: all .2s ease;
+  /* Larger tap target on mobile */
+  min-height: 36px;
 }
-
 .filter-btn:hover,
 .filter-btn.active {
   border-color: #C9A84C;
-  color: #0B1C2D;
   background: #C9A84C;
+  color: #0B1C2D;
 }
-
-/* Cards that are hidden by the filter */
-.property-card.hidden-card {
-  display: none;
-}
+.property-card.hidden-card { display: none; }
 
 
 /* ----------------------------------------
    FAQ ACCORDION
    ---------------------------------------- */
-.faq-answer {
-  /* Smooth slide using max-height trick */
-  overflow: hidden;
-}
-
-.faq-icon.rotated {
-  transform: rotate(180deg);
-}
+.faq-icon { transition: transform .3s ease; }
+.faq-icon.rotated { transform: rotate(180deg); }
 
 
 /* ----------------------------------------
-   FORM STYLES
+   FORMS
    ---------------------------------------- */
 .form-group input.error,
 .form-group textarea.error {
   border-color: #f87171 !important;
 }
-
-.error-message.visible {
-  display: block;
-}
+.error-message.visible { display: block; }
 
 #form-success.show {
   display: block;
-  animation: fadeInUp 0.5s ease-out;
+  animation: fadeInUp .45s ease-out;
 }
 
 
 /* ----------------------------------------
    PROPERTY CARD
    ---------------------------------------- */
-.property-card {
-  overflow: hidden;
+.property-card { overflow: hidden; }
+
+
+/* ----------------------------------------
+   FLOATING MOBILE CTA
+   ---------------------------------------- */
+.mobile-cta-bar {
+  transform: translateY(100%);
+  transition: transform .4s cubic-bezier(.4,0,.2,1);
+}
+.mobile-cta-bar.visible {
+  transform: translateY(0);
 }
 
 
 /* ----------------------------------------
-   SCROLLBAR (Webkit)
+   SCROLLBAR (webkit)
    ---------------------------------------- */
-::-webkit-scrollbar       { width: 8px; }
+::-webkit-scrollbar       { width: 6px; }
 ::-webkit-scrollbar-track { background: #0B1C2D; }
-::-webkit-scrollbar-thumb { background: #C9A84C; border-radius: 4px; }
+::-webkit-scrollbar-thumb { background: #C9A84C; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #D4B96A; }
 
 
 /* ----------------------------------------
-   FOCUS STYLES (Accessibility)
+   FOCUS / ACCESSIBILITY
    ---------------------------------------- */
-*:focus-visible {
-  outline: 2px solid #C9A84C;
-  outline-offset: 2px;
-}
+*:focus-visible { outline: 2px solid #C9A84C; outline-offset: 2px; }
+*:focus:not(:focus-visible) { outline: none; }
 
-*:focus:not(:focus-visible) {
-  outline: none;
+/* Larger tap targets on mobile */
+@media (max-width: 768px) {
+  a, button { min-height: 44px; min-width: 44px; }
+  /* Override for inline elements */
+  .text-xs a, p a { min-height: unset; min-width: unset; }
 }
 
 
 /* ----------------------------------------
-   REDUCED MOTION (Accessibility)
+   REDUCED MOTION
    ---------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
-    animation-duration: 0.01ms !important;
+    animation-duration: .01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
   }
-
-  .reveal-element       { opacity: 1; transform: none; }
-  .animate-fade-in      { animation: none; opacity: 1; }
-  .animate-bounce-slow  { animation: none; }
-  .mobile-nav-link      { opacity: 1; transform: none; }
+  .reveal-element      { opacity:1; transform:none; }
+  .animate-fade-in     { animation:none; opacity:1; }
+  .mobile-nav-link     { opacity:1; transform:none; }
+  .mobile-cta-bar      { transform:none; }
 }
