@@ -2,11 +2,14 @@
    BRICKSTONE REALTY GROUP — Main JavaScript
    ============================================
    Handles:
-   - Sticky navigation with transparent/solid transition
-   - Mobile menu toggle with ARIA + Escape key
-   - Smooth scrolling (with nav offset)
-   - Scroll-reveal animations (Intersection Observer)
+   - Sticky navbar (transparent → solid)
+   - Mobile menu (slides below navbar, never covers logo)
+   - Smooth scrolling with nav offset
+   - Scroll-reveal (Intersection Observer)
    - Active nav link highlighting
+   - Borough filter for property cards
+   - FAQ accordion
+   - Hero quick-search scroll
    - Contact form validation
    ============================================ */
 
@@ -15,46 +18,35 @@ document.addEventListener('DOMContentLoaded', () => {
   // ----------------------------------------
   // ELEMENTS
   // ----------------------------------------
-  const navbar = document.getElementById('navbar');
-  const menuToggle = document.getElementById('menu-toggle');
-  const mobileMenu = document.getElementById('mobile-menu');
+  const navbar      = document.getElementById('navbar');
+  const menuToggle  = document.getElementById('menu-toggle');
+  const mobileMenu  = document.getElementById('mobile-menu');
   const mobileLinks = mobileMenu.querySelectorAll('a');
   const contactForm = document.getElementById('contact-form');
   const formSuccess = document.getElementById('form-success');
-  const revealElements = document.querySelectorAll('.reveal-element');
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-link');
+  const revealEls   = document.querySelectorAll('.reveal-element');
+  const sections    = document.querySelectorAll('section[id]');
+  const navLinks    = document.querySelectorAll('.nav-link');
 
 
   // ----------------------------------------
-  // SCROLL HANDLER (rAF-throttled, combined)
-  // Merges: navbar transition + active nav highlighting
+  // SCROLL HANDLER (rAF-throttled)
   // ----------------------------------------
   let scrollTicking = false;
 
   const onScroll = () => {
     // Navbar solid/transparent
-    if (window.scrollY > 80) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
-    }
+    navbar.classList.toggle('scrolled', window.scrollY > 80);
 
-    // Active nav link highlighting
+    // Active nav link
     const scrollPos = window.scrollY + navbar.offsetHeight + 100;
-
     sections.forEach(section => {
-      const top = section.offsetTop;
+      const top    = section.offsetTop;
       const bottom = top + section.offsetHeight;
-      const id = section.getAttribute('id');
-
+      const id     = section.getAttribute('id');
       navLinks.forEach(link => {
         if (link.getAttribute('href') === `#${id}`) {
-          if (scrollPos >= top && scrollPos < bottom) {
-            link.style.color = '#C9A84C';
-          } else {
-            link.style.color = '';
-          }
+          link.style.color = (scrollPos >= top && scrollPos < bottom) ? '#C9A84C' : '';
         }
       });
     });
@@ -69,11 +61,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, { passive: true });
 
-  onScroll(); // Run on load
+  onScroll(); // run once on load
 
 
   // ----------------------------------------
   // MOBILE MENU
+  // The panel slides DOWN below the <nav> bar,
+  // so the logo and hamburger are never covered.
   // ----------------------------------------
   const openMenu = () => {
     menuToggle.classList.add('active');
@@ -95,12 +89,8 @@ document.addEventListener('DOMContentLoaded', () => {
     mobileMenu.classList.contains('open') ? closeMenu() : openMenu();
   });
 
-  // Close on link click
-  mobileLinks.forEach(link => {
-    link.addEventListener('click', closeMenu);
-  });
+  mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
 
-  // Close on Escape key
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
       closeMenu();
@@ -110,25 +100,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ----------------------------------------
-  // SMOOTH SCROLLING (with sticky nav offset)
+  // SMOOTH SCROLLING (with navbar offset)
   // ----------------------------------------
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', (e) => {
       const targetId = anchor.getAttribute('href');
       if (targetId === '#') return;
-
       const target = document.querySelector(targetId);
       if (!target) return;
-
       e.preventDefault();
-
-      const navHeight = navbar.offsetHeight;
+      const navHeight     = navbar.offsetHeight;
       const targetPosition = target.getBoundingClientRect().top + window.scrollY - navHeight;
-
-      window.scrollTo({
-        top: targetPosition,
-        behavior: 'smooth'
-      });
+      window.scrollTo({ top: targetPosition, behavior: 'smooth' });
     });
   });
 
@@ -145,41 +128,119 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     },
-    {
-      threshold: 0.15,
-      rootMargin: '0px 0px -50px 0px'
-    }
+    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
   );
 
-  revealElements.forEach(el => revealObserver.observe(el));
+  revealEls.forEach(el => revealObserver.observe(el));
+
+
+  // ----------------------------------------
+  // BOROUGH FILTER (property cards)
+  // ----------------------------------------
+  const filterBtns  = document.querySelectorAll('.filter-btn');
+  const propertyCards = document.querySelectorAll('.property-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+
+      // Toggle active class
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      // Show/hide cards
+      propertyCards.forEach(card => {
+        if (filter === 'all' || card.dataset.borough === filter) {
+          card.classList.remove('hidden-card');
+        } else {
+          card.classList.add('hidden-card');
+        }
+      });
+    });
+  });
+
+
+  // ----------------------------------------
+  // FAQ ACCORDION
+  // ----------------------------------------
+  const faqBtns = document.querySelectorAll('.faq-btn');
+
+  faqBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const answer   = btn.nextElementSibling;
+      const icon     = btn.querySelector('.faq-icon');
+      const isOpen   = btn.getAttribute('aria-expanded') === 'true';
+
+      // Close all other open items
+      faqBtns.forEach(otherBtn => {
+        if (otherBtn !== btn) {
+          otherBtn.setAttribute('aria-expanded', 'false');
+          otherBtn.nextElementSibling.classList.add('hidden');
+          otherBtn.querySelector('.faq-icon').classList.remove('rotated');
+        }
+      });
+
+      // Toggle this one
+      if (isOpen) {
+        btn.setAttribute('aria-expanded', 'false');
+        answer.classList.add('hidden');
+        icon.classList.remove('rotated');
+      } else {
+        btn.setAttribute('aria-expanded', 'true');
+        answer.classList.remove('hidden');
+        icon.classList.add('rotated');
+      }
+    });
+  });
+
+
+  // ----------------------------------------
+  // HERO QUICK SEARCH — scroll to properties
+  // ----------------------------------------
+  window.scrollToProperties = () => {
+    const propertiesSection = document.getElementById('properties');
+    const boroughVal = document.getElementById('borough-select').value;
+
+    if (propertiesSection) {
+      const navHeight = navbar.offsetHeight;
+      const top = propertiesSection.getBoundingClientRect().top + window.scrollY - navHeight;
+      window.scrollTo({ top, behavior: 'smooth' });
+
+      // If a borough was selected, trigger the matching filter button
+      if (boroughVal) {
+        setTimeout(() => {
+          const matchingBtn = document.querySelector(`.filter-btn[data-filter="${boroughVal}"]`);
+          if (matchingBtn) matchingBtn.click();
+        }, 600); // wait for scroll to settle
+      }
+    }
+  };
 
 
   // ----------------------------------------
   // CONTACT FORM VALIDATION
   // ----------------------------------------
   const validators = {
-    name: (value) => {
-      if (!value.trim()) return 'Please enter your name.';
-      if (value.trim().length < 2) return 'Name must be at least 2 characters.';
+    name: (v) => {
+      if (!v.trim()) return 'Please enter your name.';
+      if (v.trim().length < 2) return 'Name must be at least 2 characters.';
       return '';
     },
-    email: (value) => {
-      if (!value.trim()) return 'Please enter your email address.';
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(value.trim())) return 'Please enter a valid email address.';
+    email: (v) => {
+      if (!v.trim()) return 'Please enter your email address.';
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())) return 'Please enter a valid email address.';
       return '';
     },
-    message: (value) => {
-      if (!value.trim()) return 'Please enter a message.';
-      if (value.trim().length < 10) return 'Message must be at least 10 characters.';
+    message: (v) => {
+      if (!v.trim()) return 'Please enter a message.';
+      if (v.trim().length < 10) return 'Message must be at least 10 characters.';
       return '';
     }
   };
 
   const setFieldError = (field, message) => {
-    const group = field.closest('.form-group');
+    const group   = field.closest('.form-group');
     const errorEl = group.querySelector('.error-message');
-
     if (message) {
       field.classList.add('error');
       field.setAttribute('aria-invalid', 'true');
@@ -204,13 +265,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Track success timeout to prevent stacking
   let successTimeout = null;
 
-  // Form submission
   contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
-
     let hasErrors = false;
 
     ['name', 'email', 'message'].forEach(fieldName => {
@@ -221,24 +279,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     if (hasErrors) {
-      // Focus the first field with an error
       const firstError = contactForm.querySelector('.error');
       if (firstError) firstError.focus();
       return;
     }
 
-    // Success
+    // Success state
     contactForm.reset();
     formSuccess.classList.remove('hidden');
     formSuccess.classList.add('show');
 
-    // Clear any existing timeout
     if (successTimeout) clearTimeout(successTimeout);
-
     successTimeout = setTimeout(() => {
       formSuccess.classList.add('hidden');
       formSuccess.classList.remove('show');
-    }, 5000);
+    }, 6000);
   });
 
 });

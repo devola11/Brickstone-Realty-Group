@@ -1,16 +1,11 @@
 /* ============================================
    BRICKSTONE REALTY GROUP — Custom Styles
-   ============================================
-   Supplements Tailwind CSS with custom animations,
-   transitions, and effects not achievable via utility classes.
    ============================================ */
 
 
 /* ----------------------------------------
-   GLOBAL & BASE STYLES
+   GLOBAL & BASE
    ---------------------------------------- */
-/* scroll-behavior handled by JS to account for sticky nav offset */
-
 ::selection {
   background-color: #C9A84C;
   color: #0B1C2D;
@@ -22,15 +17,12 @@ body {
 
 
 /* ----------------------------------------
-   NAVIGATION
+   NAVIGATION — transparent default state
    ---------------------------------------- */
-
-/* Default transparent state */
 #navbar {
   background: transparent;
 }
 
-/* Scrolled solid state */
 #navbar.scrolled {
   background: rgba(11, 28, 45, 0.97);
   backdrop-filter: blur(12px);
@@ -38,7 +30,7 @@ body {
   box-shadow: 0 1px 30px rgba(0, 0, 0, 0.15);
 }
 
-/* Nav link colors — transparent state */
+/* Nav link colours (transparent / scrolled state) */
 .nav-link {
   color: rgba(255, 255, 255, 0.8);
 }
@@ -51,7 +43,7 @@ body {
   color: #ffffff;
 }
 
-/* Nav link underline animation */
+/* Underline animation */
 .nav-link::after {
   content: '';
   position: absolute;
@@ -67,28 +59,93 @@ body {
   width: 100%;
 }
 
-/* Hamburger line colors follow nav text */
+
+/* ----------------------------------------
+   HAMBURGER BUTTON
+   ---------------------------------------- */
+
+/* Lines always white so they show on any bg */
 .hamburger-line {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.95);
 }
 
-/* Hamburger open state */
+/* X state */
 #menu-toggle.active .hamburger-line:nth-child(1) {
-  transform: translateY(4px) rotate(45deg);
+  transform: translateY(8px) rotate(45deg);
 }
 
 #menu-toggle.active .hamburger-line:nth-child(2) {
   opacity: 0;
+  transform: scaleX(0);
 }
 
 #menu-toggle.active .hamburger-line:nth-child(3) {
   width: 1.5rem;
-  transform: translateY(-4px) rotate(-45deg);
+  margin-left: 0;
+  transform: translateY(-8px) rotate(-45deg);
 }
 
-/* Mobile menu open state */
-#mobile-menu.open {
+
+/* ----------------------------------------
+   MOBILE MENU PANEL
+   — Slides DOWN below the navbar bar.
+   — The navbar itself (logo + hamburger)
+     stays fully visible at all times.
+   ---------------------------------------- */
+.mobile-menu-panel {
+  /* Position it directly under the navbar bar
+     by using top: 100% so it starts at the
+     bottom edge of the <nav> element. */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(11, 28, 45, 0.98);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(201, 168, 76, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+
+  /* Slide-down animation */
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mobile-menu-panel.open {
+  max-height: 600px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+/* ----------------------------------------
+   MOBILE NAV LINKS — stagger-in animation
+   ---------------------------------------- */
+.mobile-nav-link {
+  display: block;
+  opacity: 0;
+  transform: translateX(-12px);
+  transition: opacity 0.35s ease, transform 0.35s ease, color 0.2s ease;
+}
+
+.mobile-menu-panel.open .mobile-nav-link {
+  opacity: 1;
   transform: translateX(0);
+}
+
+.mobile-menu-panel.open .mobile-nav-link:nth-child(1) { transition-delay: 0.07s; }
+.mobile-menu-panel.open .mobile-nav-link:nth-child(2) { transition-delay: 0.12s; }
+.mobile-menu-panel.open .mobile-nav-link:nth-child(3) { transition-delay: 0.17s; }
+.mobile-menu-panel.open .mobile-nav-link:nth-child(4) { transition-delay: 0.22s; }
+.mobile-menu-panel.open .mobile-nav-link:nth-child(5) { transition-delay: 0.27s; }
+.mobile-menu-panel.open .mobile-nav-link:nth-child(6) { transition-delay: 0.32s; }
+
+.mobile-nav-link:hover {
+  color: #C9A84C;
 }
 
 
@@ -96,23 +153,13 @@ body {
    HERO ANIMATIONS
    ---------------------------------------- */
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes bounceSlow {
-  0%, 100% {
-    transform: translateX(-50%) translateY(0);
-  }
-  50% {
-    transform: translateX(-50%) translateY(8px);
-  }
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(8px); }
 }
 
 .animate-fade-in {
@@ -125,12 +172,12 @@ body {
 
 
 /* ----------------------------------------
-   SCROLL REVEAL ANIMATIONS
+   SCROLL REVEAL
    ---------------------------------------- */
 .reveal-element {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: translateY(28px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
 }
 
 .reveal-element.revealed {
@@ -138,44 +185,61 @@ body {
   transform: translateY(0);
 }
 
-/* Stagger children in grids */
-.reveal-element:nth-child(2) {
-  transition-delay: 0.1s;
+.reveal-element:nth-child(2) { transition-delay: 0.08s; }
+.reveal-element:nth-child(3) { transition-delay: 0.16s; }
+.reveal-element:nth-child(4) { transition-delay: 0.24s; }
+.reveal-element:nth-child(5) { transition-delay: 0.14s; }
+.reveal-element:nth-child(6) { transition-delay: 0.22s; }
+
+
+/* ----------------------------------------
+   FILTER BUTTONS (property grid)
+   ---------------------------------------- */
+.filter-btn {
+  border-color: #d1d5db;
+  color: #6B7280;
+  background: transparent;
+  cursor: pointer;
 }
 
-.reveal-element:nth-child(3) {
-  transition-delay: 0.2s;
+.filter-btn:hover,
+.filter-btn.active {
+  border-color: #C9A84C;
+  color: #0B1C2D;
+  background: #C9A84C;
 }
 
-.reveal-element:nth-child(4) {
-  transition-delay: 0.3s;
+/* Cards that are hidden by the filter */
+.property-card.hidden-card {
+  display: none;
 }
 
-.reveal-element:nth-child(5) {
-  transition-delay: 0.15s;
+
+/* ----------------------------------------
+   FAQ ACCORDION
+   ---------------------------------------- */
+.faq-answer {
+  /* Smooth slide using max-height trick */
+  overflow: hidden;
 }
 
-.reveal-element:nth-child(6) {
-  transition-delay: 0.25s;
+.faq-icon.rotated {
+  transform: rotate(180deg);
 }
 
 
 /* ----------------------------------------
    FORM STYLES
    ---------------------------------------- */
-
-/* Error state for form inputs */
 .form-group input.error,
 .form-group textarea.error {
   border-color: #f87171 !important;
 }
 
-/* Error message visibility */
 .error-message.visible {
   display: block;
 }
 
-/* Success message animation — only plays when .show is added */
 #form-success.show {
   display: block;
   animation: fadeInUp 0.5s ease-out;
@@ -183,7 +247,7 @@ body {
 
 
 /* ----------------------------------------
-   PROPERTY CARD ENHANCEMENTS
+   PROPERTY CARD
    ---------------------------------------- */
 .property-card {
   overflow: hidden;
@@ -191,59 +255,22 @@ body {
 
 
 /* ----------------------------------------
-   MOBILE MENU LINK ANIMATION
+   SCROLLBAR (Webkit)
    ---------------------------------------- */
-.mobile-nav-link {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.4s ease, transform 0.4s ease, color 0.3s ease;
-}
-
-#mobile-menu.open .mobile-nav-link {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-#mobile-menu.open .mobile-nav-link:nth-child(1) { transition-delay: 0.15s; }
-#mobile-menu.open .mobile-nav-link:nth-child(2) { transition-delay: 0.25s; }
-#mobile-menu.open .mobile-nav-link:nth-child(3) { transition-delay: 0.35s; }
-#mobile-menu.open .mobile-nav-link:nth-child(4) { transition-delay: 0.45s; }
-
-.mobile-nav-link:hover {
-  color: #C9A84C;
-}
+::-webkit-scrollbar       { width: 8px; }
+::-webkit-scrollbar-track { background: #0B1C2D; }
+::-webkit-scrollbar-thumb { background: #C9A84C; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #D4B96A; }
 
 
 /* ----------------------------------------
-   SCROLLBAR STYLING (Webkit)
-   ---------------------------------------- */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #0B1C2D;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #C9A84C;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #D4B96A;
-}
-
-
-/* ----------------------------------------
-   FOCUS STYLES (Keyboard Accessibility)
+   FOCUS STYLES (Accessibility)
    ---------------------------------------- */
 *:focus-visible {
   outline: 2px solid #C9A84C;
   outline-offset: 2px;
 }
 
-/* Remove default outline for mouse users */
 *:focus:not(:focus-visible) {
   outline: none;
 }
@@ -253,26 +280,15 @@ body {
    REDUCED MOTION (Accessibility)
    ---------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
 
-  .reveal-element {
-    opacity: 1;
-    transform: none;
-  }
-
-  .animate-fade-in {
-    animation: none;
-    opacity: 1;
-  }
-
-  .animate-bounce-slow {
-    animation: none;
-  }
+  .reveal-element       { opacity: 1; transform: none; }
+  .animate-fade-in      { animation: none; opacity: 1; }
+  .animate-bounce-slow  { animation: none; }
+  .mobile-nav-link      { opacity: 1; transform: none; }
 }
