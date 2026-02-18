@@ -58,14 +58,21 @@ body { overflow-x: hidden; -webkit-font-smoothing: antialiased; }
 
 /* ----------------------------------------
    HAMBURGER
+   Each line: 24px wide (w-6), 2px tall, gap-[5px]
+   Center-to-center between lines = 5px gap + 2px height = 7px
+   Line 1 → line 3 distance = 14px → each moves ±7px to meet at center
    ---------------------------------------- */
 .hamburger-line {
   background-color: rgba(255,255,255,.95);
-  transition: transform .3s ease, opacity .2s ease, width .3s ease;
   display: block;
+  transform-origin: center center;
+  transition: transform .32s cubic-bezier(.4,0,.2,1),
+              opacity   .22s ease,
+              background-color .3s ease;
+  /* width/height are set via Tailwind on the element */
 }
 
-/* X animation */
+/* X animation — lines 1 & 3 slide to center then rotate 45° */
 #menu-toggle.active .hamburger-line:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
 }
@@ -74,8 +81,12 @@ body { overflow-x: hidden; -webkit-font-smoothing: antialiased; }
   transform: scaleX(0);
 }
 #menu-toggle.active .hamburger-line:nth-child(3) {
-  width: 100%;
   transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Gold tint on open (optional polish) */
+#menu-toggle.active .hamburger-line {
+  background-color: #C9A84C;
 }
 
 
