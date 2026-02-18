@@ -288,6 +288,12 @@ body {
     min-height: unset;
     min-width: unset;
   }
+
+  /* Force 16px on form inputs to prevent iOS auto-zoom
+     (iOS zooms in when font-size < 16px on any focused input) */
+  input, textarea, select {
+    font-size: 16px !important;
+  }
 }
 
 

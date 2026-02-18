@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found | Brickstone Realty Group</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #0B1C2D;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 3rem;
+      text-decoration: none;
+    }
+    .logo-box {
+      width: 44px; height: 44px;
+      border: 2px solid #C9A84C;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logo-b {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #C9A84C;
+      font-style: italic;
+    }
+    .logo-text { text-align: left; line-height: 1.2; }
+    .logo-name {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+    .logo-sub {
+      display: block;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #C9A84C;
+    }
+    .error-code {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(6rem, 20vw, 10rem);
+      font-weight: 700;
+      color: #C9A84C;
+      line-height: 1;
+      margin-bottom: 1rem;
+      opacity: 0.15;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -55%);
+      pointer-events: none;
+      user-select: none;
+    }
+    .content { position: relative; z-index: 1; }
+    .divider {
+      width: 48px; height: 1px;
+      background: #C9A84C;
+      margin: 1.5rem auto;
+    }
+    h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+    p {
+      color: rgba(255,255,255,0.6);
+      font-size: 1rem;
+      line-height: 1.7;
+      max-width: 420px;
+      margin: 0 auto 2rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      background: #C9A84C;
+      color: #0B1C2D;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+    .btn:hover { background: #D4B96A; }
+    .btn-outline {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.7);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      margin-left: 1rem;
+      transition: border-color 0.3s ease, color 0.3s ease;
+    }
+    .btn-outline:hover { border-color: #C9A84C; color: #C9A84C; }
+    .btns { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+    @media (max-width: 480px) {
+      .btn-outline { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="error-code">404</div>
+
+  <a href="/" class="logo">
+    <div class="logo-box">
+      <span class="logo-b">B</span>
+    </div>
+    <div class="logo-text">
+      <span class="logo-name">Brickstone</span>
+      <span class="logo-sub">Realty Group</span>
+    </div>
+  </a>
+
+  <div class="content">
+    <div class="divider"></div>
+    <h1>Page Not Found</h1>
+    <p>The page you're looking for doesn't exist or may have moved. Let's get you back to finding your next home.</p>
+    <div class="btns">
+      <a href="/" class="btn">Back to Home</a>
+      <a href="/#contact" class="btn-outline">Contact Us</a>
+    </div>
+  </div>
+</body>
+</html>
