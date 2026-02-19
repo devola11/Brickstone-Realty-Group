@@ -1,16 +1,13 @@
 User-agent: *
 Allow: /
 
-# Block non-public files
+# Block server-side scripts — not meant for crawlers or public access
+Disallow: /handle-contact.php
+Disallow: /csrf-token.php
+
+# Block sensitive config files
 Disallow: /.htaccess
 Disallow: /.htpasswd
 Disallow: /.env
-Disallow: /js/
-Disallow: /css/
-
-# Allow CSS and JS for Google to render the page properly
-Allow: /js/main.js
-Allow: /css/custom.css
-Allow: /images/
 
 Sitemap: https://www.brickstonerealtygroups.com/sitemap.xml

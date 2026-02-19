@@ -371,8 +371,10 @@
         credentials: 'same-origin'
       })
         .then(function (res) {
-          /* Parse JSON alongside the HTTP status code */
-          return res.json().then(function (data) {
+          /* Safely parse JSON — server might return HTML on fatal error */
+          return res.text().then(function (text) {
+            var data;
+            try { data = JSON.parse(text); } catch (e) { data = {}; }
             return { status: res.status, data: data };
           });
         })
@@ -380,6 +382,14 @@
           if (result.data.success === true) {
             /* 5a. Success — reset form and show the existing green banner */
             contactForm.reset();
+            /* Re-fetch CSRF token for next submission */
+            var csrfEl = document.getElementById('csrf_token');
+            if (csrfEl) {
+              fetch('csrf-token.php', { method: 'GET', credentials: 'same-origin' })
+                .then(function (r) { return r.json(); })
+                .then(function (d) { if (d.token) csrfEl.value = d.token; })
+                .catch(function () {});
+            }
             formSuccess.classList.remove('hidden');
             formSuccess.classList.add('show');
             if (successTimer) clearTimeout(successTimer);
@@ -397,11 +407,11 @@
         .catch(function () {
           /* 5c. Network failure / server unreachable */
           showFormError(
-            'Network error \u2014 please check your connection or email us at info@brickstonerealty.com'
+            'Network error \u2014 please check your connection or email us at info@brickstonerealtygroups.com'
           );
         })
         .finally(function () {
-          /* Always restore the submit button */
+          /* Always restore the submit button — even on JSON parse failure */
           if (submitBtn) {
             submitBtn.disabled    = false;
             submitBtn.textContent = 'Send Message';
@@ -409,57 +419,79 @@
         });
     });
 
+    /* ================================================
+       CSRF TOKEN — fetch once on load, inject into form
+    ================================================ */
+    var csrfInput = document.getElementById('csrf_token');
+    if (csrfInput) {
+      fetch('csrf-token.php', { method: 'GET', credentials: 'same-origin' })
+        .then(function (r) { return r.json(); })
+        .then(function (d) { if (d.token) csrfInput.value = d.token; })
+        .catch(function () { /* non-fatal — PHP will reject with 403 */ });
+    }
+
+
+    /* ================================================
+       RENT AFFORDABILITY CALCULATOR
+       All wired here — no inline onclick/oninput in HTML.
+       Rule: NYC landlords require 40× monthly rent.
+    ================================================ */
+    function calcFmt(n) {
+      return '$' + Math.round(n).toLocaleString('en-US');
+    }
+
+    function calcSwitch(mode) {
+      var tabRent     = document.getElementById('calc-tab-rent');
+      var tabIncome   = document.getElementById('calc-tab-income');
+      var panelRent   = document.getElementById('calc-panel-rent');
+      var panelIncome = document.getElementById('calc-panel-income');
+      if (!tabRent) return;
+      if (mode === 'rent') {
+        tabRent.classList.add('active');      tabRent.setAttribute('aria-selected', 'true');
+        tabIncome.classList.remove('active'); tabIncome.setAttribute('aria-selected', 'false');
+        panelRent.classList.remove('hidden');
+        panelIncome.classList.add('hidden');
+      } else {
+        tabIncome.classList.add('active');   tabIncome.setAttribute('aria-selected', 'true');
+        tabRent.classList.remove('active');  tabRent.setAttribute('aria-selected', 'false');
+        panelIncome.classList.remove('hidden');
+        panelRent.classList.add('hidden');
+      }
+    }
+
+    function calcFromRent() {
+      var val    = parseFloat(document.getElementById('input-rent').value);
+      var result = document.getElementById('result-rent');
+      if (!val || val <= 0 || !isFinite(val) || val > 99999) {
+        result.classList.add('hidden'); return;
+      }
+      document.getElementById('result-rent-annual').textContent  = calcFmt(val * 40);
+      document.getElementById('result-rent-monthly').textContent = calcFmt((val * 40) / 12);
+      result.classList.remove('hidden');
+    }
+
+    function calcFromIncome() {
+      var val    = parseFloat(document.getElementById('input-income').value);
+      var result = document.getElementById('result-income');
+      if (!val || val <= 0 || !isFinite(val) || val > 9999999) {
+        result.classList.add('hidden'); return;
+      }
+      document.getElementById('result-income-rent').textContent   = calcFmt(val / 40);
+      document.getElementById('result-income-annual').textContent = calcFmt((val / 40) * 12);
+      result.classList.remove('hidden');
+    }
+
+    /* Bind calculator tab buttons */
+    var calcTabRent   = document.getElementById('calc-tab-rent');
+    var calcTabIncome = document.getElementById('calc-tab-income');
+    var calcInputRent = document.getElementById('input-rent');
+    var calcInputIncome = document.getElementById('input-income');
+
+    if (calcTabRent)    calcTabRent.addEventListener('click',  function () { calcSwitch('rent'); });
+    if (calcTabIncome)  calcTabIncome.addEventListener('click', function () { calcSwitch('income'); });
+    if (calcInputRent)  calcInputRent.addEventListener('input', calcFromRent);
+    if (calcInputIncome) calcInputIncome.addEventListener('input', calcFromIncome);
+
   } /* end init() */
 
 }());
-
-/* ============================================
-   RENT AFFORDABILITY CALCULATOR
-   Pure functions — no framework needed.
-   Rule: NYC landlords require 40× monthly rent.
-   ============================================ */
-function calcFmt(n) {
-  return '$' + Math.round(n).toLocaleString('en-US');
-}
-
-function calcSwitch(mode) {
-  var tabRent    = document.getElementById('calc-tab-rent');
-  var tabIncome  = document.getElementById('calc-tab-income');
-  var panelRent  = document.getElementById('calc-panel-rent');
-  var panelIncome = document.getElementById('calc-panel-income');
-  if (!tabRent) return;
-
-  if (mode === 'rent') {
-    tabRent.classList.add('active');    tabRent.setAttribute('aria-selected', 'true');
-    tabIncome.classList.remove('active'); tabIncome.setAttribute('aria-selected', 'false');
-    panelRent.classList.remove('hidden');
-    panelIncome.classList.add('hidden');
-  } else {
-    tabIncome.classList.add('active');  tabIncome.setAttribute('aria-selected', 'true');
-    tabRent.classList.remove('active'); tabRent.setAttribute('aria-selected', 'false');
-    panelIncome.classList.remove('hidden');
-    panelRent.classList.add('hidden');
-  }
-}
-
-function calcFromRent() {
-  var val    = parseFloat(document.getElementById('input-rent').value);
-  var result = document.getElementById('result-rent');
-  if (!val || val <= 0) { result.classList.add('hidden'); return; }
-  var annual  = val * 40;
-  var monthly = annual / 12;
-  document.getElementById('result-rent-annual').textContent  = calcFmt(annual);
-  document.getElementById('result-rent-monthly').textContent = calcFmt(monthly);
-  result.classList.remove('hidden');
-}
-
-function calcFromIncome() {
-  var val    = parseFloat(document.getElementById('input-income').value);
-  var result = document.getElementById('result-income');
-  if (!val || val <= 0) { result.classList.add('hidden'); return; }
-  var maxMonthlyRent = val / 40;
-  var maxAnnualRent  = maxMonthlyRent * 12;
-  document.getElementById('result-income-rent').textContent   = calcFmt(maxMonthlyRent);
-  document.getElementById('result-income-annual').textContent = calcFmt(maxAnnualRent);
-  result.classList.remove('hidden');
-}

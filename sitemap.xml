@@ -5,6 +5,7 @@
   <url>
     <loc>https://www.brickstonerealtygroups.com/</loc>
     <lastmod>2026-02-19</lastmod>
+    <!-- Update lastmod on each deployment -->
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>

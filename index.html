@@ -8,18 +8,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <!-- CSP: allows self + Tailwind CDN + Google Fonts; blocks frames; no eval -->
-  <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self';
-                 script-src 'self' https://cdn.tailwindcss.com 'unsafe-inline';
-                 style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
-                 font-src 'self' https://fonts.gstatic.com;
-                 img-src 'self' data: https:;
-                 connect-src 'self';
-                 frame-src 'none';
-                 frame-ancestors 'none';
-                 base-uri 'self';
-                 form-action 'self';">
+  <!-- CSP is set server-side via .htaccess (takes precedence over meta tags).
+       No duplicate meta CSP here — single source of truth in .htaccess. -->
 
   <!-- Primary Meta -->
   <title>Brickstone Realty Group | Affordable NYC Rentals</title>
@@ -859,15 +849,15 @@
       <div class="bg-white border border-gray-100 shadow-sm reveal-element">
         <!-- Tab switcher -->
         <div class="grid grid-cols-2 border-b border-gray-100" role="tablist" aria-label="Calculator mode">
-          <button id="calc-tab-rent" class="calc-tab active py-4 text-xs font-semibold tracking-widest uppercase transition-colors duration-200" role="tab" aria-selected="true" aria-controls="calc-panel-rent" onclick="calcSwitch('rent')">I Have a Rent in Mind</button>
-          <button id="calc-tab-income" class="calc-tab py-4 text-xs font-semibold tracking-widest uppercase transition-colors duration-200" role="tab" aria-selected="false" aria-controls="calc-panel-income" onclick="calcSwitch('income')">I Know My Income</button>
+          <button id="calc-tab-rent" class="calc-tab active py-4 text-xs font-semibold tracking-widest uppercase transition-colors duration-200" role="tab" aria-selected="true" aria-controls="calc-panel-rent">I Have a Rent in Mind</button>
+          <button id="calc-tab-income" class="calc-tab py-4 text-xs font-semibold tracking-widest uppercase transition-colors duration-200" role="tab" aria-selected="false" aria-controls="calc-panel-income">I Know My Income</button>
         </div>
 
         <!-- Panel A: Enter rent → show required income -->
         <div id="calc-panel-rent" role="tabpanel" aria-labelledby="calc-tab-rent" class="p-8">
           <label for="input-rent" class="block text-xs font-semibold tracking-widest uppercase text-navy mb-2">Monthly Rent ($)</label>
           <div class="flex gap-3">
-            <input id="input-rent" type="number" min="1" max="99999" placeholder="e.g. 2100" class="flex-1 border border-gray-200 px-4 py-3 text-navy text-sm focus:outline-none focus:border-gold transition-colors duration-200" aria-label="Monthly rent amount" oninput="calcFromRent()">
+            <input id="input-rent" type="number" min="1" max="99999" placeholder="e.g. 2100" class="flex-1 border border-gray-200 px-4 py-3 text-navy text-sm focus:outline-none focus:border-gold transition-colors duration-200" aria-label="Monthly rent amount">
           </div>
           <div id="result-rent" class="mt-6 hidden">
             <div class="grid grid-cols-2 gap-4">
@@ -888,7 +878,7 @@
         <div id="calc-panel-income" role="tabpanel" aria-labelledby="calc-tab-income" class="p-8 hidden">
           <label for="input-income" class="block text-xs font-semibold tracking-widest uppercase text-navy mb-2">Annual Income ($)</label>
           <div class="flex gap-3">
-            <input id="input-income" type="number" min="1" max="9999999" placeholder="e.g. 75000" class="flex-1 border border-gray-200 px-4 py-3 text-navy text-sm focus:outline-none focus:border-gold transition-colors duration-200" aria-label="Annual income amount" oninput="calcFromIncome()">
+            <input id="input-income" type="number" min="1" max="9999999" placeholder="e.g. 75000" class="flex-1 border border-gray-200 px-4 py-3 text-navy text-sm focus:outline-none focus:border-gold transition-colors duration-200" aria-label="Annual income amount">
           </div>
           <div id="result-income" class="mt-6 hidden">
             <div class="grid grid-cols-2 gap-4">
@@ -969,6 +959,8 @@
         <!-- Contact Form -->
         <div class="lg:col-span-3 reveal-element">
           <form id="contact-form" class="space-y-5" novalidate>
+            <!-- CSRF token — populated by JS on page load -->
+            <input type="hidden" id="csrf_token" name="csrf_token" value="">
             <div class="grid sm:grid-cols-2 gap-5">
               <div class="form-group">
                 <label for="name" class="block text-white/70 text-sm font-medium mb-2">Full Name</label>
