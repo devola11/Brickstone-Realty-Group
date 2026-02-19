@@ -316,12 +316,30 @@
       });
     });
 
-    /* Submit */
+    /* ── Submit — AJAX POST to handle-contact.php ───────── */
     var successTimer = null;
+    var submitBtn    = contactForm.querySelector('button[type="submit"]');
+    var formErrorEl  = document.getElementById('form-server-error');
+
+    function showFormError(msg) {
+      if (!formErrorEl) return;
+      formErrorEl.textContent = msg;
+      formErrorEl.classList.remove('hidden');
+      formErrorEl.classList.add('visible');
+    }
+
+    function hideFormError() {
+      if (!formErrorEl) return;
+      formErrorEl.textContent = '';
+      formErrorEl.classList.add('hidden');
+      formErrorEl.classList.remove('visible');
+    }
+
     contactForm.addEventListener('submit', function (e) {
       e.preventDefault();
       var hasErrors = false;
 
+      /* 1. Run existing client-side validation first */
       ['name', 'email', 'message'].forEach(function (fieldName) {
         var field = contactForm.querySelector('#' + fieldName);
         if (!field) return;
@@ -336,16 +354,112 @@
         return;
       }
 
-      contactForm.reset();
-      formSuccess.classList.remove('hidden');
-      formSuccess.classList.add('show');
-      if (successTimer) clearTimeout(successTimer);
-      successTimer = setTimeout(function () {
-        formSuccess.classList.add('hidden');
-        formSuccess.classList.remove('show');
-      }, 6000);
+      /* 2. Clear any previous server-side error */
+      hideFormError();
+
+      /* 3. Show loading state on the submit button */
+      if (submitBtn) {
+        submitBtn.disabled    = true;
+        submitBtn.textContent = 'Sending\u2026';
+      }
+
+      /* 4. POST to PHP handler — FormData serialises all named
+            inputs automatically, including the honeypot field  */
+      fetch('handle-contact.php', {
+        method:      'POST',
+        body:        new FormData(contactForm),
+        credentials: 'same-origin'
+      })
+        .then(function (res) {
+          /* Parse JSON alongside the HTTP status code */
+          return res.json().then(function (data) {
+            return { status: res.status, data: data };
+          });
+        })
+        .then(function (result) {
+          if (result.data.success === true) {
+            /* 5a. Success — reset form and show the existing green banner */
+            contactForm.reset();
+            formSuccess.classList.remove('hidden');
+            formSuccess.classList.add('show');
+            if (successTimer) clearTimeout(successTimer);
+            successTimer = setTimeout(function () {
+              formSuccess.classList.add('hidden');
+              formSuccess.classList.remove('show');
+            }, 6000);
+          } else {
+            /* 5b. PHP returned success: false — show server error */
+            showFormError(
+              result.data.error || 'Something went wrong. Please try again.'
+            );
+          }
+        })
+        .catch(function () {
+          /* 5c. Network failure / server unreachable */
+          showFormError(
+            'Network error \u2014 please check your connection or email us at info@brickstonerealty.com'
+          );
+        })
+        .finally(function () {
+          /* Always restore the submit button */
+          if (submitBtn) {
+            submitBtn.disabled    = false;
+            submitBtn.textContent = 'Send Message';
+          }
+        });
     });
 
   } /* end init() */
 
 }());
+
+/* ============================================
+   RENT AFFORDABILITY CALCULATOR
+   Pure functions — no framework needed.
+   Rule: NYC landlords require 40× monthly rent.
+   ============================================ */
+function calcFmt(n) {
+  return '$' + Math.round(n).toLocaleString('en-US');
+}
+
+function calcSwitch(mode) {
+  var tabRent    = document.getElementById('calc-tab-rent');
+  var tabIncome  = document.getElementById('calc-tab-income');
+  var panelRent  = document.getElementById('calc-panel-rent');
+  var panelIncome = document.getElementById('calc-panel-income');
+  if (!tabRent) return;
+
+  if (mode === 'rent') {
+    tabRent.classList.add('active');    tabRent.setAttribute('aria-selected', 'true');
+    tabIncome.classList.remove('active'); tabIncome.setAttribute('aria-selected', 'false');
+    panelRent.classList.remove('hidden');
+    panelIncome.classList.add('hidden');
+  } else {
+    tabIncome.classList.add('active');  tabIncome.setAttribute('aria-selected', 'true');
+    tabRent.classList.remove('active'); tabRent.setAttribute('aria-selected', 'false');
+    panelIncome.classList.remove('hidden');
+    panelRent.classList.add('hidden');
+  }
+}
+
+function calcFromRent() {
+  var val    = parseFloat(document.getElementById('input-rent').value);
+  var result = document.getElementById('result-rent');
+  if (!val || val <= 0) { result.classList.add('hidden'); return; }
+  var annual  = val * 40;
+  var monthly = annual / 12;
+  document.getElementById('result-rent-annual').textContent  = calcFmt(annual);
+  document.getElementById('result-rent-monthly').textContent = calcFmt(monthly);
+  result.classList.remove('hidden');
+}
+
+function calcFromIncome() {
+  var val    = parseFloat(document.getElementById('input-income').value);
+  var result = document.getElementById('result-income');
+  if (!val || val <= 0) { result.classList.add('hidden'); return; }
+  var maxMonthlyRent = val / 40;
+  var maxAnnualRent  = maxMonthlyRent * 12;
+  document.getElementById('result-income-rent').textContent   = calcFmt(maxMonthlyRent);
+  document.getElementById('result-income-annual').textContent = calcFmt(maxAnnualRent);
+  result.classList.remove('hidden');
+}

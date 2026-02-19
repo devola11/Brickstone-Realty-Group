@@ -168,6 +168,7 @@
         <li><a href="#properties" class="nav-link text-sm font-medium tracking-wide uppercase transition-colors duration-300 relative">Rentals</a></li>
         <li><a href="#how-it-works" class="nav-link text-sm font-medium tracking-wide uppercase transition-colors duration-300 relative">How It Works</a></li>
         <li><a href="#neighborhoods" class="nav-link text-sm font-medium tracking-wide uppercase transition-colors duration-300 relative">Areas</a></li>
+        <li><a href="#calculator" class="nav-link text-sm font-medium tracking-wide uppercase transition-colors duration-300 relative">Calculator</a></li>
         <li><a href="#faq" class="nav-link text-sm font-medium tracking-wide uppercase transition-colors duration-300 relative">FAQ</a></li>
         <li>
           <a href="#contact" class="ml-2 px-5 py-2.5 border border-gold text-gold text-xs font-semibold tracking-widest uppercase transition-all duration-300 hover:bg-gold hover:text-navy">
@@ -195,6 +196,7 @@
         <a href="#properties"  class="mobile-nav-link text-lg font-display text-white tracking-wide border-b border-white/10 pb-4">Rentals</a>
         <a href="#how-it-works" class="mobile-nav-link text-lg font-display text-white tracking-wide border-b border-white/10 pb-4">How It Works</a>
         <a href="#neighborhoods" class="mobile-nav-link text-lg font-display text-white tracking-wide border-b border-white/10 pb-4">Neighborhoods</a>
+        <a href="#calculator"  class="mobile-nav-link text-lg font-display text-white tracking-wide border-b border-white/10 pb-4">Calculator</a>
         <a href="#faq"         class="mobile-nav-link text-lg font-display text-white tracking-wide border-b border-white/10 pb-4">FAQ</a>
         <a href="#contact"     class="mobile-nav-link text-lg font-display text-white tracking-wide border-b border-white/10 pb-4">Contact</a>
         <a href="#contact" class="mt-2 px-8 py-3 bg-gold text-navy text-sm font-semibold tracking-widest uppercase text-center hover:bg-gold-light transition-all duration-300">
@@ -407,18 +409,28 @@
             </div>
             <span class="absolute top-4 left-4 bg-gold text-navy text-[10px] font-bold tracking-[0.2em] uppercase px-3 py-1.5">Manhattan</span>
             <span class="absolute top-4 right-4 bg-green-600 text-white text-[10px] font-bold tracking-wide uppercase px-2 py-1">Available</span>
+            <span class="absolute bottom-4 left-4 bg-navy text-white text-[10px] font-bold tracking-wide uppercase px-2 py-1">No Broker Fee</span>
+            <span class="absolute bottom-4 right-4 bg-black/60 text-white text-[10px] font-semibold tracking-wide px-2 py-1 flex items-center gap-1"><svg class="w-3 h-3" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"><path d="M2 6a2 2 0 012-2h6l2 2h4a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/><path d="M14.5 10a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm-4.5-2v2l1.5 1.5-.75.75L9 10.5V8h1z" clip-rule="evenodd" fill-rule="evenodd"/></svg>Video Tour</span>
           </div>
           <div class="p-6">
             <h3 class="font-display text-xl text-navy mb-1 group-hover:text-gold transition-colors duration-300">Harlem 1-Bedroom</h3>
             <p class="text-xs text-text-muted mb-3">125th St &amp; Lenox Ave, Manhattan</p>
             <p class="text-gold font-semibold text-lg mb-3">$2,100<span class="text-text-muted text-sm font-normal">/mo</span></p>
-            <p class="text-text-muted text-sm leading-relaxed mb-4">Bright, renovated 1-bed in the heart of Harlem. Steps from the A/C/B/D subway lines. Pet-friendly building.</p>
+            <p class="text-text-muted text-sm leading-relaxed mb-3">Bright, renovated 1-bed in the heart of Harlem. Steps from the A/C/B/D subway lines. Pet-friendly building.</p>
+            <div class="flex flex-wrap gap-1.5 mb-4">
+              <span class="amenity-tag">🐾 Pet-Friendly</span>
+              <span class="amenity-tag">🚇 Near Subway</span>
+              <span class="amenity-tag">🔑 Renovated</span>
+            </div>
             <div class="flex items-center gap-4 text-text-muted text-xs pt-4 border-t border-gray-100">
               <span class="flex items-center gap-1.5"><svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0h4"/></svg>1 Bed</span>
               <span class="flex items-center gap-1.5"><svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg>1 Bath</span>
               <span class="flex items-center gap-1.5"><svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>650 sqft</span>
             </div>
-            <a href="#contact" class="mt-4 block text-center py-2.5 border border-navy text-navy text-xs font-semibold tracking-widest uppercase hover:bg-navy hover:text-white transition-all duration-300">Enquire</a>
+            <div class="mt-4 grid grid-cols-2 gap-2">
+              <a href="#contact" class="block text-center py-2.5 bg-gold text-navy text-xs font-semibold tracking-widest uppercase hover:bg-gold/80 transition-all duration-300">Book Viewing</a>
+              <a href="#contact" class="block text-center py-2.5 border border-navy text-navy text-xs font-semibold tracking-widest uppercase hover:bg-navy hover:text-white transition-all duration-300">Enquire</a>
+            </div>
           </div>
         </article>
 
@@ -431,18 +443,28 @@
             </div>
             <span class="absolute top-4 left-4 bg-gold text-navy text-[10px] font-bold tracking-[0.2em] uppercase px-3 py-1.5">Brooklyn</span>
             <span class="absolute top-4 right-4 bg-green-600 text-white text-[10px] font-bold tracking-wide uppercase px-2 py-1">Available</span>
+            <span class="absolute bottom-4 left-4 bg-navy text-white text-[10px] font-bold tracking-wide uppercase px-2 py-1">No Broker Fee</span>
+            <span class="absolute bottom-4 right-4 bg-black/60 text-white text-[10px] font-semibold tracking-wide px-2 py-1 flex items-center gap-1"><svg class="w-3 h-3" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"><path d="M2 6a2 2 0 012-2h6l2 2h4a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/><path d="M14.5 10a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm-4.5-2v2l1.5 1.5-.75.75L9 10.5V8h1z" clip-rule="evenodd" fill-rule="evenodd"/></svg>Video Tour</span>
           </div>
           <div class="p-6">
             <h3 class="font-display text-xl text-navy mb-1 group-hover:text-gold transition-colors duration-300">Bed-Stuy 2-Bedroom</h3>
             <p class="text-xs text-text-muted mb-3">Fulton St &amp; Nostrand Ave, Brooklyn</p>
             <p class="text-gold font-semibold text-lg mb-3">$2,750<span class="text-text-muted text-sm font-normal">/mo</span></p>
-            <p class="text-text-muted text-sm leading-relaxed mb-4">Spacious 2-bed in a classic Brooklyn brownstone. Updated kitchen, hardwood floors, laundry in building.</p>
+            <p class="text-text-muted text-sm leading-relaxed mb-3">Spacious 2-bed in a classic Brooklyn brownstone. Updated kitchen, hardwood floors, laundry in building.</p>
+            <div class="flex flex-wrap gap-1.5 mb-4">
+              <span class="amenity-tag">🏛️ Brownstone</span>
+              <span class="amenity-tag">👕 Laundry In-Bldg</span>
+              <span class="amenity-tag">🪵 Hardwood Floors</span>
+            </div>
             <div class="flex items-center gap-4 text-text-muted text-xs pt-4 border-t border-gray-100">
               <span class="flex items-center gap-1.5"><svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0h4"/></svg>2 Beds</span>
               <span class="flex items-center gap-1.5"><svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg>1 Bath</span>
               <span class="flex items-center gap-1.5"><svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>900 sqft</span>
             </div>
-            <a href="#contact" class="mt-4 block text-center py-2.5 border border-navy text-navy text-xs font-semibold tracking-widest uppercase hover:bg-navy hover:text-white transition-all duration-300">Enquire</a>
+            <div class="mt-4 grid grid-cols-2 gap-2">
+              <a href="#contact" class="block text-center py-2.5 bg-gold text-navy text-xs font-semibold tracking-widest uppercase hover:bg-gold/80 transition-all duration-300">Book Viewing</a>
+              <a href="#contact" class="block text-center py-2.5 border border-navy text-navy text-xs font-semibold tracking-widest uppercase hover:bg-navy hover:text-white transition-all duration-300">Enquire</a>
+            </div>
           </div>
         </article>
 
@@ -455,18 +477,27 @@
             </div>
             <span class="absolute top-4 left-4 bg-gold text-navy text-[10px] font-bold tracking-[0.2em] uppercase px-3 py-1.5">Queens</span>
             <span class="absolute top-4 right-4 bg-green-600 text-white text-[10px] font-bold tracking-wide uppercase px-2 py-1">Available</span>
+            <span class="absolute bottom-4 left-4 bg-navy text-white text-[10px] font-bold tracking-wide uppercase px-2 py-1">No Broker Fee</span>
           </div>
           <div class="p-6">
             <h3 class="font-display text-xl text-navy mb-1 group-hover:text-gold transition-colors duration-300">Astoria Studio</h3>
             <p class="text-xs text-text-muted mb-3">Ditmars Blvd, Astoria, Queens</p>
             <p class="text-gold font-semibold text-lg mb-3">$1,800<span class="text-text-muted text-sm font-normal">/mo</span></p>
-            <p class="text-text-muted text-sm leading-relaxed mb-4">Sun-filled studio steps from the N/W train. Exposed brick, dishwasher, intercom. Ideal for a working professional.</p>
+            <p class="text-text-muted text-sm leading-relaxed mb-3">Sun-filled studio steps from the N/W train. Exposed brick, dishwasher, intercom. Ideal for a working professional.</p>
+            <div class="flex flex-wrap gap-1.5 mb-4">
+              <span class="amenity-tag">🚇 Near Subway</span>
+              <span class="amenity-tag">🍽️ Dishwasher</span>
+              <span class="amenity-tag">🧱 Exposed Brick</span>
+            </div>
             <div class="flex items-center gap-4 text-text-muted text-xs pt-4 border-t border-gray-100">
               <span class="flex items-center gap-1.5"><svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0h4"/></svg>Studio</span>
               <span class="flex items-center gap-1.5"><svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg>1 Bath</span>
               <span class="flex items-center gap-1.5"><svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>450 sqft</span>
             </div>
-            <a href="#contact" class="mt-4 block text-center py-2.5 border border-navy text-navy text-xs font-semibold tracking-widest uppercase hover:bg-navy hover:text-white transition-all duration-300">Enquire</a>
+            <div class="mt-4 grid grid-cols-2 gap-2">
+              <a href="#contact" class="block text-center py-2.5 bg-gold text-navy text-xs font-semibold tracking-widest uppercase hover:bg-gold/80 transition-all duration-300">Book Viewing</a>
+              <a href="#contact" class="block text-center py-2.5 border border-navy text-navy text-xs font-semibold tracking-widest uppercase hover:bg-navy hover:text-white transition-all duration-300">Enquire</a>
+            </div>
           </div>
         </article>
 
@@ -479,18 +510,27 @@
             </div>
             <span class="absolute top-4 left-4 bg-gold text-navy text-[10px] font-bold tracking-[0.2em] uppercase px-3 py-1.5">The Bronx</span>
             <span class="absolute top-4 right-4 bg-yellow-500 text-white text-[10px] font-bold tracking-wide uppercase px-2 py-1">Coming Soon</span>
+            <span class="absolute bottom-4 left-4 bg-navy text-white text-[10px] font-bold tracking-wide uppercase px-2 py-1">No Broker Fee</span>
           </div>
           <div class="p-6">
             <h3 class="font-display text-xl text-navy mb-1 group-hover:text-gold transition-colors duration-300">Riverdale 3-Bedroom</h3>
             <p class="text-xs text-text-muted mb-3">Henry Hudson Pkwy, Riverdale, Bronx</p>
             <p class="text-gold font-semibold text-lg mb-3">$2,400<span class="text-text-muted text-sm font-normal">/mo</span></p>
-            <p class="text-text-muted text-sm leading-relaxed mb-4">Spacious family apartment near Metro-North. Off-street parking available, doorman building, close to parks and schools.</p>
+            <p class="text-text-muted text-sm leading-relaxed mb-3">Spacious family apartment near Metro-North. Off-street parking available, doorman building, close to parks and schools.</p>
+            <div class="flex flex-wrap gap-1.5 mb-4">
+              <span class="amenity-tag">🚗 Parking Incl.</span>
+              <span class="amenity-tag">🏫 Near Schools</span>
+              <span class="amenity-tag">🏢 Doorman Bldg</span>
+            </div>
             <div class="flex items-center gap-4 text-text-muted text-xs pt-4 border-t border-gray-100">
               <span class="flex items-center gap-1.5"><svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0h4"/></svg>3 Beds</span>
               <span class="flex items-center gap-1.5"><svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg>2 Baths</span>
               <span class="flex items-center gap-1.5"><svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>1,100 sqft</span>
             </div>
-            <a href="#contact" class="mt-4 block text-center py-2.5 border border-navy text-navy text-xs font-semibold tracking-widest uppercase hover:bg-navy hover:text-white transition-all duration-300">Register Interest</a>
+            <div class="mt-4 grid grid-cols-2 gap-2">
+              <a href="#contact" class="block text-center py-2.5 bg-gold text-navy text-xs font-semibold tracking-widest uppercase hover:bg-gold/80 transition-all duration-300">Book Viewing</a>
+              <a href="#contact" class="block text-center py-2.5 border border-navy text-navy text-xs font-semibold tracking-widest uppercase hover:bg-navy hover:text-white transition-all duration-300">Register Interest</a>
+            </div>
           </div>
         </article>
 
@@ -503,18 +543,27 @@
             </div>
             <span class="absolute top-4 left-4 bg-gold text-navy text-[10px] font-bold tracking-[0.2em] uppercase px-3 py-1.5">Brooklyn</span>
             <span class="absolute top-4 right-4 bg-green-600 text-white text-[10px] font-bold tracking-wide uppercase px-2 py-1">Available</span>
+            <span class="absolute bottom-4 left-4 bg-navy text-white text-[10px] font-bold tracking-wide uppercase px-2 py-1">No Broker Fee</span>
           </div>
           <div class="p-6">
             <h3 class="font-display text-xl text-navy mb-1 group-hover:text-gold transition-colors duration-300">Crown Heights 2-Bed</h3>
             <p class="text-xs text-text-muted mb-3">Eastern Pkwy, Crown Heights, Brooklyn</p>
             <p class="text-gold font-semibold text-lg mb-3">$2,500<span class="text-text-muted text-sm font-normal">/mo</span></p>
-            <p class="text-text-muted text-sm leading-relaxed mb-4">Well-maintained 2-bed on a tree-lined block. Near Brooklyn Museum and Prospect Park. Heat &amp; hot water included.</p>
+            <p class="text-text-muted text-sm leading-relaxed mb-3">Well-maintained 2-bed on a tree-lined block. Near Brooklyn Museum and Prospect Park. Heat &amp; hot water included.</p>
+            <div class="flex flex-wrap gap-1.5 mb-4">
+              <span class="amenity-tag">🌡️ Heat Included</span>
+              <span class="amenity-tag">🌳 Tree-Lined Block</span>
+              <span class="amenity-tag">🚇 Near Subway</span>
+            </div>
             <div class="flex items-center gap-4 text-text-muted text-xs pt-4 border-t border-gray-100">
               <span class="flex items-center gap-1.5"><svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0h4"/></svg>2 Beds</span>
               <span class="flex items-center gap-1.5"><svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg>1 Bath</span>
               <span class="flex items-center gap-1.5"><svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>850 sqft</span>
             </div>
-            <a href="#contact" class="mt-4 block text-center py-2.5 border border-navy text-navy text-xs font-semibold tracking-widest uppercase hover:bg-navy hover:text-white transition-all duration-300">Enquire</a>
+            <div class="mt-4 grid grid-cols-2 gap-2">
+              <a href="#contact" class="block text-center py-2.5 bg-gold text-navy text-xs font-semibold tracking-widest uppercase hover:bg-gold/80 transition-all duration-300">Book Viewing</a>
+              <a href="#contact" class="block text-center py-2.5 border border-navy text-navy text-xs font-semibold tracking-widest uppercase hover:bg-navy hover:text-white transition-all duration-300">Enquire</a>
+            </div>
           </div>
         </article>
 
@@ -527,18 +576,27 @@
             </div>
             <span class="absolute top-4 left-4 bg-gold text-navy text-[10px] font-bold tracking-[0.2em] uppercase px-3 py-1.5">Manhattan</span>
             <span class="absolute top-4 right-4 bg-green-600 text-white text-[10px] font-bold tracking-wide uppercase px-2 py-1">Available</span>
+            <span class="absolute bottom-4 left-4 bg-navy text-white text-[10px] font-bold tracking-wide uppercase px-2 py-1">No Broker Fee</span>
           </div>
           <div class="p-6">
             <h3 class="font-display text-xl text-navy mb-1 group-hover:text-gold transition-colors duration-300">Washington Heights 1-Bed</h3>
             <p class="text-xs text-text-muted mb-3">Fort Washington Ave, Upper Manhattan</p>
             <p class="text-gold font-semibold text-lg mb-3">$1,950<span class="text-text-muted text-sm font-normal">/mo</span></p>
-            <p class="text-text-muted text-sm leading-relaxed mb-4">Renovated 1-bed in a friendly community building. Near Fort Tryon Park and A train. Utilities negotiable.</p>
+            <p class="text-text-muted text-sm leading-relaxed mb-3">Renovated 1-bed in a friendly community building. Near Fort Tryon Park and A train. Utilities negotiable.</p>
+            <div class="flex flex-wrap gap-1.5 mb-4">
+              <span class="amenity-tag">🔑 Renovated</span>
+              <span class="amenity-tag">🚇 Near Subway</span>
+              <span class="amenity-tag">🌿 Near Park</span>
+            </div>
             <div class="flex items-center gap-4 text-text-muted text-xs pt-4 border-t border-gray-100">
               <span class="flex items-center gap-1.5"><svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0h4"/></svg>1 Bed</span>
               <span class="flex items-center gap-1.5"><svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg>1 Bath</span>
               <span class="flex items-center gap-1.5"><svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>680 sqft</span>
             </div>
-            <a href="#contact" class="mt-4 block text-center py-2.5 border border-navy text-navy text-xs font-semibold tracking-widest uppercase hover:bg-navy hover:text-white transition-all duration-300">Enquire</a>
+            <div class="mt-4 grid grid-cols-2 gap-2">
+              <a href="#contact" class="block text-center py-2.5 bg-gold text-navy text-xs font-semibold tracking-widest uppercase hover:bg-gold/80 transition-all duration-300">Book Viewing</a>
+              <a href="#contact" class="block text-center py-2.5 border border-navy text-navy text-xs font-semibold tracking-widest uppercase hover:bg-navy hover:text-white transition-all duration-300">Enquire</a>
+            </div>
           </div>
         </article>
 
@@ -787,6 +845,70 @@
 
 
   <!-- ============================================
+       RENT AFFORDABILITY CALCULATOR
+       ============================================ -->
+  <section id="calculator" class="py-20 lg:py-28 bg-cream">
+    <div class="max-w-3xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-12 reveal-element">
+        <span class="text-gold text-xs font-semibold tracking-[0.3em] uppercase">Plan Your Budget</span>
+        <div class="w-12 h-px bg-gold mx-auto mt-4 mb-8"></div>
+        <h2 class="font-display text-4xl lg:text-5xl text-navy leading-tight mb-4">NYC Rent Affordability Calculator</h2>
+        <p class="text-text-muted text-lg max-w-xl mx-auto">NYC landlords typically require income of 40× the monthly rent. Use this calculator to plan before you enquire.</p>
+      </div>
+
+      <div class="bg-white border border-gray-100 shadow-sm reveal-element">
+        <!-- Tab switcher -->
+        <div class="grid grid-cols-2 border-b border-gray-100" role="tablist" aria-label="Calculator mode">
+          <button id="calc-tab-rent" class="calc-tab active py-4 text-xs font-semibold tracking-widest uppercase transition-colors duration-200" role="tab" aria-selected="true" aria-controls="calc-panel-rent" onclick="calcSwitch('rent')">I Have a Rent in Mind</button>
+          <button id="calc-tab-income" class="calc-tab py-4 text-xs font-semibold tracking-widest uppercase transition-colors duration-200" role="tab" aria-selected="false" aria-controls="calc-panel-income" onclick="calcSwitch('income')">I Know My Income</button>
+        </div>
+
+        <!-- Panel A: Enter rent → show required income -->
+        <div id="calc-panel-rent" role="tabpanel" aria-labelledby="calc-tab-rent" class="p-8">
+          <label for="input-rent" class="block text-xs font-semibold tracking-widest uppercase text-navy mb-2">Monthly Rent ($)</label>
+          <div class="flex gap-3">
+            <input id="input-rent" type="number" min="1" max="99999" placeholder="e.g. 2100" class="flex-1 border border-gray-200 px-4 py-3 text-navy text-sm focus:outline-none focus:border-gold transition-colors duration-200" aria-label="Monthly rent amount" oninput="calcFromRent()">
+          </div>
+          <div id="result-rent" class="mt-6 hidden">
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-cream p-5 text-center">
+                <p class="text-xs text-text-muted tracking-widest uppercase mb-1">Required Annual Income</p>
+                <p id="result-rent-annual" class="font-display text-3xl text-navy"></p>
+              </div>
+              <div class="bg-cream p-5 text-center">
+                <p class="text-xs text-text-muted tracking-widest uppercase mb-1">Required Monthly Income</p>
+                <p id="result-rent-monthly" class="font-display text-3xl text-navy"></p>
+              </div>
+            </div>
+            <p class="text-xs text-text-muted mt-4 text-center">Based on the NYC landlord standard of 40&times; monthly rent. <a href="#contact" class="text-gold hover:underline">Talk to us</a> — we can help you find listings that fit your budget.</p>
+          </div>
+        </div>
+
+        <!-- Panel B: Enter income → show max affordable rent -->
+        <div id="calc-panel-income" role="tabpanel" aria-labelledby="calc-tab-income" class="p-8 hidden">
+          <label for="input-income" class="block text-xs font-semibold tracking-widest uppercase text-navy mb-2">Annual Income ($)</label>
+          <div class="flex gap-3">
+            <input id="input-income" type="number" min="1" max="9999999" placeholder="e.g. 75000" class="flex-1 border border-gray-200 px-4 py-3 text-navy text-sm focus:outline-none focus:border-gold transition-colors duration-200" aria-label="Annual income amount" oninput="calcFromIncome()">
+          </div>
+          <div id="result-income" class="mt-6 hidden">
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-cream p-5 text-center">
+                <p class="text-xs text-text-muted tracking-widest uppercase mb-1">Max Monthly Rent</p>
+                <p id="result-income-rent" class="font-display text-3xl text-navy"></p>
+              </div>
+              <div class="bg-cream p-5 text-center">
+                <p class="text-xs text-text-muted tracking-widest uppercase mb-1">Max Annual Rent</p>
+                <p id="result-income-annual" class="font-display text-3xl text-navy"></p>
+              </div>
+            </div>
+            <p class="text-xs text-text-muted mt-4 text-center">Based on the NYC landlord standard of 40&times; monthly rent. <a href="#contact" class="text-gold hover:underline">View listings in your range</a> or enquire below.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
        CONTACT SECTION
        ============================================ -->
   <section id="contact" class="py-20 lg:py-28 bg-navy relative overflow-hidden">
@@ -881,12 +1003,22 @@
               <textarea id="message" name="message" rows="4" placeholder="Budget, number of bedrooms, move-in date, anything else..." aria-describedby="message-error" class="w-full bg-white/5 border border-white/10 text-white placeholder-white/30 px-5 py-3.5 text-sm focus:outline-none focus:border-gold transition-colors duration-300 resize-none" required></textarea>
               <span id="message-error" class="error-message text-red-400 text-xs mt-1.5 hidden" role="alert"></span>
             </div>
+            <!-- Honeypot — visually off-screen; real users never see it.
+                 Bots auto-fill every field they find. If this is filled,
+                 handle-contact.php silently discards the submission. -->
+            <div style="position:absolute;left:-9999px;top:-9999px;overflow:hidden;" aria-hidden="true">
+              <label for="website">Leave this blank</label>
+              <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+            </div>
+
             <button type="submit" class="w-full sm:w-auto px-12 py-4 bg-gold text-navy text-sm font-semibold tracking-widest uppercase transition-all duration-300 hover:bg-gold-light hover:shadow-lg hover:shadow-gold/20 active:scale-[0.98]">
               Send Message
             </button>
             <div id="form-success" class="hidden bg-green-500/10 border border-green-500/30 text-green-400 px-6 py-4 text-sm">
               Thank you! We'll be in touch within a few hours with options that match your needs.
             </div>
+            <!-- Server / network error message — shown by JS when PHP returns success:false -->
+            <span id="form-server-error" class="error-message text-red-400 text-xs mt-1.5 hidden" role="alert"></span>
           </form>
         </div>
       </div>

@@ -215,6 +215,25 @@ body {
 
 
 /* ----------------------------------------
+   RENT CALCULATOR TABS
+   ---------------------------------------- */
+.calc-tab {
+  background: transparent;
+  border: none;
+  color: #6B7280;
+  cursor: pointer;
+}
+.calc-tab.active {
+  color: #0B1C2D;
+  border-bottom: 2px solid #C9A84C;
+  font-weight: 700;
+}
+.calc-tab:not(.active):hover {
+  color: #0B1C2D;
+}
+
+
+/* ----------------------------------------
    PROPERTY CARD
    ---------------------------------------- */
 .property-card {
@@ -296,6 +315,25 @@ body {
   }
 }
 
+
+/* ----------------------------------------
+   AMENITY TAGS — property card chips
+   ---------------------------------------- */
+.amenity-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2em;
+  padding: 0.2rem 0.55rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #1a2e4a;
+  background-color: #f0f4f8;
+  border: 1px solid #d1dce8;
+  border-radius: 999px;
+  white-space: nowrap;
+  line-height: 1.4;
+}
 
 /* ----------------------------------------
    REDUCED MOTION
