@@ -15,7 +15,7 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeSpeed;
+  text-rendering: optimizeLegibility;
 }
 
 /* Safe area for notched phones (iPhone X+, Android cutouts) */
@@ -116,7 +116,9 @@ body {
 }
 
 .mobile-menu-panel.open {
-  max-height: 650px;
+  max-height: 90svh;   /* viewport-relative so it never overflows on short screens */
+  max-height: 90vh;    /* fallback for browsers without svh */
+  overflow-y: auto;    /* scroll if content taller than viewport (e.g. iPhone SE) */
   opacity: 1;
   pointer-events: auto;
 }
@@ -211,9 +213,6 @@ body {
   color: #0B1C2D;
 }
 
-.property-card.hidden-card { display: none; }
-
-
 /* ----------------------------------------
    RENT CALCULATOR TABS
    ---------------------------------------- */
@@ -234,11 +233,84 @@ body {
 
 
 /* ----------------------------------------
-   PROPERTY CARD
+   PROPERTY CARD — base + filter animation
    ---------------------------------------- */
 .property-card {
   overflow: hidden;
-  contain: layout;    /* Prevent card layout from affecting siblings */
+  contain: layout;                            /* prevent card layout bleeding */
+  transition: opacity .35s ease, transform .35s ease;
+}
+
+/* display:none when filter hides card */
+.property-card.hidden-card { display: none; }
+
+/* Fade out → display:none (applied by JS) */
+.property-card.card-hiding {
+  opacity: 0;
+  transform: scale(0.96);
+  pointer-events: none;
+}
+
+/* Fade in from hidden (applied by JS) */
+.property-card.card-showing {
+  opacity: 0;
+  transform: scale(0.96);
+}
+.property-card.card-showing.card-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ----------------------------------------
+   CALCULATOR RESULT PANELS
+   Fade in instead of abrupt show/hide
+   ---------------------------------------- */
+@keyframes calcReveal {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+#result-rent:not(.hidden),
+#result-income:not(.hidden) {
+  animation: calcReveal .35s ease-out both;
+}
+
+/* ----------------------------------------
+   CARD IMAGE SHIMMER (placeholder state)
+   Subtle pulse while no real image is loaded
+   ---------------------------------------- */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.card-img-placeholder {
+  background: linear-gradient(90deg, #e8edf2 25%, #f0f4f8 50%, #e8edf2 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+/* ----------------------------------------
+   SUBMIT BUTTON SPINNER
+   SVG spinner shown while form is in-flight
+   ---------------------------------------- */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.btn-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(11,28,45,.3);
+  border-top-color: #0B1C2D;
+  border-radius: 50%;
+  animation: spin .65s linear infinite;
+  vertical-align: middle;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+/* Button loading state */
+button.btn-loading {
+  opacity: .85;
+  cursor: not-allowed;
 }
 
 
@@ -256,7 +328,18 @@ body {
 .form-group textarea.error {
   border-color: #f87171 !important;
 }
-.error-message.visible { display: block; }
+
+/* Error messages fade in */
+.error-message {
+  transition: opacity .2s ease;
+}
+.error-message.visible {
+  display: block;
+  opacity: 1;
+}
+.error-message.hidden {
+  opacity: 0;
+}
 
 #form-success.show {
   display: block;
@@ -336,6 +419,63 @@ body {
 }
 
 /* ----------------------------------------
+   MOBILE-SPECIFIC OVERRIDES
+   Applies to 767px and below
+   ---------------------------------------- */
+@media (max-width: 767px) {
+  /* Remove stagger delays on mobile — elements already in viewport
+     when the page scrolls, delays cause them to appear too late     */
+  .reveal-element:nth-child(2),
+  .reveal-element:nth-child(3),
+  .reveal-element:nth-child(4),
+  .reveal-element:nth-child(5),
+  .reveal-element:nth-child(6) {
+    transition-delay: 0s;
+  }
+
+  /* Reduce hero section min-height so search bar is reachable
+     without scrolling on short phones (iPhone SE = 568px viewport) */
+  #hero {
+    min-height: 100svh;
+    min-height: 100vh;
+  }
+
+  /* Card padding tighter on mobile */
+  .property-card .p-6 {
+    padding: 1rem;
+  }
+
+  /* Filter btn min tap target */
+  .filter-btn {
+    min-height: 40px;
+    min-width: 44px;
+  }
+
+  /* FAQ tap targets always comfortable */
+  .faq-btn {
+    min-height: 52px;
+  }
+
+  /* Amenity tag row tighter gap on mobile */
+  .amenity-tag {
+    font-size: 0.6rem;
+    padding: 0.15rem 0.45rem;
+  }
+
+  /* Calc result boxes: smaller padding on mobile */
+  #result-rent .bg-cream,
+  #result-income .bg-cream {
+    padding: 0.75rem;
+  }
+
+  /* Hero content: less padding so CTA is reachable */
+  #hero .relative.z-10 {
+    padding-top: 2rem;
+    padding-bottom: 5rem;
+  }
+}
+
+/* ----------------------------------------
    REDUCED MOTION
    Respects user OS preference
    ---------------------------------------- */
@@ -346,10 +486,14 @@ body {
     transition-duration: .01ms !important;
     scroll-behavior: auto !important;
   }
-  .reveal-element    { opacity: 1; transform: none; }
-  .animate-fade-in   { animation: none; opacity: 1; }
+  .reveal-element      { opacity: 1; transform: none; }
+  .animate-fade-in     { animation: none; opacity: 1; }
   .animate-bounce-slow { animation: none; }
-  .mobile-nav-link   { opacity: 1; transform: none; }
-  .mobile-cta-bar    { transform: none; }
-  .hamburger-line    { transition: none; }
+  .mobile-nav-link     { opacity: 1; transform: none; }
+  .mobile-cta-bar      { transform: none; }
+  .hamburger-line      { transition: none; }
+  .card-img-placeholder { animation: none; }
+  .btn-spinner         { animation: none; }
+  #result-rent:not(.hidden),
+  #result-income:not(.hidden) { animation: none; }
 }

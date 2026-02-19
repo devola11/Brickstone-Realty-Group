@@ -187,16 +187,40 @@
 
 
     /* ================================================
-       BOROUGH FILTER
+       BOROUGH FILTER — animated fade + scale
     ================================================ */
     filterBtns.forEach(function (btn) {
       btn.addEventListener('click', function () {
         var filter = btn.dataset.filter;
         filterBtns.forEach(function (b) { b.classList.remove('active'); });
         btn.classList.add('active');
+
         propCards.forEach(function (card) {
-          card.classList.toggle('hidden-card',
-            filter !== 'all' && card.dataset.borough !== filter);
+          var shouldHide = filter !== 'all' && card.dataset.borough !== filter;
+
+          if (shouldHide) {
+            /* Fade out → then display:none */
+            card.classList.remove('hidden-card');
+            card.classList.add('card-hiding');
+            card.addEventListener('transitionend', function hideDone() {
+              card.removeEventListener('transitionend', hideDone);
+              if (card.classList.contains('card-hiding')) {
+                card.classList.add('hidden-card');
+                card.classList.remove('card-hiding');
+              }
+            });
+          } else {
+            /* Remove hidden state → fade in */
+            card.classList.remove('hidden-card', 'card-hiding');
+            card.classList.add('card-showing');
+            /* Force reflow so transition fires */
+            void card.offsetWidth;
+            card.classList.add('card-visible');
+            card.addEventListener('transitionend', function showDone() {
+              card.removeEventListener('transitionend', showDone);
+              card.classList.remove('card-showing', 'card-visible');
+            });
+          }
         });
       });
     });
@@ -317,9 +341,12 @@
     });
 
     /* ── Submit — AJAX POST to handle-contact.php ───────── */
-    var successTimer = null;
-    var submitBtn    = contactForm.querySelector('button[type="submit"]');
-    var formErrorEl  = document.getElementById('form-server-error');
+    var successTimer  = null;
+    var submitBtn     = document.getElementById('submit-btn') ||
+                        contactForm.querySelector('button[type="submit"]');
+    var submitSpinner = document.getElementById('submit-spinner');
+    var submitLabel   = document.getElementById('submit-label');
+    var formErrorEl   = document.getElementById('form-server-error');
 
     function showFormError(msg) {
       if (!formErrorEl) return;
@@ -359,8 +386,10 @@
 
       /* 3. Show loading state on the submit button */
       if (submitBtn) {
-        submitBtn.disabled    = true;
-        submitBtn.textContent = 'Sending\u2026';
+        submitBtn.disabled = true;
+        submitBtn.classList.add('btn-loading');
+        if (submitSpinner) submitSpinner.classList.remove('hidden');
+        if (submitLabel)   submitLabel.textContent = 'Sending\u2026';
       }
 
       /* 4. POST to PHP handler — FormData serialises all named
@@ -413,8 +442,10 @@
         .finally(function () {
           /* Always restore the submit button — even on JSON parse failure */
           if (submitBtn) {
-            submitBtn.disabled    = false;
-            submitBtn.textContent = 'Send Message';
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('btn-loading');
+            if (submitSpinner) submitSpinner.classList.add('hidden');
+            if (submitLabel)   submitLabel.textContent = 'Send Message';
           }
         });
     });
@@ -467,6 +498,9 @@
       }
       document.getElementById('result-rent-annual').textContent  = calcFmt(val * 40);
       document.getElementById('result-rent-monthly').textContent = calcFmt((val * 40) / 12);
+      /* Re-trigger CSS fade-in animation on each value change */
+      result.classList.add('hidden');
+      void result.offsetWidth;   /* force reflow */
       result.classList.remove('hidden');
     }
 
@@ -478,6 +512,9 @@
       }
       document.getElementById('result-income-rent').textContent   = calcFmt(val / 40);
       document.getElementById('result-income-annual').textContent = calcFmt((val / 40) * 12);
+      /* Re-trigger CSS fade-in animation on each value change */
+      result.classList.add('hidden');
+      void result.offsetWidth;   /* force reflow */
       result.classList.remove('hidden');
     }
 
