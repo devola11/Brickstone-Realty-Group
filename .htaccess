@@ -48,15 +48,14 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 # (NOT inside <FilesMatch>) to work on shared hosts.
 # -----------------------------------------------
 
-# Block handle-contact.php unless Referer is from our domain
+# Block handle-contact.php unless Referer is from our domain (www, non-www, or localhost)
 RewriteCond %{REQUEST_URI} ^/handle-contact\.php$ [NC]
-RewriteCond %{HTTP_REFERER} !^https://www\.brickstonerealtygroups\.com/ [NC]
+RewriteCond %{HTTP_REFERER} !^https://(www\.)?brickstonerealtygroups\.com/ [NC]
+RewriteCond %{HTTP_REFERER} !^http://localhost/ [NC]
 RewriteRule .* - [F,L]
 
-# Block csrf-token.php unless Referer is from our domain
-RewriteCond %{REQUEST_URI} ^/csrf-token\.php$ [NC]
-RewriteCond %{HTTP_REFERER} !^https://www\.brickstonerealtygroups\.com/ [NC]
-RewriteRule .* - [F,L]
+# csrf-token.php is called by JS on page load — no Referer is sent at that point.
+# Origin validation is handled inside the PHP file itself, so no Apache block here.
 
 
 # -----------------------------------------------

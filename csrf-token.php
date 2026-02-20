@@ -29,7 +29,9 @@ function send_token_response(int $code, array $payload): never {
     exit;
 }
 
-define('TOKEN_ALLOWED_ORIGIN', 'https://www.brickstonerealtygroups.com');
+define('TOKEN_ALLOWED_ORIGIN',     'https://www.brickstonerealtygroups.com');
+define('TOKEN_ALLOWED_ORIGIN_ALT', 'https://brickstonerealtygroups.com');
+define('TOKEN_ALLOWED_ORIGIN_DEV', 'http://localhost');  // local XAMPP testing only
 
 /* ── 1. Method guard ─────────────────────────────────────── */
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
@@ -38,18 +40,25 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 }
 
 /* ── 2. Origin check — reject explicitly foreign origins ─── */
+/* On page load the JS fetch has no Origin header (same-origin GET),
+   so $origin will be empty — that is allowed. Only block if an
+   explicitly foreign origin is present. */
 $origin = rtrim((string) ($_SERVER['HTTP_ORIGIN'] ?? ''), '/');
 
-if ($origin !== '' && $origin !== TOKEN_ALLOWED_ORIGIN) {
+$allowedTokenOrigins = [TOKEN_ALLOWED_ORIGIN, TOKEN_ALLOWED_ORIGIN_ALT, TOKEN_ALLOWED_ORIGIN_DEV];
+
+if ($origin !== '' && !in_array($origin, $allowedTokenOrigins, true)) {
     send_token_response(403, ['success' => false, 'error' => 'Forbidden.']);
 }
 
 /* ── 3. Session with hardened cookie flags ───────────────── */
+$isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+        || (int) ($_SERVER['SERVER_PORT'] ?? 80) === 443;
 session_set_cookie_params([
     'lifetime' => 0,
     'path'     => '/',
     'domain'   => '',
-    'secure'   => true,
+    'secure'   => $isHttps,   // HTTPS only on live; allows HTTP on localhost
     'httponly' => true,
     'samesite' => 'Strict',
 ]);

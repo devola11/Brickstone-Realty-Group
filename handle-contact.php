@@ -49,7 +49,12 @@ function send_response(int $code, bool $success, string $error = ''): never {
     exit;
 }
 
-define('CONTACT_ALLOWED_ORIGIN', 'https://www.brickstonerealtygroups.com');
+/* Both www and non-www are valid — .htaccess redirects non-www to www,
+   but the browser fetch() Origin header reflects the page the user is on
+   at the moment of submission, which may still be non-www mid-redirect. */
+define('CONTACT_ALLOWED_ORIGIN',     'https://www.brickstonerealtygroups.com');
+define('CONTACT_ALLOWED_ORIGIN_ALT', 'https://brickstonerealtygroups.com');
+define('CONTACT_ALLOWED_ORIGIN_DEV', 'http://localhost');  // local XAMPP testing only
 
 /* ════════════════════════════════════════════════════════════════
    2. METHOD GUARD
@@ -67,8 +72,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $origin  = rtrim((string) ($_SERVER['HTTP_ORIGIN']  ?? ''), '/');
 $referer = (string) ($_SERVER['HTTP_REFERER'] ?? '');
 
-$originOk  = ($origin  === CONTACT_ALLOWED_ORIGIN);
-$refererOk = (strncmp($referer, CONTACT_ALLOWED_ORIGIN, strlen(CONTACT_ALLOWED_ORIGIN)) === 0);
+$allowedOrigins = [CONTACT_ALLOWED_ORIGIN, CONTACT_ALLOWED_ORIGIN_ALT, CONTACT_ALLOWED_ORIGIN_DEV];
+
+$originOk  = in_array($origin, $allowedOrigins, true);
+$refererOk = (
+    strncmp($referer, CONTACT_ALLOWED_ORIGIN,     strlen(CONTACT_ALLOWED_ORIGIN))     === 0 ||
+    strncmp($referer, CONTACT_ALLOWED_ORIGIN_ALT, strlen(CONTACT_ALLOWED_ORIGIN_ALT)) === 0 ||
+    strncmp($referer, CONTACT_ALLOWED_ORIGIN_DEV, strlen(CONTACT_ALLOWED_ORIGIN_DEV)) === 0
+);
 
 if (!$originOk && !$refererOk) {
     send_response(403, false, 'Forbidden.');
@@ -86,11 +97,13 @@ if (!empty($_POST['website'])) {
 /* ════════════════════════════════════════════════════════════════
    5. SESSION — start with hardened cookie flags
    ════════════════════════════════════════════════════════════════ */
+$isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+        || (int) ($_SERVER['SERVER_PORT'] ?? 80) === 443;
 session_set_cookie_params([
     'lifetime' => 0,          // expires when browser closes
     'path'     => '/',
     'domain'   => '',         // current domain only
-    'secure'   => true,       // HTTPS only
+    'secure'   => $isHttps,   // HTTPS only on live; allows HTTP on localhost
     'httponly' => true,       // inaccessible to JS
     'samesite' => 'Strict',   // never sent cross-site
 ]);

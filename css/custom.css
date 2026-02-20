@@ -390,12 +390,6 @@ button.btn-loading {
     min-height: unset;
     min-width: unset;
   }
-
-  /* Force 16px on form inputs to prevent iOS auto-zoom
-     (iOS zooms in when font-size < 16px on any focused input) */
-  input, textarea, select {
-    font-size: 16px !important;
-  }
 }
 
 
@@ -472,6 +466,50 @@ button.btn-loading {
   #hero .relative.z-10 {
     padding-top: 2rem;
     padding-bottom: 5rem;
+  }
+}
+
+/* ----------------------------------------
+   TABLET OPTIMISATIONS  (768px – 1023px)
+   iPad mini · iPad Air · iPad Pro 11"
+   ---------------------------------------- */
+@media (min-width: 768px) {
+
+  /* Ensure hamburger + mobile panel never show on tablet */
+  #menu-toggle        { display: none !important; }
+  .mobile-menu-panel  { display: none !important; }
+
+  /* Filter buttons — larger text + tap target on iPad */
+  .filter-btn {
+    font-size: 0.8rem;
+    padding: 0.5rem 1.5rem;
+    min-height: 44px;
+  }
+
+  /* Amenity tags — readable on tablet */
+  .amenity-tag {
+    font-size: 0.72rem;
+    padding: 0.22rem 0.6rem;
+  }
+
+  /* Calculator tabs — larger label text */
+  .calc-tab {
+    font-size: 0.8rem;
+    padding: 0.75rem 1.25rem;
+  }
+
+  /* Market rent reference table */
+  table {
+    font-size: 0.9rem;
+  }
+  table th,
+  table td {
+    padding: 0.8rem 1rem;
+  }
+
+  /* iOS auto-zoom prevention: keep inputs ≥16px up to 1024px */
+  input, textarea, select {
+    font-size: 16px !important;
   }
 }
 
