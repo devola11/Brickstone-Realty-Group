@@ -195,6 +195,13 @@
         filterBtns.forEach(function (b) { b.classList.remove('active'); });
         btn.classList.add('active');
 
+        /* Scroll to top of properties section so filtered cards are visible */
+        var propertiesSection = document.getElementById('properties');
+        if (propertiesSection) {
+          var targetTop = propertiesSection.getBoundingClientRect().top + window.scrollY - navbar.offsetHeight - 12;
+          window.scrollTo({ top: targetTop, behavior: 'smooth' });
+        }
+
         propCards.forEach(function (card) {
           var shouldHide = filter !== 'all' && card.dataset.borough !== filter;
 
