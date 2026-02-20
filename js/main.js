@@ -195,38 +195,54 @@
         filterBtns.forEach(function (b) { b.classList.remove('active'); });
         btn.classList.add('active');
 
-        /* Scroll to top of properties section so filtered cards are visible */
-        var propertiesSection = document.getElementById('properties');
-        if (propertiesSection) {
-          var targetTop = propertiesSection.getBoundingClientRect().top + window.scrollY - navbar.offsetHeight - 12;
-          window.scrollTo({ top: targetTop, behavior: 'smooth' });
-        }
-
+        /* --------------------------------------------------
+           Step 1 — instantly hide cards that don't match
+           (no fade out, snap hidden) so the grid reflows
+           immediately and matching cards move to the top
+        -------------------------------------------------- */
         propCards.forEach(function (card) {
           var shouldHide = filter !== 'all' && card.dataset.borough !== filter;
-
           if (shouldHide) {
-            /* Fade out → then display:none */
-            card.classList.remove('hidden-card');
-            card.classList.add('card-hiding');
-            card.addEventListener('transitionend', function hideDone() {
-              card.removeEventListener('transitionend', hideDone);
-              if (card.classList.contains('card-hiding')) {
-                card.classList.add('hidden-card');
-                card.classList.remove('card-hiding');
-              }
-            });
+            card.classList.remove('card-showing', 'card-visible', 'card-hiding');
+            card.classList.add('hidden-card');
           } else {
-            /* Remove hidden state → fade in */
             card.classList.remove('hidden-card', 'card-hiding');
-            card.classList.add('card-showing');
-            /* Force reflow so transition fires */
-            void card.offsetWidth;
-            card.classList.add('card-visible');
-            card.addEventListener('transitionend', function showDone() {
-              card.removeEventListener('transitionend', showDone);
-              card.classList.remove('card-showing', 'card-visible');
-            });
+          }
+        });
+
+        /* --------------------------------------------------
+           Step 2 — scroll to the first matching card
+           (or section header for "All") now that the grid
+           has reflowed and matching cards are at position 0
+        -------------------------------------------------- */
+        var scrollTarget;
+        if (filter === 'all') {
+          scrollTarget = document.getElementById('properties');
+        } else {
+          scrollTarget = propCards.find(function (c) {
+            return c.dataset.borough === filter;
+          }) || document.getElementById('properties');
+        }
+        if (scrollTarget) {
+          var topOffset = scrollTarget.getBoundingClientRect().top + window.scrollY - navbar.offsetHeight - 16;
+          window.scrollTo({ top: topOffset, behavior: 'smooth' });
+        }
+
+        /* --------------------------------------------------
+           Step 3 — fade visible cards in after a tiny delay
+           so they animate in as the scroll arrives
+        -------------------------------------------------- */
+        propCards.forEach(function (card) {
+          if (!card.classList.contains('hidden-card')) {
+            setTimeout(function () {
+              card.classList.add('card-showing');
+              void card.offsetWidth;
+              card.classList.add('card-visible');
+              card.addEventListener('transitionend', function showDone() {
+                card.removeEventListener('transitionend', showDone);
+                card.classList.remove('card-showing', 'card-visible');
+              });
+            }, 120);
           }
         });
       });
@@ -434,16 +450,27 @@
               formSuccess.classList.remove('show');
             }, 6000);
           } else {
-            /* 5b. PHP returned success: false — show server error */
-            showFormError(
-              result.data.error || 'Something went wrong. Please try again.'
-            );
+            /* 5b. PHP returned success: false — show the actual server error */
+            var errMsg = result.data.error || '';
+            /* 403 = CSRF/session issue — guide the user to reload */
+            if (result.status === 403 || errMsg.toLowerCase().indexOf('invalid request') !== -1) {
+              errMsg = 'Session expired \u2014 please reload the page and try again.';
+            }
+            /* 429 = rate limited */
+            if (result.status === 429) {
+              errMsg = errMsg || 'Too many requests \u2014 please wait a few minutes and try again.';
+            }
+            /* 500 = mail() failure on server */
+            if (result.status === 500) {
+              errMsg = 'Our server could not send your message right now. Please email us directly at info@brickstonerealtygroups.com';
+            }
+            showFormError(errMsg || 'Something went wrong. Please reload the page and try again.');
           }
         })
         .catch(function () {
-          /* 5c. Network failure / server unreachable */
+          /* 5c. Network failure / PHP not running / file:// protocol */
           showFormError(
-            'Network error \u2014 please check your connection or email us at info@brickstonerealtygroups.com'
+            'Could not reach the server \u2014 please make sure the site is live, or email us at info@brickstonerealtygroups.com'
           );
         })
         .finally(function () {
