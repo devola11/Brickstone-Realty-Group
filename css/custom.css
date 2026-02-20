@@ -471,13 +471,12 @@ button.btn-loading {
 
 /* ----------------------------------------
    TABLET OPTIMISATIONS  (768px – 1023px)
-   iPad mini · iPad Air · iPad Pro 11"
+   iPad mini (768px) · iPad Air (820px)
+   iPad Pro 11" (834px) · ZenBook Fold (853px)
+   Hamburger menu stays visible — desktop nav
+   only appears at lg: (1024px+)
    ---------------------------------------- */
 @media (min-width: 768px) {
-
-  /* Ensure hamburger + mobile panel never show on tablet */
-  #menu-toggle        { display: none !important; }
-  .mobile-menu-panel  { display: none !important; }
 
   /* Filter buttons — larger text + tap target on iPad */
   .filter-btn {
@@ -507,9 +506,31 @@ button.btn-loading {
     padding: 0.8rem 1rem;
   }
 
-  /* iOS auto-zoom prevention: keep inputs ≥16px up to 1024px */
+  /* iOS/iPadOS auto-zoom prevention: keep inputs ≥16px on tablets */
   input, textarea, select {
     font-size: 16px !important;
+  }
+
+  /* Hamburger tap target — slightly larger on tablet */
+  #menu-toggle {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+/* ----------------------------------------
+   DESKTOP NAV  (1024px+)
+   Hamburger + mobile panel never shown here
+   ---------------------------------------- */
+@media (min-width: 1024px) {
+
+  /* Hard-hide hamburger and mobile panel at desktop widths */
+  #menu-toggle        { display: none !important; }
+  .mobile-menu-panel  { display: none !important; }
+
+  /* Release the forced 16px on desktop — let Tailwind classes control it */
+  input, textarea, select {
+    font-size: unset !important;
   }
 }
 

@@ -182,7 +182,7 @@
       class="fixed top-0 left-0 w-full z-50 transition-all duration-500"
     >
       <div
-        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-18 py-3"
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between py-3 md:py-4 lg:py-3"
       >
         <!-- Logo -->
         <a href="#hero" class="flex items-center gap-3 group z-50 relative">
@@ -207,7 +207,7 @@
         </a>
 
         <!-- Desktop Nav Links -->
-        <ul class="hidden md:flex items-center md:gap-5 lg:gap-8 xl:gap-10 2xl:gap-12">
+        <ul class="hidden lg:flex items-center lg:gap-6 xl:gap-10 2xl:gap-12">
           <li>
             <a
               href="#about"
@@ -260,10 +260,10 @@
           </li>
         </ul>
 
-        <!-- Mobile Menu Button — sits above everything, always visible -->
+        <!-- Mobile Menu Button — shown on mobile + tablet (< lg), hidden on desktop -->
         <button
           id="menu-toggle"
-          class="md:hidden flex flex-col items-center justify-center gap-[5px] w-11 h-11 z-[100] relative flex-shrink-0"
+          class="lg:hidden flex flex-col items-center justify-center gap-[5px] w-11 h-11 z-[100] relative flex-shrink-0"
           aria-label="Open navigation menu"
           aria-expanded="false"
           aria-controls="mobile-menu"
@@ -274,10 +274,10 @@
         </button>
       </div>
 
-      <!-- Mobile Menu Panel — slides down BELOW the navbar, not over it -->
+      <!-- Mobile/Tablet Menu Panel — slides down BELOW the navbar, not over it -->
       <div
         id="mobile-menu"
-        class="md:hidden mobile-menu-panel"
+        class="lg:hidden mobile-menu-panel"
         aria-hidden="true"
         role="dialog"
         aria-label="Navigation menu"
@@ -371,7 +371,7 @@
             >Affordable NYC Rentals — No Hidden Fees</span
           >
           <h1
-            class="font-display text-4xl xs:text-5xl sm:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl text-white font-medium leading-[1.1] mb-4 sm:mb-5"
+            class="font-display text-4xl xs:text-5xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-8xl text-white font-medium leading-[1.1] mb-4 sm:mb-5"
           >
             Real Homes.<br />Real Prices.<br /><span class="text-gold italic"
               >Real New York.</span
@@ -523,7 +523,7 @@
     <!-- ============================================
        HOW IT WORKS SECTION
        ============================================ -->
-    <section id="how-it-works" class="py-14 sm:py-20 lg:py-28 bg-cream">
+    <section id="how-it-works" class="py-14 sm:py-20 md:py-24 lg:py-28 bg-cream">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-10 sm:mb-14 reveal-element">
           <span
@@ -532,7 +532,7 @@
           >
           <div class="w-12 h-px bg-gold mx-auto mt-4 mb-6 sm:mb-8"></div>
           <h2
-            class="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl text-navy leading-tight mb-4"
+            class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl text-navy leading-tight mb-4"
           >
             Find Your Home in 4 Steps
           </h2>
@@ -550,10 +550,10 @@
             >
               1
             </div>
-            <h3 class="font-display text-base sm:text-xl text-navy mb-2 sm:mb-3">
+            <h3 class="font-display text-base sm:text-lg md:text-xl text-navy mb-2 sm:mb-3">
               Tell Us Your Budget
             </h3>
-            <p class="text-text-muted text-sm leading-relaxed">
+            <p class="text-text-muted text-sm lg:text-base leading-relaxed">
               Share your borough preference, move-in date, and how much you want
               to spend — no pressure, no upselling.
             </p>
@@ -565,10 +565,10 @@
             >
               2
             </div>
-            <h3 class="font-display text-base sm:text-xl text-navy mb-2 sm:mb-3">
+            <h3 class="font-display text-base sm:text-lg md:text-xl text-navy mb-2 sm:mb-3">
               Browse Vetted Listings
             </h3>
-            <p class="text-text-muted text-sm leading-relaxed">
+            <p class="text-text-muted text-sm lg:text-base leading-relaxed">
               Every listing on our site is personally verified — real photos,
               real addresses, real landlords. Zero fake listings.
             </p>
@@ -580,10 +580,10 @@
             >
               3
             </div>
-            <h3 class="font-display text-base sm:text-xl text-navy mb-2 sm:mb-3">
+            <h3 class="font-display text-base sm:text-lg md:text-xl text-navy mb-2 sm:mb-3">
               Schedule a Viewing
             </h3>
-            <p class="text-text-muted text-sm leading-relaxed">
+            <p class="text-text-muted text-sm lg:text-base leading-relaxed">
               We arrange in-person or video tours at times that work for you.
               Never pay before you see it.
             </p>
@@ -595,10 +595,10 @@
             >
               4
             </div>
-            <h3 class="font-display text-base sm:text-xl text-navy mb-2 sm:mb-3">
+            <h3 class="font-display text-base sm:text-lg md:text-xl text-navy mb-2 sm:mb-3">
               Sign &amp; Move In
             </h3>
-            <p class="text-text-muted text-sm leading-relaxed">
+            <p class="text-text-muted text-sm lg:text-base leading-relaxed">
               We walk you through the lease, explain every clause, and make sure
               you understand your rights before you sign.
             </p>
@@ -610,9 +610,9 @@
     <!-- ============================================
        ABOUT SECTION
        ============================================ -->
-    <section id="about" class="py-14 sm:py-20 lg:py-28 bg-white">
+    <section id="about" class="py-14 sm:py-20 md:py-24 lg:py-28 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid md:grid-cols-2 gap-8 md:gap-16 lg:gap-24 xl:gap-32 items-center">
+        <div class="grid md:grid-cols-2 gap-8 md:gap-10 lg:gap-16 xl:gap-24 items-center">
           <!-- Text -->
           <div class="reveal-element">
             <span
@@ -621,7 +621,7 @@
             >
             <div class="w-12 h-px bg-gold mt-4 mb-8"></div>
             <h2
-              class="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl text-navy leading-tight mb-5 sm:mb-6"
+              class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl text-navy leading-tight mb-5 sm:mb-6"
             >
               Tenant-First Rentals Across Every NYC Borough
             </h2>
@@ -646,7 +646,7 @@
                   class="block font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-navy font-semibold"
                   >15+</span
                 >
-                <span class="text-text-muted text-sm mt-1 block"
+                <span class="text-text-muted text-sm lg:text-base mt-1 block"
                   >Years<br />in NYC</span
                 >
               </div>
@@ -655,7 +655,7 @@
                   class="block font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-navy font-semibold"
                   >500+</span
                 >
-                <span class="text-text-muted text-sm mt-1 block"
+                <span class="text-text-muted text-sm lg:text-base mt-1 block"
                   >Families<br />Housed</span
                 >
               </div>
@@ -664,7 +664,7 @@
                   class="block font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-navy font-semibold"
                   >5</span
                 >
-                <span class="text-text-muted text-sm mt-1 block"
+                <span class="text-text-muted text-sm lg:text-base mt-1 block"
                   >Boroughs<br />Covered</span
                 >
               </div>
@@ -710,7 +710,7 @@
     <!-- ============================================
        FEATURED PROPERTIES SECTION
        ============================================ -->
-    <section id="properties" class="py-14 sm:py-20 lg:py-28 bg-cream">
+    <section id="properties" class="py-14 sm:py-20 md:py-24 lg:py-28 bg-cream">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Section Header -->
         <div class="text-center mb-12 reveal-element">
@@ -720,7 +720,7 @@
           >
           <div class="w-12 h-px bg-gold mx-auto mt-4 mb-8"></div>
           <h2
-            class="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl text-navy leading-tight mb-4"
+            class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl text-navy leading-tight mb-4"
           >
             Current Rentals
           </h2>
@@ -774,7 +774,7 @@
 
         <!-- Property Grid -->
         <div
-          class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6 lg:gap-8 xl:gap-10"
+          class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8 xl:gap-10 2xl:gap-12"
           id="property-grid"
         >
           <!-- Card 1 -->
@@ -847,7 +847,7 @@
                   >/mo</span
                 >
               </p>
-              <p class="text-text-muted text-sm leading-relaxed mb-3">
+              <p class="text-text-muted text-sm lg:text-base leading-relaxed mb-3">
                 Bright, renovated 1-bed in the heart of Harlem. Steps from the
                 A/C/B/D subway lines. Pet-friendly building.
               </p>
@@ -993,7 +993,7 @@
                   >/mo</span
                 >
               </p>
-              <p class="text-text-muted text-sm leading-relaxed mb-3">
+              <p class="text-text-muted text-sm lg:text-base leading-relaxed mb-3">
                 Spacious 2-bed in a classic Brooklyn brownstone. Updated
                 kitchen, hardwood floors, laundry in building.
               </p>
@@ -1121,7 +1121,7 @@
                   >/mo</span
                 >
               </p>
-              <p class="text-text-muted text-sm leading-relaxed mb-3">
+              <p class="text-text-muted text-sm lg:text-base leading-relaxed mb-3">
                 Sun-filled studio steps from the N/W train. Exposed brick,
                 dishwasher, intercom. Ideal for a working professional.
               </p>
@@ -1249,7 +1249,7 @@
                   >/mo</span
                 >
               </p>
-              <p class="text-text-muted text-sm leading-relaxed mb-3">
+              <p class="text-text-muted text-sm lg:text-base leading-relaxed mb-3">
                 Spacious family apartment near Metro-North. Off-street parking
                 available, doorman building, close to parks and schools.
               </p>
@@ -1377,7 +1377,7 @@
                   >/mo</span
                 >
               </p>
-              <p class="text-text-muted text-sm leading-relaxed mb-3">
+              <p class="text-text-muted text-sm lg:text-base leading-relaxed mb-3">
                 Well-maintained 2-bed on a tree-lined block. Near Brooklyn
                 Museum and Prospect Park. Heat &amp; hot water included.
               </p>
@@ -1505,7 +1505,7 @@
                   >/mo</span
                 >
               </p>
-              <p class="text-text-muted text-sm leading-relaxed mb-3">
+              <p class="text-text-muted text-sm lg:text-base leading-relaxed mb-3">
                 Renovated 1-bed in a friendly community building. Near Fort
                 Tryon Park and A train. Utilities negotiable.
               </p>
@@ -1604,7 +1604,7 @@
               <h3 class="font-display text-xl lg:text-2xl text-navy mb-1 group-hover:text-gold transition-colors duration-300">Jackson Heights 2-Bedroom</h3>
               <p class="text-xs text-text-muted mb-3">Roosevelt Ave &amp; 74th St, Jackson Heights, Queens</p>
               <p class="text-gold font-semibold text-lg mb-3">$2,200<span class="text-text-muted text-sm font-normal">/mo</span></p>
-              <p class="text-text-muted text-sm leading-relaxed mb-3">Bright 2-bed in the heart of Jackson Heights. Minutes from the 7, E, F, M, R trains. Diverse neighbourhood, great local dining.</p>
+              <p class="text-text-muted text-sm lg:text-base leading-relaxed mb-3">Bright 2-bed in the heart of Jackson Heights. Minutes from the 7, E, F, M, R trains. Diverse neighbourhood, great local dining.</p>
               <div class="flex flex-wrap gap-1.5 mb-4">
                 <span class="amenity-tag">🚇 Near Subway</span>
                 <span class="amenity-tag">🌍 Diverse Area</span>
@@ -1645,7 +1645,7 @@
               <h3 class="font-display text-xl lg:text-2xl text-navy mb-1 group-hover:text-gold transition-colors duration-300">St. George 1-Bedroom</h3>
               <p class="text-xs text-text-muted mb-3">Richmond Terrace, St. George, Staten Island</p>
               <p class="text-gold font-semibold text-lg mb-3">$1,650<span class="text-text-muted text-sm font-normal">/mo</span></p>
-              <p class="text-text-muted text-sm leading-relaxed mb-3">Spacious 1-bed steps from the Staten Island Ferry. Great waterfront views, easy Manhattan commute, quiet residential block.</p>
+              <p class="text-text-muted text-sm lg:text-base leading-relaxed mb-3">Spacious 1-bed steps from the Staten Island Ferry. Great waterfront views, easy Manhattan commute, quiet residential block.</p>
               <div class="flex flex-wrap gap-1.5 mb-4">
                 <span class="amenity-tag">⛴️ Ferry Access</span>
                 <span class="amenity-tag">🌊 Waterfront</span>
@@ -1686,7 +1686,7 @@
               <h3 class="font-display text-xl lg:text-2xl text-navy mb-1 group-hover:text-gold transition-colors duration-300">Fordham 2-Bedroom</h3>
               <p class="text-xs text-text-muted mb-3">Grand Concourse, Fordham, The Bronx</p>
               <p class="text-gold font-semibold text-lg mb-3">$2,050<span class="text-text-muted text-sm font-normal">/mo</span></p>
-              <p class="text-text-muted text-sm leading-relaxed mb-3">Well-maintained 2-bed on the Grand Concourse. Near Fordham University, B/D trains. Laundry on-site, updated bathroom.</p>
+              <p class="text-text-muted text-sm lg:text-base leading-relaxed mb-3">Well-maintained 2-bed on the Grand Concourse. Near Fordham University, B/D trains. Laundry on-site, updated bathroom.</p>
               <div class="flex flex-wrap gap-1.5 mb-4">
                 <span class="amenity-tag">👕 Laundry In-Bldg</span>
                 <span class="amenity-tag">🚇 Near Subway</span>
@@ -1833,7 +1833,7 @@
     <!-- ============================================
        NEIGHBORHOODS SECTION
        ============================================ -->
-    <section id="neighborhoods" class="py-14 sm:py-20 lg:py-28 bg-white">
+    <section id="neighborhoods" class="py-14 sm:py-20 md:py-24 lg:py-28 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-14 reveal-element">
           <span
@@ -1842,7 +1842,7 @@
           >
           <div class="w-12 h-px bg-gold mx-auto mt-4 mb-8"></div>
           <h2
-            class="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl text-navy leading-tight mb-4"
+            class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl text-navy leading-tight mb-4"
           >
             NYC Neighborhoods We Cover
           </h2>
@@ -1851,17 +1851,17 @@
           </p>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-5">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-5 lg:gap-4">
           <div
             class="reveal-element group cursor-pointer border border-navy/10 p-4 sm:p-5 md:p-6 text-center hover:border-gold hover:bg-gold/5 transition-all duration-300"
           >
             <div class="text-3xl mb-3">🗽</div>
             <h3
-              class="font-display text-lg text-navy mb-1 group-hover:text-gold transition-colors"
+              class="font-display text-base sm:text-lg text-navy mb-1 group-hover:text-gold transition-colors"
             >
               Manhattan
             </h3>
-            <p class="text-text-muted text-xs">
+            <p class="text-text-muted text-xs sm:text-sm">
               Harlem · Washington Heights · Inwood · Upper East Side
             </p>
           </div>
@@ -1870,11 +1870,11 @@
           >
             <div class="text-3xl mb-3">🌉</div>
             <h3
-              class="font-display text-lg text-navy mb-1 group-hover:text-gold transition-colors"
+              class="font-display text-base sm:text-lg text-navy mb-1 group-hover:text-gold transition-colors"
             >
               Brooklyn
             </h3>
-            <p class="text-text-muted text-xs">
+            <p class="text-text-muted text-xs sm:text-sm">
               Bed-Stuy · Crown Heights · Flatbush · East New York
             </p>
           </div>
@@ -1883,11 +1883,11 @@
           >
             <div class="text-3xl mb-3">✈️</div>
             <h3
-              class="font-display text-lg text-navy mb-1 group-hover:text-gold transition-colors"
+              class="font-display text-base sm:text-lg text-navy mb-1 group-hover:text-gold transition-colors"
             >
               Queens
             </h3>
-            <p class="text-text-muted text-xs">
+            <p class="text-text-muted text-xs sm:text-sm">
               Astoria · Jamaica · Flushing · Jackson Heights
             </p>
           </div>
@@ -1896,11 +1896,11 @@
           >
             <div class="text-3xl mb-3">🏟️</div>
             <h3
-              class="font-display text-lg text-navy mb-1 group-hover:text-gold transition-colors"
+              class="font-display text-base sm:text-lg text-navy mb-1 group-hover:text-gold transition-colors"
             >
               The Bronx
             </h3>
-            <p class="text-text-muted text-xs">
+            <p class="text-text-muted text-xs sm:text-sm">
               Riverdale · Fordham · Mott Haven · Co-op City
             </p>
           </div>
@@ -1909,11 +1909,11 @@
           >
             <div class="text-3xl mb-3">🛳️</div>
             <h3
-              class="font-display text-lg text-navy mb-1 group-hover:text-gold transition-colors"
+              class="font-display text-base sm:text-lg text-navy mb-1 group-hover:text-gold transition-colors"
             >
               Staten Island
             </h3>
-            <p class="text-text-muted text-xs">
+            <p class="text-text-muted text-xs sm:text-sm">
               St. George · Stapleton · Tottenville · New Brighton
             </p>
           </div>
@@ -1924,7 +1924,7 @@
     <!-- ============================================
        TESTIMONIALS SECTION
        ============================================ -->
-    <section id="testimonials" class="py-14 sm:py-20 lg:py-28 bg-navy">
+    <section id="testimonials" class="py-14 sm:py-20 md:py-24 lg:py-28 bg-navy">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-14 reveal-element">
           <span
@@ -1933,7 +1933,7 @@
           >
           <div class="w-12 h-px bg-gold mx-auto mt-4 mb-8"></div>
           <h2
-            class="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl text-white leading-tight"
+            class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl text-white leading-tight"
           >
             What Our Tenants Say
           </h2>
@@ -1944,7 +1944,7 @@
             <div class="flex gap-1 mb-4">
               <span class="text-gold text-lg">★★★★★</span>
             </div>
-            <p class="text-white/70 text-sm leading-relaxed mb-6">
+            <p class="text-white/70 text-sm lg:text-base leading-relaxed mb-6">
               "Brickstone found me a 2-bedroom in Crown Heights within two weeks
               and didn't charge me a single broker fee. They explained every
               part of the lease before I signed. I've never had that experience
@@ -1971,7 +1971,7 @@
             <div class="flex gap-1 mb-4">
               <span class="text-gold text-lg">★★★★★</span>
             </div>
-            <p class="text-white/70 text-sm leading-relaxed mb-6">
+            <p class="text-white/70 text-sm lg:text-base leading-relaxed mb-6">
               "I was nervous about scams when I moved to New York from Germany.
               Brickstone showed me the apartment first, explained everything,
               and kept me informed the whole way. 100% trustworthy."
@@ -1995,7 +1995,7 @@
             <div class="flex gap-1 mb-4">
               <span class="text-gold text-lg">★★★★★</span>
             </div>
-            <p class="text-white/70 text-sm leading-relaxed mb-6">
+            <p class="text-white/70 text-sm lg:text-base leading-relaxed mb-6">
               "Our family needed a 3-bedroom on a tight budget and Brickstone
               made it happen in the Bronx. Clean apartment, good neighborhood,
               fair price. They really listen to what you need."
@@ -2023,7 +2023,7 @@
     <!-- ============================================
        FAQ SECTION
        ============================================ -->
-    <section id="faq" class="py-14 sm:py-20 lg:py-28 bg-cream">
+    <section id="faq" class="py-14 sm:py-20 md:py-24 lg:py-28 bg-cream">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-14 reveal-element">
           <span
@@ -2031,7 +2031,7 @@
             >Common Questions</span
           >
           <div class="w-12 h-px bg-gold mx-auto mt-4 mb-8"></div>
-          <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl text-navy leading-tight">
+          <h2 class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl text-navy leading-tight">
             Frequently Asked Questions
           </h2>
         </div>
@@ -2039,11 +2039,11 @@
         <div class="space-y-4" id="faq-list">
           <div class="faq-item reveal-element bg-white border border-gray-200">
             <button
-              class="faq-btn w-full flex items-center justify-between px-6 py-5 lg:px-8 lg:py-6 xl:px-10 xl:py-7 text-left"
+              class="faq-btn w-full flex items-center justify-between px-6 py-5 lg:px-8 lg:py-6 text-left"
               aria-expanded="false"
               aria-controls="faq-answer-1"
             >
-              <span class="font-semibold text-navy text-sm sm:text-base lg:text-lg xl:text-xl"
+              <span class="font-semibold text-navy text-sm sm:text-base lg:text-lg"
                 >Do I have to pay a broker fee?</span
               >
               <svg
@@ -2061,8 +2061,8 @@
                 />
               </svg>
             </button>
-            <div id="faq-answer-1" class="faq-answer hidden px-6 pb-5">
-              <p class="text-text-muted text-sm leading-relaxed">
+            <div id="faq-answer-1" class="faq-answer hidden px-6 lg:px-8 pb-5 lg:pb-6">
+              <p class="text-text-muted text-sm lg:text-base leading-relaxed">
                 No. Under New York City's FARE Act (effective June 2025),
                 landlords are responsible for paying their own broker's fees.
                 You will not be charged a broker fee for any listing on this
@@ -2074,11 +2074,11 @@
 
           <div class="faq-item reveal-element bg-white border border-gray-200">
             <button
-              class="faq-btn w-full flex items-center justify-between px-6 py-5 lg:px-8 lg:py-6 xl:px-10 xl:py-7 text-left"
+              class="faq-btn w-full flex items-center justify-between px-6 py-5 lg:px-8 lg:py-6 text-left"
               aria-expanded="false"
               aria-controls="faq-answer-2"
             >
-              <span class="font-semibold text-navy text-sm sm:text-base lg:text-lg xl:text-xl"
+              <span class="font-semibold text-navy text-sm sm:text-base lg:text-lg"
                 >What documents do I need to apply for a rental?</span
               >
               <svg
@@ -2096,8 +2096,8 @@
                 />
               </svg>
             </button>
-            <div id="faq-answer-2" class="faq-answer hidden px-6 pb-5">
-              <p class="text-text-muted text-sm leading-relaxed">
+            <div id="faq-answer-2" class="faq-answer hidden px-6 lg:px-8 pb-5 lg:pb-6">
+              <p class="text-text-muted text-sm lg:text-base leading-relaxed">
                 Most landlords will ask for: a valid photo ID, last 2–3 months
                 of pay stubs or bank statements, a recent tax return (W-2 or
                 1099), and an employment verification letter. Some may also
@@ -2109,11 +2109,11 @@
 
           <div class="faq-item reveal-element bg-white border border-gray-200">
             <button
-              class="faq-btn w-full flex items-center justify-between px-6 py-5 lg:px-8 lg:py-6 xl:px-10 xl:py-7 text-left"
+              class="faq-btn w-full flex items-center justify-between px-6 py-5 lg:px-8 lg:py-6 text-left"
               aria-expanded="false"
               aria-controls="faq-answer-3"
             >
-              <span class="font-semibold text-navy text-sm sm:text-base lg:text-lg xl:text-xl"
+              <span class="font-semibold text-navy text-sm sm:text-base lg:text-lg"
                 >Can I view apartments before paying anything?</span
               >
               <svg
@@ -2131,8 +2131,8 @@
                 />
               </svg>
             </button>
-            <div id="faq-answer-3" class="faq-answer hidden px-6 pb-5">
-              <p class="text-text-muted text-sm leading-relaxed">
+            <div id="faq-answer-3" class="faq-answer hidden px-6 lg:px-8 pb-5 lg:pb-6">
+              <p class="text-text-muted text-sm lg:text-base leading-relaxed">
                 Absolutely — and you should always insist on this. We will never
                 ask you to pay any fee, deposit, or sign any document before you
                 have physically viewed (or done a video tour of) the apartment.
@@ -2144,11 +2144,11 @@
 
           <div class="faq-item reveal-element bg-white border border-gray-200">
             <button
-              class="faq-btn w-full flex items-center justify-between px-6 py-5 lg:px-8 lg:py-6 xl:px-10 xl:py-7 text-left"
+              class="faq-btn w-full flex items-center justify-between px-6 py-5 lg:px-8 lg:py-6 text-left"
               aria-expanded="false"
               aria-controls="faq-answer-4"
             >
-              <span class="font-semibold text-navy text-sm sm:text-base lg:text-lg xl:text-xl"
+              <span class="font-semibold text-navy text-sm sm:text-base lg:text-lg"
                 >What is a security deposit and how much is it?</span
               >
               <svg
@@ -2166,8 +2166,8 @@
                 />
               </svg>
             </button>
-            <div id="faq-answer-4" class="faq-answer hidden px-6 pb-5">
-              <p class="text-text-muted text-sm leading-relaxed">
+            <div id="faq-answer-4" class="faq-answer hidden px-6 lg:px-8 pb-5 lg:pb-6">
+              <p class="text-text-muted text-sm lg:text-base leading-relaxed">
                 Under New York State law, a landlord can only charge a maximum
                 of one month's rent as a security deposit. The deposit must be
                 returned to you within 14 days of moving out (with an itemized
@@ -2179,11 +2179,11 @@
 
           <div class="faq-item reveal-element bg-white border border-gray-200">
             <button
-              class="faq-btn w-full flex items-center justify-between px-6 py-5 lg:px-8 lg:py-6 xl:px-10 xl:py-7 text-left"
+              class="faq-btn w-full flex items-center justify-between px-6 py-5 lg:px-8 lg:py-6 text-left"
               aria-expanded="false"
               aria-controls="faq-answer-5"
             >
-              <span class="font-semibold text-navy text-sm sm:text-base lg:text-lg xl:text-xl"
+              <span class="font-semibold text-navy text-sm sm:text-base lg:text-lg"
                 >How much rent can I afford?</span
               >
               <svg
@@ -2201,8 +2201,8 @@
                 />
               </svg>
             </button>
-            <div id="faq-answer-5" class="faq-answer hidden px-6 pb-5">
-              <p class="text-text-muted text-sm leading-relaxed">
+            <div id="faq-answer-5" class="faq-answer hidden px-6 lg:px-8 pb-5 lg:pb-6">
+              <p class="text-text-muted text-sm lg:text-base leading-relaxed">
                 The general NYC rule is that your gross annual income should be
                 40x the monthly rent. So for a $2,000/month apartment, you'd
                 need to show income of $80,000/year. If your income doesn't
@@ -2214,11 +2214,11 @@
 
           <div class="faq-item reveal-element bg-white border border-gray-200">
             <button
-              class="faq-btn w-full flex items-center justify-between px-6 py-5 lg:px-8 lg:py-6 xl:px-10 xl:py-7 text-left"
+              class="faq-btn w-full flex items-center justify-between px-6 py-5 lg:px-8 lg:py-6 text-left"
               aria-expanded="false"
               aria-controls="faq-answer-6"
             >
-              <span class="font-semibold text-navy text-sm sm:text-base lg:text-lg xl:text-xl"
+              <span class="font-semibold text-navy text-sm sm:text-base lg:text-lg"
                 >Are your listings scam-free?</span
               >
               <svg
@@ -2236,8 +2236,8 @@
                 />
               </svg>
             </button>
-            <div id="faq-answer-6" class="faq-answer hidden px-6 pb-5">
-              <p class="text-text-muted text-sm leading-relaxed">
+            <div id="faq-answer-6" class="faq-answer hidden px-6 lg:px-8 pb-5 lg:pb-6">
+              <p class="text-text-muted text-sm lg:text-base leading-relaxed">
                 Yes. Every listing on our platform is personally verified by our
                 licensed team — we confirm ownership, visit the property, and
                 vet the landlord before it goes live. We are a licensed NYC real
@@ -2253,7 +2253,7 @@
     <!-- ============================================
        RENT AFFORDABILITY CALCULATOR
        ============================================ -->
-    <section id="calculator" class="py-14 sm:py-20 lg:py-28 bg-cream">
+    <section id="calculator" class="py-14 sm:py-20 md:py-24 lg:py-28 bg-cream">
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-10 sm:mb-12 reveal-element">
           <span
@@ -2262,7 +2262,7 @@
           >
           <div class="w-12 h-px bg-gold mx-auto mt-4 mb-8"></div>
           <h2
-            class="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl text-navy leading-tight mb-4"
+            class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl text-navy leading-tight mb-4"
           >
             NYC Rent Affordability Calculator
           </h2>
@@ -2423,7 +2423,7 @@
        ============================================ -->
     <section
       id="contact"
-      class="py-14 sm:py-20 lg:py-28 bg-navy relative overflow-hidden"
+      class="py-14 sm:py-20 md:py-24 lg:py-28 bg-navy relative overflow-hidden"
     >
       <div
         class="absolute top-0 right-0 w-96 h-96 bg-gold/5 rounded-full -translate-y-1/2 translate-x-1/2"
@@ -2440,7 +2440,7 @@
           >
           <div class="w-12 h-px bg-gold mx-auto mt-4 mb-8"></div>
           <h2
-            class="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl text-white leading-tight mb-4"
+            class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl text-white leading-tight mb-4"
           >
             Let's Find Your Next Home
           </h2>
@@ -2450,9 +2450,9 @@
           </p>
         </div>
 
-        <div class="grid md:grid-cols-3 lg:grid-cols-5 gap-8 md:gap-10 lg:gap-16 xl:gap-20">
+        <div class="grid md:grid-cols-3 lg:grid-cols-5 gap-8 md:gap-10 lg:gap-12 xl:gap-16">
           <!-- Contact Info -->
-          <div class="lg:col-span-2 reveal-element">
+          <div class="md:col-span-1 lg:col-span-2 reveal-element">
             <div class="space-y-8">
               <div class="flex items-start gap-4">
                 <div
@@ -2480,7 +2480,7 @@
                   </svg>
                 </div>
                 <div>
-                  <h4 class="text-white font-semibold mb-1">Visit Us</h4>
+                  <h4 class="text-white text-sm sm:text-base font-semibold mb-1">Visit Us</h4>
                   <p class="text-white/50 text-sm leading-relaxed">
                     401 Park Avenue South<br />New York, NY 10016
                   </p>
@@ -2506,7 +2506,7 @@
                   </svg>
                 </div>
                 <div>
-                  <h4 class="text-white font-semibold mb-1">Call Us</h4>
+                  <h4 class="text-white text-sm sm:text-base font-semibold mb-1">Call Us</h4>
                   <a
                     href="tel:+12125550187"
                     class="text-white/50 text-sm hover:text-gold transition-colors duration-300"
@@ -2534,7 +2534,7 @@
                   </svg>
                 </div>
                 <div>
-                  <h4 class="text-white font-semibold mb-1">Email Us</h4>
+                  <h4 class="text-white text-sm sm:text-base font-semibold mb-1">Email Us</h4>
                   <a
                     href="mailto:info@brickstonerealtygroups.com"
                     class="text-white/50 text-sm hover:text-gold transition-colors duration-300"
@@ -2562,7 +2562,7 @@
                   </svg>
                 </div>
                 <div>
-                  <h4 class="text-white font-semibold mb-1">Office Hours</h4>
+                  <h4 class="text-white text-sm sm:text-base font-semibold mb-1">Office Hours</h4>
                   <p class="text-white/50 text-sm leading-relaxed">
                     Mon &ndash; Fri: 9:00 AM &ndash; 7:00 PM<br />Sat &ndash;
                     Sun: 10:00 AM &ndash; 5:00 PM
@@ -2573,11 +2573,11 @@
           </div>
 
           <!-- Contact Form -->
-          <div class="lg:col-span-3 reveal-element">
+          <div class="md:col-span-2 lg:col-span-3 reveal-element">
             <form id="contact-form" class="space-y-5" novalidate>
               <!-- CSRF token — populated by JS on page load -->
               <input type="hidden" id="csrf_token" name="csrf_token" value="" />
-              <div class="grid sm:grid-cols-2 gap-5">
+              <div class="grid xs:grid-cols-2 gap-5">
                 <div class="form-group">
                   <label
                     for="name"
@@ -2623,7 +2623,7 @@
                   ></span>
                 </div>
               </div>
-              <div class="grid sm:grid-cols-2 gap-5">
+              <div class="grid xs:grid-cols-2 gap-5">
                 <div class="form-group">
                   <label
                     for="phone"
@@ -2732,7 +2732,7 @@
     <!-- ============================================
        LEGAL SECTION — AVOID SCAMS + TENANT RIGHTS
        ============================================ -->
-    <section id="legal" class="py-14 sm:py-20 lg:py-28 bg-white">
+    <section id="legal" class="py-14 sm:py-20 md:py-24 lg:py-28 bg-white">
       <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Avoid Scams -->
         <div class="reveal-element mb-20">
@@ -2755,7 +2755,7 @@
               <h3 class="font-semibold text-navy mb-2">
                 Always View Before You Pay
               </h3>
-              <p class="text-text-muted text-sm leading-relaxed">
+              <p class="text-text-muted text-sm lg:text-base leading-relaxed">
                 Never pay a deposit, security, or any fee before physically
                 visiting (or doing a verified video tour of) the apartment. If
                 someone pressures you to pay without seeing it, it is a scam.
@@ -2765,7 +2765,7 @@
               <h3 class="font-semibold text-navy mb-2">
                 Verify the Agent's License
               </h3>
-              <p class="text-text-muted text-sm leading-relaxed">
+              <p class="text-text-muted text-sm lg:text-base leading-relaxed">
                 Every real estate agent in New York must be licensed. Check any
                 agent's license for free at the
                 <strong>NYS Department of State Public License Search</strong>
@@ -2777,7 +2777,7 @@
               <h3 class="font-semibold text-navy mb-2">
                 Watch for Prices That Are Too Good
               </h3>
-              <p class="text-text-muted text-sm leading-relaxed">
+              <p class="text-text-muted text-sm lg:text-base leading-relaxed">
                 If a large 2-bedroom in Manhattan is listed for $1,200/month, it
                 is almost certainly fake. Scammers copy real listings and post
                 them at suspiciously low prices to steal your deposit or
@@ -2788,7 +2788,7 @@
               <h3 class="font-semibold text-navy mb-2">
                 Avoid Wire Transfers & Cash Apps
               </h3>
-              <p class="text-text-muted text-sm leading-relaxed">
+              <p class="text-text-muted text-sm lg:text-base leading-relaxed">
                 Never pay a deposit by wire transfer, Zelle, CashApp, Venmo,
                 prepaid debit card, or gift card. These payments are
                 untraceable. Use a personal check or credit card, and always get
@@ -2799,7 +2799,7 @@
               <h3 class="font-semibold text-navy mb-2">
                 Get Everything in Writing
               </h3>
-              <p class="text-text-muted text-sm leading-relaxed">
+              <p class="text-text-muted text-sm lg:text-base leading-relaxed">
                 Every promise made verbally should be in the lease. Read the
                 full lease before signing. If you don't understand a clause, ask
                 us — we'll explain it. Never sign a lease you haven't read in
@@ -2810,7 +2810,7 @@
               <h3 class="font-semibold text-navy mb-2">
                 Protect Your Personal Information
               </h3>
-              <p class="text-text-muted text-sm leading-relaxed">
+              <p class="text-text-muted text-sm lg:text-base leading-relaxed">
                 Do not give your Social Security number, bank account details,
                 or copy of your passport until you have verified you are working
                 with a licensed broker and have seen the apartment in person.
@@ -3057,9 +3057,9 @@
        ============================================ -->
     <footer class="bg-charcoal py-12 sm:py-14">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10 md:gap-12 lg:gap-14 xl:gap-16 mb-8 sm:mb-10 md:mb-12 lg:mb-14 xl:mb-16">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-10 xl:gap-12 mb-8 sm:mb-10 lg:mb-12 xl:mb-14">
           <!-- Brand -->
-          <div class="md:col-span-1">
+          <div>
             <div class="flex items-center gap-3 mb-5">
               <div
                 class="w-10 h-10 border-2 border-gold flex items-center justify-center"
@@ -3086,7 +3086,7 @@
           <!-- Quick Links -->
           <div>
             <h4
-              class="text-white font-semibold text-xs tracking-widest uppercase mb-5"
+              class="text-white font-semibold text-xs lg:text-sm tracking-widest uppercase mb-5"
             >
               Navigate
             </h4>
@@ -3139,7 +3139,7 @@
           <!-- Legal Links -->
           <div>
             <h4
-              class="text-white font-semibold text-xs tracking-widest uppercase mb-5"
+              class="text-white font-semibold text-xs lg:text-sm tracking-widest uppercase mb-5"
             >
               Legal
             </h4>
@@ -3178,7 +3178,7 @@
           <!-- Social + Contact -->
           <div>
             <h4
-              class="text-white font-semibold text-xs tracking-widest uppercase mb-5"
+              class="text-white font-semibold text-xs lg:text-sm tracking-widest uppercase mb-5"
             >
               Connect
             </h4>
@@ -3261,19 +3261,19 @@
     <!-- Floating Mobile CTA Bar — shown after scrolling past hero, hidden on desktop -->
     <div
       id="mobile-cta"
-      class="md:hidden fixed bottom-0 left-0 right-0 z-40 mobile-cta-bar safe-bottom"
+      class="lg:hidden fixed bottom-0 left-0 right-0 z-40 mobile-cta-bar safe-bottom"
     >
       <div
-        class="bg-navy border-t border-gold/30 px-4 py-3 sm:py-4 flex items-center gap-3 min-h-[56px]"
+        class="bg-navy border-t border-gold/30 px-4 sm:px-6 py-3 sm:py-4 flex items-center gap-3 min-h-[56px]"
       >
         <a
           href="#properties"
-          class="flex-1 text-center py-3 sm:py-3.5 bg-gold text-navy text-xs font-semibold tracking-widest uppercase"
+          class="flex-1 text-center py-3 sm:py-3.5 bg-gold text-navy text-xs sm:text-sm font-semibold tracking-widest uppercase"
           >Browse Rentals</a
         >
         <a
           href="#contact"
-          class="flex-1 text-center py-3 sm:py-3.5 border border-gold text-gold text-xs font-semibold tracking-widest uppercase"
+          class="flex-1 text-center py-3 sm:py-3.5 border border-gold text-gold text-xs sm:text-sm font-semibold tracking-widest uppercase"
           >Contact Us</a
         >
       </div>
