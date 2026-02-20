@@ -519,7 +519,7 @@ button.btn-loading {
 }
 
 /* ----------------------------------------
-   DESKTOP NAV  (1024px+)
+   DESKTOP  (1024px+)
    Hamburger + mobile panel never shown here
    ---------------------------------------- */
 @media (min-width: 1024px) {
@@ -531,6 +531,34 @@ button.btn-loading {
   /* Release the forced 16px on desktop — let Tailwind classes control it */
   input, textarea, select {
     font-size: unset !important;
+  }
+
+  /* Amenity tags — slightly larger on desktop */
+  .amenity-tag {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.65rem;
+  }
+
+  /* Calculator tabs — desktop scale */
+  .calc-tab {
+    font-size: 0.875rem;
+    padding: 1rem 1.5rem;
+  }
+
+  /* Filter buttons — desktop scale */
+  .filter-btn {
+    font-size: 0.8rem;
+    padding: 0.55rem 1.75rem;
+    min-height: 44px;
+  }
+
+  /* Market rent table — readable on large screens */
+  table {
+    font-size: 0.9375rem;
+  }
+  table th,
+  table td {
+    padding: 0.9rem 1.25rem;
   }
 }
 
