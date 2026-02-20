@@ -1,0 +1,10 @@
+# Windows reserved device name — cannot be indexed by Git
+nul
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+.vscode/

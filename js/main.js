@@ -563,6 +563,60 @@
     if (calcInputRent)  calcInputRent.addEventListener('input', calcFromRent);
     if (calcInputIncome) calcInputIncome.addEventListener('input', calcFromIncome);
 
+
+    /* ================================================
+       VIDEO TOUR CARDS — hover to play, leave to pause
+       Uses IntersectionObserver to only load video when
+       card enters viewport (respects preload="none").
+    ================================================ */
+    var cardVideos = Array.prototype.slice.call(document.querySelectorAll('.card-video'));
+
+    cardVideos.forEach(function (video) {
+      var card = video.closest('.property-card');
+      if (!card) return;
+
+      /* Load video source when card scrolls into view */
+      if ('IntersectionObserver' in window) {
+        var vidObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              /* Trigger browser to buffer first frames */
+              video.load();
+              vidObserver.unobserve(entry.target);
+            }
+          });
+        }, { rootMargin: '200px 0px' });
+        vidObserver.observe(card);
+      }
+
+      /* Play on hover */
+      card.addEventListener('mouseenter', function () {
+        var p = video.play();
+        if (p && typeof p.catch === 'function') {
+          p.catch(function () { /* autoplay blocked — poster still visible */ });
+        }
+      });
+
+      /* Pause & rewind on leave */
+      card.addEventListener('mouseleave', function () {
+        video.pause();
+        video.currentTime = 0;
+      });
+
+      /* Touch: toggle play/pause on tap */
+      card.addEventListener('touchstart', function () {
+        if (video.paused) {
+          var tp = video.play();
+          if (tp && typeof tp.catch === 'function') {
+            tp.catch(function () {});
+          }
+        } else {
+          video.pause();
+        }
+      }, { passive: true });
+    });
+
+
   } /* end init() */
 
 }());
