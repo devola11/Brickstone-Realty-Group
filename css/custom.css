@@ -288,6 +288,16 @@ body {
   object-fit: cover;
 }
 
+/* ---- Responsive aspect ratio override ----
+   HTML uses aspect-[4/3] (Tailwind) for md+ screens.
+   On xs/sm mobile we shorten to 16:10 so the image
+   doesn't consume too much viewport height.            */
+@media (max-width: 639px) {
+  .card-carousel .aspect-\[4\/3\] {
+    aspect-ratio: 16 / 10;
+  }
+}
+
 /* ---- Slide track ---- */
 .card-slide {
   min-width: 100%;
@@ -296,10 +306,10 @@ body {
 /* ---- Room label pill (bottom-centre of each slide) ---- */
 .card-slide-label {
   position: absolute;
-  bottom: 2.6rem;      /* sits above the dot row */
+  bottom: 2.2rem;      /* dots at 0.5rem + dot height ~0.5rem + gap 1.2rem */
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(10, 26, 50, 0.68);
+  background: rgba(10, 26, 50, 0.72);
   color: #fff;
   font-size: 0.65rem;
   font-weight: 600;
@@ -320,8 +330,12 @@ body {
   top: 50%;
   transform: translateY(-50%);
   z-index: 20;
+  /* Visual size */
   width: 2rem;
   height: 2rem;
+  /* Extend touch area to 44×44px without changing visual size */
+  padding: 0.375rem;
+  box-sizing: content-box;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -336,27 +350,29 @@ body {
   transition: opacity 0.2s, background 0.2s, transform 0.15s;
   box-shadow: 0 2px 10px rgba(0,0,0,0.22);
   -webkit-tap-highlight-color: transparent;
-  padding: 0;
-  padding-bottom: 2px; /* optical center for chevron */
+  padding-bottom: calc(0.375rem + 2px); /* optical centre for chevron */
 }
 .card-arrow:hover {
   background: #fff;
-  transform: translateY(-50%) scale(1.1);
+  transform: translateY(-50%) scale(1.08);
 }
-.card-arrow-prev { left: 0.55rem; }
-.card-arrow-next { right: 0.55rem; }
+.card-arrow-prev { left: 0.3rem; }
+.card-arrow-next { right: 0.3rem; }
 
 /* Show arrows on card hover (desktop) */
 .card-carousel:hover .card-arrow {
   opacity: 1;
 }
-/* Always show on touch devices */
+
+/* Touch devices: always visible, full 44px target */
 @media (hover: none) {
   .card-arrow {
-    opacity: 0.82;
-    width: 1.75rem;
-    height: 1.75rem;
-    font-size: 1.25rem;
+    opacity: 0.85;
+    /* Keep visual size at 2rem but pad to 44px touch target */
+    width: 2rem;
+    height: 2rem;
+    padding: 0.375rem;
+    font-size: 1.4rem;
   }
 }
 
@@ -373,13 +389,13 @@ body {
 /* ---- Dot indicators ---- */
 .card-dots {
   position: absolute;
-  bottom: 0.6rem;
+  bottom: 0.5rem;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: 0.3rem;
-  z-index: 20;
+  z-index: 25;         /* above arrows AND badges */
   pointer-events: none;
 }
 .card-dot {
@@ -393,6 +409,24 @@ body {
 .card-dot.active {
   background: #c8a951;
   transform: scale(1.4);
+}
+
+/* ---- Badge z-index + position override ----
+   Badges sit at z-15: above carousel images (z-0),
+   below arrows and dots (z-20/z-25).
+   On mobile (shorter 16:10 image) the bottom-11 badges
+   remain inside the image frame.                     */
+.card-carousel > .absolute {
+  z-index: 15 !important;
+}
+
+/* On xs/sm, the image is shorter (16:10). Nudge bottom badges
+   from bottom-11 (2.75rem) down to bottom-9 (2.25rem) so they
+   stay within the image area and clear the dots row.          */
+@media (max-width: 639px) {
+  .card-carousel > .absolute[class*="bottom-11"] {
+    bottom: 2.25rem !important;
+  }
 }
 
 /* ---- Video tour: gold border glow on hover ---- */
@@ -573,10 +607,10 @@ button.btn-loading {
     min-height: 52px;
   }
 
-  /* Amenity tag row tighter gap on mobile */
+  /* Amenity tag row — legible on mobile */
   .amenity-tag {
-    font-size: 0.6rem;
-    padding: 0.15rem 0.45rem;
+    font-size: 0.65rem;
+    padding: 0.18rem 0.5rem;
   }
 
   /* Calc result boxes: smaller padding on mobile */
