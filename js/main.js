@@ -589,8 +589,19 @@
 
       if (!track || total === 0) return;
 
-      /* Set track width so all slides sit side-by-side */
-      track.style.width = (total * 100) + '%';
+      /* Pixel-based sizing — avoids % resolving against inflated flex track */
+      var cw = 0;
+
+      function setSizes() {
+        var container = track.parentElement;
+        cw = container ? container.offsetWidth : carousel.offsetWidth;
+        if (cw === 0) return;
+        slides.forEach(function (s) {
+          s.style.width    = cw + 'px';
+          s.style.minWidth = cw + 'px';
+        });
+        track.style.width = (total * cw) + 'px';
+      }
 
       /* Mark last state on init */
       if (total <= 1) {
@@ -607,7 +618,7 @@
         current = idx;
 
         /* Translate track */
-        track.style.transform = 'translateX(-' + (idx * (100 / total)) + '%)';
+        track.style.transform = 'translateX(-' + (idx * cw) + 'px)';
 
         /* Update data-index for CSS arrow hiding */
         carousel.setAttribute('data-index', idx);
@@ -712,8 +723,35 @@
         });
       }
 
-      /* Init: set track to slide 0 without playing video yet */
+      /* Init: size slides in px, then navigate to slide 0 */
+      setSizes();
       goTo(0, true);
+    });
+
+    /* ---- Resize / orientation: recalculate all carousel sizes ---- */
+    var resizeTimer = null;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        carousels.forEach(function (carousel) {
+          var track   = carousel.querySelector('.card-slides');
+          var slides  = Array.prototype.slice.call(carousel.querySelectorAll('.card-slide'));
+          var total   = slides.length;
+          var current = parseInt(carousel.getAttribute('data-index') || '0', 10);
+          if (!track || total === 0) return;
+
+          var container = track.parentElement;
+          var cw = container ? container.offsetWidth : carousel.offsetWidth;
+          if (cw === 0) return;
+
+          slides.forEach(function (s) {
+            s.style.width    = cw + 'px';
+            s.style.minWidth = cw + 'px';
+          });
+          track.style.width     = (total * cw) + 'px';
+          track.style.transform = 'translateX(-' + (current * cw) + 'px)';
+        });
+      }, 150); /* 150ms debounce — smooth on orientation change */
     });
 
 

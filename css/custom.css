@@ -300,7 +300,8 @@ body {
 
 /* ---- Slide track ---- */
 .card-slide {
-  min-width: 100%;
+  flex: 0 0 auto; /* JS controls width — do not grow/shrink */
+  min-width: 0;   /* override flex-item default that prevents shrinking below content */
 }
 
 /* ---- Room label pill (bottom-centre of each slide) ---- */
