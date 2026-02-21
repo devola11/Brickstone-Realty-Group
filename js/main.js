@@ -565,55 +565,155 @@
 
 
     /* ================================================
-       VIDEO TOUR CARDS — hover to play, leave to pause
-       Uses IntersectionObserver to only load video when
-       card enters viewport (respects preload="none").
+       PROPERTY CARD CAROUSEL
+       - Arrow click navigation
+       - Dot indicator sync
+       - Touch/swipe left-right
+       - Keyboard arrow keys (when focused)
+       - Video slide: play when visible, pause on leave
+       - Lazy-loads off-screen carousels via IntersectionObserver
     ================================================ */
-    var cardVideos = Array.prototype.slice.call(document.querySelectorAll('.card-video'));
 
-    cardVideos.forEach(function (video) {
-      var card = video.closest('.property-card');
-      if (!card) return;
+    var carousels = Array.prototype.slice.call(document.querySelectorAll('.card-carousel'));
 
-      /* Load video source when card scrolls into view */
-      if ('IntersectionObserver' in window) {
+    carousels.forEach(function (carousel) {
+      var track    = carousel.querySelector('.card-slides');
+      var slides   = Array.prototype.slice.call(carousel.querySelectorAll('.card-slide'));
+      var dots     = Array.prototype.slice.call(carousel.querySelectorAll('.card-dot'));
+      var prevBtn  = carousel.querySelector('.card-arrow-prev');
+      var nextBtn  = carousel.querySelector('.card-arrow-next');
+      var total    = slides.length;
+      var current  = 0;
+      var startX   = 0;
+      var isDragging = false;
+
+      if (!track || total === 0) return;
+
+      /* Set track width so all slides sit side-by-side */
+      track.style.width = (total * 100) + '%';
+
+      /* Mark last state on init */
+      if (total <= 1) {
+        carousel.setAttribute('data-last', 'true');
+        if (prevBtn) prevBtn.style.display = 'none';
+        if (nextBtn) nextBtn.style.display = 'none';
+        return;
+      }
+
+      /* ---- Core go-to function ---- */
+      function goTo(idx, skipVideo) {
+        /* Clamp */
+        idx = Math.max(0, Math.min(total - 1, idx));
+        current = idx;
+
+        /* Translate track */
+        track.style.transform = 'translateX(-' + (idx * (100 / total)) + '%)';
+
+        /* Update data-index for CSS arrow hiding */
+        carousel.setAttribute('data-index', idx);
+        carousel.setAttribute('data-last', idx === total - 1 ? 'true' : 'false');
+
+        /* Sync dots */
+        dots.forEach(function (d, i) {
+          d.classList.toggle('active', i === idx);
+        });
+
+        /* Handle video on this slide */
+        if (!skipVideo) {
+          var activeSlide = slides[idx];
+          var video = activeSlide ? activeSlide.querySelector('.card-video') : null;
+          if (video) {
+            video.load();
+            var p = video.play();
+            if (p && typeof p.catch === 'function') {
+              p.catch(function () {});
+            }
+          }
+          /* Pause any video on non-active slides */
+          slides.forEach(function (slide, i) {
+            if (i !== idx) {
+              var v = slide.querySelector('.card-video');
+              if (v) { v.pause(); v.currentTime = 0; }
+            }
+          });
+        }
+      }
+
+      /* ---- Arrow buttons ---- */
+      if (prevBtn) {
+        prevBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          goTo(current - 1);
+        });
+      }
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          goTo(current + 1);
+        });
+      }
+
+      /* ---- Touch / swipe ---- */
+      carousel.addEventListener('touchstart', function (e) {
+        startX = e.touches[0].clientX;
+        isDragging = true;
+      }, { passive: true });
+
+      carousel.addEventListener('touchend', function (e) {
+        if (!isDragging) return;
+        isDragging = false;
+        var diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) {
+          goTo(diff > 0 ? current + 1 : current - 1);
+        }
+      }, { passive: true });
+
+      /* ---- Keyboard (when carousel or its children are focused) ---- */
+      carousel.setAttribute('tabindex', '0');
+      carousel.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+          e.preventDefault();
+          goTo(e.key === 'ArrowRight' ? current + 1 : current - 1);
+        }
+      });
+
+      /* ---- Lazy-load: buffer first-slide video when card enters viewport ---- */
+      var card = carousel.closest('.property-card');
+      var firstVideo = slides[0] ? slides[0].querySelector('.card-video') : null;
+
+      if (firstVideo && 'IntersectionObserver' in window) {
         var vidObserver = new IntersectionObserver(function (entries) {
           entries.forEach(function (entry) {
             if (entry.isIntersecting) {
-              /* Trigger browser to buffer first frames */
-              video.load();
+              firstVideo.load();
               vidObserver.unobserve(entry.target);
             }
           });
         }, { rootMargin: '200px 0px' });
-        vidObserver.observe(card);
+        vidObserver.observe(card || carousel);
       }
 
-      /* Play on hover */
-      card.addEventListener('mouseenter', function () {
-        var p = video.play();
-        if (p && typeof p.catch === 'function') {
-          p.catch(function () { /* autoplay blocked — poster still visible */ });
-        }
-      });
-
-      /* Pause & rewind on leave */
-      card.addEventListener('mouseleave', function () {
-        video.pause();
-        video.currentTime = 0;
-      });
-
-      /* Touch: toggle play/pause on tap */
-      card.addEventListener('touchstart', function () {
-        if (video.paused) {
-          var tp = video.play();
-          if (tp && typeof tp.catch === 'function') {
-            tp.catch(function () {});
+      /* ---- Hover: play video if slide 0 is a video, pause on leave ---- */
+      if (card) {
+        card.addEventListener('mouseenter', function () {
+          var video = slides[current] ? slides[current].querySelector('.card-video') : null;
+          if (video) {
+            var p = video.play();
+            if (p && typeof p.catch === 'function') {
+              p.catch(function () {});
+            }
           }
-        } else {
-          video.pause();
-        }
-      }, { passive: true });
+        });
+        card.addEventListener('mouseleave', function () {
+          slides.forEach(function (slide) {
+            var v = slide.querySelector('.card-video');
+            if (v) { v.pause(); v.currentTime = 0; }
+          });
+        });
+      }
+
+      /* Init: set track to slide 0 without playing video yet */
+      goTo(0, true);
     });
 
 
