@@ -1,4 +1,17 @@
 /* ============================================
+   CSS CUSTOM PROPERTIES — Theme tokens
+   ============================================ */
+:root {
+  --color-gold:       #C9A84C;
+  --color-gold-dark:  #c8a951;   /* used in lightbox dots */
+  --color-navy:       #0B1C2D;
+  --color-charcoal:   #1C2B3A;
+  --color-gray-text:  #6B7280;
+  --font-display:     'Playfair Display', Georgia, serif;
+  --font-body:        'Inter', system-ui, sans-serif;
+}
+
+/* ============================================
    BRICKSTONE REALTY GROUP — Custom Styles
    Mobile-first. Production-optimised.
    80% mobile users.

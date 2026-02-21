@@ -39,7 +39,6 @@
     var faqBtns     = Array.prototype.slice.call(document.querySelectorAll('.faq-btn'));
 
     if (!navbar || !menuToggle || !mobileMenu) {
-      console.warn('Brickstone: critical nav elements missing.');
       return;
     }
 
@@ -50,10 +49,10 @@
     var heroHeight    = heroSection ? heroSection.offsetHeight : 400;
 
     /* Recalculate heroHeight on resize (debounced) */
-    var resizeTimer;
+    var scrollResizeTimer;
     window.addEventListener('resize', function () {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(function () {
+      clearTimeout(scrollResizeTimer);
+      scrollResizeTimer = setTimeout(function () {
         heroHeight = heroSection ? heroSection.offsetHeight : 400;
       }, 150);
     }, { passive: true });
@@ -732,10 +731,10 @@
     });
 
     /* ---- Resize / orientation: recalculate all carousel sizes ---- */
-    var resizeTimer = null;
+    var carouselResizeTimer = null;
     window.addEventListener('resize', function () {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(function () {
+      clearTimeout(carouselResizeTimer);
+      carouselResizeTimer = setTimeout(function () {
         carousels.forEach(function (carousel) {
           var track   = carousel.querySelector('.card-slides');
           var slides  = Array.prototype.slice.call(carousel.querySelectorAll('.card-slide'));

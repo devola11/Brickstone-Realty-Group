@@ -22,6 +22,9 @@
     />
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#0B1C2D" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Brickstone" />
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://www.brickstonerealtygroups.com/" />
@@ -103,6 +106,8 @@
     <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
     <!-- Apple home screen icon -->
     <link rel="apple-touch-icon" href="images/favicon.svg" />
+    <!-- PWA Web App Manifest -->
+    <link rel="manifest" href="/site.webmanifest" />
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/custom.css" />
@@ -160,12 +165,21 @@
           "Staten Island, New York"
         ],
         "priceRange": "$1,500 - $6,500/month",
-        "sameAs": []
+        "sameAs": [
+          "https://www.facebook.com/share/1DjBthBiQH/",
+          "https://www.instagram.com/brick_stonerealtygroups"
+        ]
       }
     </script>
   </head>
 
   <body class="font-body text-text-primary bg-white antialiased">
+    <noscript>
+      <div style="background:#0B1C2D;color:#fff;text-align:center;padding:2rem 1rem;font-family:Georgia,serif;">
+        <strong>JavaScript is required</strong> to view property listings and photo carousels on this site.
+        Please enable JavaScript in your browser, then reload the page.
+      </div>
+    </noscript>
     <!-- Skip to main content — screen reader & keyboard accessibility -->
     <a
       href="#hero"
@@ -328,6 +342,8 @@
       </div>
     </nav>
 
+    <main id="main-content">
+
     <!-- ============================================
        HERO SECTION
        ============================================ -->
@@ -345,6 +361,8 @@
           class="w-full h-full object-cover object-center"
           loading="eager"
           fetchpriority="high"
+          width="1600"
+          height="1200"
         />
         <!-- Primary dark overlay — keeps text readable -->
         <div class="absolute inset-0 bg-navy/75"></div>
@@ -679,6 +697,8 @@
                 alt="New York City skyline — Brickstone Realty Group serves all 5 boroughs"
                 class="w-full h-full object-cover"
                 loading="lazy"
+                width="800"
+                height="1000"
               />
               <!-- Dark gradient overlay — bottom-up for text legibility -->
               <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/30 to-transparent"></div>
@@ -3255,6 +3275,8 @@
         </div>
       </div>
     </section>
+
+    </main><!-- /#main-content -->
 
     <!-- ============================================
        FOOTER

@@ -131,7 +131,7 @@ RewriteRule .* - [R=204,L]
 # -----------------------------------------------
 ErrorDocument 404 /404.html
 ErrorDocument 403 /404.html
-ErrorDocument 500 /404.html
+ErrorDocument 500 /500.html
 
 
 # -----------------------------------------------
@@ -227,7 +227,8 @@ Options -Indexes
   AddType image/webp            .webp
   AddType font/woff             .woff
   AddType font/woff2            .woff2
-  AddType application/javascript .js
+  AddType application/javascript      .js
+  AddType application/manifest+json   .webmanifest
 </IfModule>
 
 
