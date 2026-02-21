@@ -3479,6 +3479,26 @@
       </div>
     </div>
 
+    <!-- ==========================================
+         FULLSCREEN PHOTO LIGHTBOX
+         ========================================== -->
+    <div id="lb" class="lb-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Property photo viewer">
+      <div class="lb-topbar">
+        <span id="lb-title" class="lb-title"></span>
+        <button id="lb-close" class="lb-close" aria-label="Close photo viewer">&#x2715;</button>
+      </div>
+      <div class="lb-main">
+        <button id="lb-prev" class="lb-arrow lb-prev" aria-label="Previous photo">&#8249;</button>
+        <div id="lb-stage" class="lb-stage"></div>
+        <button id="lb-next" class="lb-arrow lb-next" aria-label="Next photo">&#8250;</button>
+      </div>
+      <div class="lb-footer">
+        <span id="lb-label" class="lb-label"></span>
+        <div id="lb-dots" class="lb-dots"></div>
+        <span id="lb-counter" class="lb-counter"></span>
+      </div>
+    </div>
+
     <!-- JavaScript — defer keeps it non-render-blocking -->
     <script src="js/main.js" defer></script>
   </body>

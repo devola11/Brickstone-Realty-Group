@@ -746,3 +746,186 @@ button.btn-loading {
   #result-rent:not(.hidden),
   #result-income:not(.hidden) { animation: none; }
 }
+
+
+/* ============================================
+   FULLSCREEN PHOTO LIGHTBOX
+   Opens on card image click — StreetEasy-style
+   ============================================ */
+
+.lb-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: rgba(0, 0, 0, 0.96);
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  /* step-end keeps it invisible while opacity fades out on close */
+  transition: opacity 0.25s ease, visibility 0s 0.25s;
+}
+.lb-overlay.lb-open {
+  opacity: 1;
+  visibility: visible;
+  /* 0s delay: immediately visible when opening */
+  transition: opacity 0.25s ease, visibility 0s;
+}
+
+/* ---- Top bar: property name + close button ---- */
+.lb-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem 0.5rem;
+  flex-shrink: 0;
+}
+.lb-title {
+  color: rgba(255, 255, 255, 0.75);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lb-close {
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+.lb-close:hover { background: rgba(255, 255, 255, 0.12); color: #fff; }
+
+/* ---- Main area: arrows + image stage ---- */
+.lb-main {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0 0.75rem;
+}
+.lb-stage {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.lb-stage img,
+.lb-stage video {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  border-radius: 3px;
+}
+
+/* ---- Navigation arrows ---- */
+.lb-arrow {
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+.lb-arrow:hover { background: rgba(255, 255, 255, 0.12); color: #fff; }
+.lb-arrow:disabled { opacity: 0.15; cursor: default; pointer-events: none; }
+
+/* ---- Footer: room label + dots + counter ---- */
+.lb-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1.25rem 1.25rem;
+  flex-shrink: 0;
+  gap: 1rem;
+}
+.lb-label {
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  min-width: 5rem;
+}
+.lb-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.lb-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.lb-dot.active {
+  background: #c8a951; /* gold */
+  transform: scale(1.45);
+}
+.lb-counter {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  min-width: 5rem;
+  text-align: right;
+}
+
+/* ---- Card slides: show pointer so user knows they're clickable ---- */
+.card-slide { cursor: pointer; }
+
+/* ---- Mobile: arrows overlaid on image sides ---- */
+@media (max-width: 639px) {
+  .lb-topbar { padding: 0.75rem 1rem 0.35rem; }
+  .lb-title  { font-size: 0.8rem; }
+  .lb-main   { gap: 0; padding: 0; position: relative; }
+  .lb-arrow  {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    border: none;
+    background: rgba(0, 0, 0, 0.45);
+  }
+  .lb-arrow:hover { background: rgba(0, 0, 0, 0.65); }
+  .lb-prev { left: 0.5rem; }
+  .lb-next { right: 0.5rem; }
+  .lb-footer { padding: 0.4rem 0.75rem 1rem; gap: 0.5rem; }
+  .lb-label, .lb-counter { font-size: 0.62rem; min-width: 3.5rem; }
+}
+
+/* ---- Reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  .lb-overlay { transition: none; }
+}
