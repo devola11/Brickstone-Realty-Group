@@ -129,8 +129,8 @@ body {
 }
 
 .mobile-menu-panel.open {
-  max-height: 90svh;   /* viewport-relative so it never overflows on short screens */
-  max-height: 90vh;    /* fallback for browsers without svh */
+  max-height: 90vh;    /* fallback for browsers without svh support */
+  max-height: 90svh;   /* preferred: small-viewport-height unit (iOS, Android) */
   overflow-y: auto;    /* scroll if content taller than viewport (e.g. iPhone SE) */
   opacity: 1;
   pointer-events: auto;
