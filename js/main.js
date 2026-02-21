@@ -595,7 +595,10 @@
       function setSizes() {
         var container = track.parentElement;
         cw = container ? container.offsetWidth : carousel.offsetWidth;
-        if (cw === 0) return;
+        if (cw === 0) {
+          requestAnimationFrame(setSizes); /* retry once layout is painted */
+          return;
+        }
         slides.forEach(function (s) {
           s.style.width    = cw + 'px';
           s.style.minWidth = cw + 'px';
@@ -742,7 +745,20 @@
 
           var container = track.parentElement;
           var cw = container ? container.offsetWidth : carousel.offsetWidth;
-          if (cw === 0) return;
+          if (cw === 0) {
+            /* Orientation change may briefly report 0 — retry next frame */
+            requestAnimationFrame(function () {
+              var cw2 = container ? container.offsetWidth : carousel.offsetWidth;
+              if (cw2 === 0) return;
+              slides.forEach(function (s) {
+                s.style.width    = cw2 + 'px';
+                s.style.minWidth = cw2 + 'px';
+              });
+              track.style.width     = (total * cw2) + 'px';
+              track.style.transform = 'translateX(-' + (current * cw2) + 'px)';
+            });
+            return;
+          }
 
           slides.forEach(function (s) {
             s.style.width    = cw + 'px';
