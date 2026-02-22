@@ -8,3 +8,17 @@ desktop.ini
 *.swp
 *.swo
 .vscode/
+
+# Node
+node_modules/
+package-lock.json
+
+# Dev / build scripts (not part of the site)
+serve.js
+reassign-images.js
+convert-png-to-jpg.js
+convert-images.ps1
+test-server.ps1
+
+# Claude Code
+.claude/
