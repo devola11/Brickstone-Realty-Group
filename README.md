@@ -71,7 +71,7 @@ The site is fully **FARE Act (2025) compliant** — tenants are never charged br
 | Layer         | Technology                               |
 | ------------- | ---------------------------------------- |
 | Markup        | HTML5 (semantic)                         |
-| Styling       | Tailwind CSS (CDN)                       |
+| Styling       | Tailwind CSS (purged & minified build)   |
 | Interactivity | Vanilla JavaScript                       |
 | Images        | Locally hosted JPGs (optimised)          |
 | Fonts         | Google Fonts (Inter / Playfair Display)  |

@@ -63,15 +63,16 @@
       content="https://www.brickstonerealtygroups.com/images/favicon.svg"
     />
 
+    <!-- Preload hero image — LCP element, served locally -->
+    <link rel="preload" as="image" href="images/Hero-image.jpg" fetchpriority="high" />
+
     <!-- DNS Prefetch for external resources -->
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-    <link rel="dns-prefetch" href="https://images.unsplash.com" />
 
-    <!-- Preconnect: fonts + hero image CDN -->
+    <!-- Preconnect: fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
 
     <!-- Google Fonts — async (non-render-blocking), reduced to 4 variants -->
     <link
@@ -349,9 +350,9 @@
       >
         <!-- Background — NYC skyline photo with layered dark overlays -->
         <div class="absolute inset-0 bg-navy">
-          <!-- Real NYC photo (Empire State / Midtown skyline at dusk) -->
+          <!-- Hero — local NYC skyline photo (Empire State Building at dusk) -->
           <img
-            src="https://images.unsplash.com/photo-1499092346302-b8d7a16b4d36?w=1600&q=75&auto=format&fit=crop"
+            src="images/Hero-image.jpg"
             alt=""
             aria-hidden="true"
             class="w-full h-full object-cover object-center"
