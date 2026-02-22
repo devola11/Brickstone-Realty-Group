@@ -19,6 +19,8 @@ reassign-images.js
 convert-png-to-jpg.js
 convert-images.ps1
 test-server.ps1
+compress-images.js
+css/input.css
 
 # Claude Code
 .claude/
