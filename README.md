@@ -20,20 +20,20 @@ The site is fully **FARE Act (2025) compliant** — tenants are never charged br
 
 ## Featured Listings
 
-| Property | Borough | Type | Size | Highlights |
-|---|---|---|---|---|
-| Harlem 1-Bedroom | Manhattan | 1 Bed / 1 Bath | 650 sqft | Renovated, Pet-Friendly, Near Subway |
-| Bed-Stuy 2-Bedroom | Brooklyn | 2 Beds / 1 Bath | 900 sqft | Brownstone, Laundry In-Bldg, Hardwood Floors |
-| Astoria Studio | Queens | Studio / 1 Bath | 450 sqft | Near Subway, Dishwasher, Exposed Brick |
-| Riverdale 3-Bedroom | The Bronx | 3 Beds / 2 Baths | 1,100 sqft | Doorman, Parking Incl., Near Schools |
-| Crown Heights 2-Bed | Brooklyn | 2 Beds / 1 Bath | 850 sqft | Heat Included, Tree-Lined Block, Near Subway |
-| Washington Heights 1-Bed | Manhattan | 1 Bed / 1 Bath | 680 sqft | Renovated, Near Subway, Near Park |
-| Jackson Heights 2-Bedroom | Queens | 2 Beds / 1 Bath | — | Near Subway, Roosevelt Ave Access |
-| St. George 1-Bedroom | Staten Island | 1 Bed / 1 Bath | — | Richmond Terrace Location |
-| Fordham 2-Bedroom | The Bronx | 2 Beds / 1 Bath | — | Grand Concourse, Near Fordham University |
-| Tottenville Studio | Staten Island | Studio / 1 Bath | — | Amboy Rd, Quiet Neighborhood |
-| Inwood 1-Bedroom | Manhattan | 1 Bed / 1 Bath | — | High Ceilings, Near Inwood Hill Park, A/1 Trains |
-| Flushing 3-Bedroom | Queens | 3 Beds / 2 Baths | — | Main St & Roosevelt Ave, Vibrant Community |
+| Property                  | Borough       | Type             | Size       | Highlights                                       |
+| ------------------------- | ------------- | ---------------- | ---------- | ------------------------------------------------ |
+| Harlem 1-Bedroom          | Manhattan     | 1 Bed / 1 Bath   | 650 sqft   | Renovated, Pet-Friendly, Near Subway             |
+| Bed-Stuy 2-Bedroom        | Brooklyn      | 2 Beds / 1 Bath  | 900 sqft   | Brownstone, Laundry In-Bldg, Hardwood Floors     |
+| Astoria Studio            | Queens        | Studio / 1 Bath  | 450 sqft   | Near Subway, Dishwasher, Exposed Brick           |
+| Riverdale 3-Bedroom       | The Bronx     | 3 Beds / 2 Baths | 1,100 sqft | Doorman, Parking Incl., Near Schools             |
+| Crown Heights 2-Bed       | Brooklyn      | 2 Beds / 1 Bath  | 850 sqft   | Heat Included, Tree-Lined Block, Near Subway     |
+| Washington Heights 1-Bed  | Manhattan     | 1 Bed / 1 Bath   | 680 sqft   | Renovated, Near Subway, Near Park                |
+| Jackson Heights 2-Bedroom | Queens        | 2 Beds / 1 Bath  | —          | Near Subway, Roosevelt Ave Access                |
+| St. George 1-Bedroom      | Staten Island | 1 Bed / 1 Bath   | —          | Richmond Terrace Location                        |
+| Fordham 2-Bedroom         | The Bronx     | 2 Beds / 1 Bath  | —          | Grand Concourse, Near Fordham University         |
+| Tottenville Studio        | Staten Island | Studio / 1 Bath  | —          | Amboy Rd, Quiet Neighborhood                     |
+| Inwood 1-Bedroom          | Manhattan     | 1 Bed / 1 Bath   | —          | High Ceilings, Near Inwood Hill Park, A/1 Trains |
+| Flushing 3-Bedroom        | Queens        | 3 Beds / 2 Baths | —          | Main St & Roosevelt Ave, Vibrant Community       |
 
 **Rent range: $1,500 – $6,500 / month**
 
@@ -56,28 +56,28 @@ The site is fully **FARE Act (2025) compliant** — tenants are never charged br
 
 ## Neighborhoods Served
 
-| Borough | Neighborhoods |
-|---|---|
-| **Manhattan** | Harlem · Washington Heights · Inwood · Upper East Side |
-| **Brooklyn** | Bed-Stuy · Crown Heights · Flatbush · East New York |
-| **Queens** | Astoria · Jamaica · Flushing · Jackson Heights |
-| **The Bronx** | Riverdale · Fordham · Mott Haven · Co-op City |
-| **Staten Island** | St. George · Stapleton · Tottenville · New Brighton |
+| Borough           | Neighborhoods                                          |
+| ----------------- | ------------------------------------------------------ |
+| **Manhattan**     | Harlem · Washington Heights · Inwood · Upper East Side |
+| **Brooklyn**      | Bed-Stuy · Crown Heights · Flatbush · East New York    |
+| **Queens**        | Astoria · Jamaica · Flushing · Jackson Heights         |
+| **The Bronx**     | Riverdale · Fordham · Mott Haven · Co-op City          |
+| **Staten Island** | St. George · Stapleton · Tottenville · New Brighton    |
 
 ---
 
 ## Tech Stack
 
-| Layer | Technology |
-|---|---|
-| Markup | HTML5 (semantic) |
-| Styling | Tailwind CSS (CDN) |
-| Interactivity | Vanilla JavaScript |
-| Images | Locally hosted JPGs (optimised) |
-| Fonts | Google Fonts (Inter / Playfair Display) |
-| SEO | Open Graph, Twitter Card, JSON-LD Schema |
-| PWA | Web App Manifest + offline fallback |
-| Hosting | Static (no server required) |
+| Layer         | Technology                               |
+| ------------- | ---------------------------------------- |
+| Markup        | HTML5 (semantic)                         |
+| Styling       | Tailwind CSS (CDN)                       |
+| Interactivity | Vanilla JavaScript                       |
+| Images        | Locally hosted JPGs (optimised)          |
+| Fonts         | Google Fonts (Inter / Playfair Display)  |
+| SEO           | Open Graph, Twitter Card, JSON-LD Schema |
+| PWA           | Web App Manifest + offline fallback      |
+| Hosting       | Static (no server required)              |
 
 ---
 
@@ -123,4 +123,4 @@ Brickstone-Realty-Group/
 📧 info@brickstonerealtygroups.com
 🌐 [brickstonerealtygroups.com](https://www.brickstonerealtygroups.com)
 
-> *Tenant-first rentals across every NYC borough. No hidden fees. No surprises.*
+> _Tenant-first rentals across every NYC borough. No hidden fees. No surprises._
