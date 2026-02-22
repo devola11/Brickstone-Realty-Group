@@ -63,9 +63,6 @@
       content="https://www.brickstonerealtygroups.com/images/favicon.svg"
     />
 
-    <!-- Preload hero image — LCP element, served locally -->
-    <link rel="preload" as="image" href="images/Hero-image.jpg" fetchpriority="high" />
-
     <!-- DNS Prefetch for external resources -->
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
@@ -350,17 +347,7 @@
       >
         <!-- Background — NYC skyline photo with layered dark overlays -->
         <div class="absolute inset-0 bg-navy">
-          <!-- Hero — local NYC skyline photo (Empire State Building at dusk) -->
-          <img
-            src="images/Hero-image.jpg"
-            alt=""
-            aria-hidden="true"
-            class="w-full h-full object-cover object-center"
-            loading="eager"
-            fetchpriority="high"
-            width="1600"
-            height="1200"
-          />
+          <!-- Hero — clean navy background (no distracting image) -->
           <!-- Primary dark overlay — keeps text readable -->
           <div class="absolute inset-0 bg-navy/75"></div>
           <!-- Subtle gradient — bottom darker for trust badges legibility -->
@@ -719,7 +706,7 @@
               <!-- Main photo -->
               <div class="aspect-[4/5] relative overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1534430480872-3498386e7856?w=800&q=80&auto=format&fit=crop"
+                  src="images/company-image.jpg"
                   alt="New York City skyline — Brickstone Realty Group serves all 5 boroughs"
                   class="w-full h-full object-cover"
                   loading="lazy"
