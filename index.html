@@ -92,9 +92,8 @@
       />
     </noscript>
 
-    <!-- Tailwind CSS — purged & minified build (43 KB), loaded async (non-render-blocking) -->
-    <link rel="preload" as="style" href="css/tailwind.min.css" onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript><link rel="stylesheet" href="css/tailwind.min.css" /></noscript>
+    <!-- Tailwind CSS — purged & minified build (43 KB) — sync required: async load destroys CLS/LCP -->
+    <link rel="stylesheet" href="css/tailwind.min.css" />
 
     <!-- Favicon — SVG scales perfectly at all sizes (16px tab → 512px homescreen) -->
     <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />

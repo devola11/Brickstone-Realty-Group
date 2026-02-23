@@ -48,10 +48,10 @@
     var scrollTicking = false;
 
     /* Pre-cache all layout values that onScroll reads — eliminates forced reflow on every frame.
-       Previously, navbar.offsetHeight + sec.offsetTop/offsetHeight were read inside onScroll()
-       after classList.toggle (a write), causing layout thrashing on each rAF tick. */
-    var navH           = navbar      ? navbar.offsetHeight      : 64;
-    var heroHeight     = heroSection ? heroSection.offsetHeight : 400;
+       Initialise with safe fallbacks; cacheLayout() on window.load fills accurate values before
+       any user scroll. Avoids layout reads during the DOMContentLoaded task (saves TBT). */
+    var navH       = 64;   /* fallback; real value set by cacheLayout() on window.load */
+    var heroHeight = 400;  /* fallback; real value set by cacheLayout() on window.load */
     var sectionTops    = [];
     var sectionBottoms = [];
 
@@ -768,10 +768,11 @@
 
     /* Batched init: prevent one long task → zero TBT from carousel setup.
        First 2 carousels are in/near the mobile viewport — init immediately.
-       Remaining 46 are deferred in batches of 5, yielding via setTimeout(0)
-       so no single task exceeds the 50 ms TBT threshold. */
+       Remaining carousels are deferred one-per-task via setTimeout(0).
+       BATCH_SIZE=1: each task = 1 carousel ≈ 20 ms on 4× throttle < 50 ms TBT threshold.
+       With BATCH_SIZE=5 each task was ~100 ms → contributed ~50 ms TBT × 9 batches = ~450 ms. */
     var BATCH_IMMEDIATE = 2;
-    var BATCH_SIZE = 5;
+    var BATCH_SIZE = 1;
     var batchIdx = BATCH_IMMEDIATE;
 
     for (var ci = 0; ci < Math.min(BATCH_IMMEDIATE, carousels.length); ci++) {
