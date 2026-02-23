@@ -11,6 +11,16 @@
   'use strict';
 
   /* ================================================
+     YIELD HELPER — breaks long tasks for TBT
+  ================================================ */
+  function yieldToMain() {
+    if ('scheduler' in window && 'yield' in window.scheduler) {
+      return window.scheduler.yield();
+    }
+    return new Promise(function (resolve) { setTimeout(resolve, 0); });
+  }
+
+  /* ================================================
      WAIT FOR DOM
   ================================================ */
   if (document.readyState === 'loading') {
@@ -19,7 +29,7 @@
     init();
   }
 
-  function init() {
+  async function init() {
 
     /* ---- Cache all elements once ---- */
     var navbar      = document.getElementById('navbar');
@@ -110,6 +120,7 @@
 
     onScroll(); /* run once on load */
 
+    await yieldToMain(); /* ---- yield 1: critical nav/scroll done ---- */
 
     /* ================================================
        MOBILE MENU
@@ -576,6 +587,7 @@
     if (calcInputRent)  calcInputRent.addEventListener('input', calcFromRent);
     if (calcInputIncome) calcInputIncome.addEventListener('input', calcFromIncome);
 
+    await yieldToMain(); /* ---- yield 2: interactive features done ---- */
 
     /* ================================================
        PROPERTY CARD CAROUSEL
@@ -821,6 +833,8 @@
       }, 150); /* 150ms debounce — smooth on orientation change */
     });
 
+
+    await yieldToMain(); /* ---- yield 3: carousels done, lightbox non-critical ---- */
 
     /* ================================================
        FULLSCREEN PHOTO LIGHTBOX
