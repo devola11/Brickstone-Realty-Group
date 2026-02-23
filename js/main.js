@@ -46,32 +46,46 @@
        SCROLL HANDLER — rAF throttled, no DOM queries
     ================================================ */
     var scrollTicking = false;
-    var heroHeight    = heroSection ? heroSection.offsetHeight : 400;
 
-    /* Recalculate heroHeight on resize (debounced) */
+    /* Pre-cache all layout values that onScroll reads — eliminates forced reflow on every frame.
+       Previously, navbar.offsetHeight + sec.offsetTop/offsetHeight were read inside onScroll()
+       after classList.toggle (a write), causing layout thrashing on each rAF tick. */
+    var navH           = navbar      ? navbar.offsetHeight      : 64;
+    var heroHeight     = heroSection ? heroSection.offsetHeight : 400;
+    var sectionTops    = [];
+    var sectionBottoms = [];
+
+    function cacheLayout() {
+      navH       = navbar      ? navbar.offsetHeight      : 64;
+      heroHeight = heroSection ? heroSection.offsetHeight : 400;
+      sectionTops    = sections.map(function (s) { return s.offsetTop; });
+      sectionBottoms = sections.map(function (s) { return s.offsetTop + s.offsetHeight; });
+    }
+
+    /* Build initial cache once layout is stable */
+    if (document.readyState === 'complete') {
+      cacheLayout();
+    } else {
+      window.addEventListener('load', cacheLayout, { once: true, passive: true });
+    }
+
     var scrollResizeTimer;
     window.addEventListener('resize', function () {
       clearTimeout(scrollResizeTimer);
-      scrollResizeTimer = setTimeout(function () {
-        heroHeight = heroSection ? heroSection.offsetHeight : 400;
-      }, 150);
+      scrollResizeTimer = setTimeout(cacheLayout, 150);
     }, { passive: true });
 
     function onScroll() {
       var y         = window.scrollY;
-      var navH      = navbar.offsetHeight;
-      var scrollPos = y + navH + 80;
+      var scrollPos = y + navH + 80;  /* navH pre-cached — zero layout reads */
 
       /* 1. Navbar scrolled state */
       navbar.classList.toggle('scrolled', y > 80);
 
-      /* 2. Active nav link highlight */
-      for (var s = 0; s < sections.length; s++) {
-        var sec    = sections[s];
-        var top    = sec.offsetTop;
-        var bottom = top + sec.offsetHeight;
-        var id     = sec.id;
-        var active = (scrollPos >= top && scrollPos < bottom);
+      /* 2. Active nav link highlight — all reads from cache, no reflow */
+      for (var s = 0; s < sectionTops.length; s++) {
+        var active = (scrollPos >= sectionTops[s] && scrollPos < sectionBottoms[s]);
+        var id     = sections[s].id;
         for (var l = 0; l < navLinks.length; l++) {
           if (navLinks[l].getAttribute('href') === '#' + id) {
             navLinks[l].style.color = active ? '#C9A84C' : '';
