@@ -213,8 +213,11 @@ $boroughDisplay = $borough !== ''
     ? ucwords(str_replace('-', ' ', $borough))
     : 'No preference';
 
-// Subject — literal UTF-8 em dash (single-quoted strings do not process \xNN escapes)
-$subject = 'New Rental Enquiry from ' . $name . ' — Brickstone Realty Group';
+// Subject — RFC 2047 MIME-encoded so non-ASCII names and the em dash survive all MTAs
+$subject = mb_encode_mimeheader(
+    'New Rental Enquiry from ' . $name . ' — Brickstone Realty Group',
+    'UTF-8', 'B', "\r\n"
+);
 
 $sep  = str_repeat('-', 59);
 $body = implode("\n", [
@@ -243,7 +246,10 @@ $body = implode("\n", [
 // RFC 2822 headers — \r\n only, no X-Mailer (prevents PHP version fingerprinting)
 $headers = implode("\r\n", [
     'From: Brickstone Realty Website <' . $fromEmail . '>',
-    'Reply-To: ' . $name . ' <' . $email . '>',
+    'Reply-To: ' . (preg_match('/[^\x20-\x7E]/', $name)
+        ? mb_encode_mimeheader($name, 'UTF-8', 'B', "\r\n")              // MIME-encode UTF-8 names
+        : '"' . str_replace(['"', '\\'], ['\\"', '\\\\'], $name) . '"'  // RFC 2822 quoted-string
+    ) . ' <' . $email . '>',
     'MIME-Version: 1.0',
     'Content-Type: text/plain; charset=UTF-8',
     'Content-Transfer-Encoding: 8bit',
@@ -251,7 +257,9 @@ $headers = implode("\r\n", [
     '', // trailing \r\n required by RFC
 ]);
 
-$sent = mail($recipientEmail, $subject, $body, $headers);
+// 5th param sets the envelope sender (-f) for SPF alignment and bounce handling.
+// $fromEmail is a hardcoded constant — no injection risk.
+$sent = mail($recipientEmail, $subject, $body, $headers, '-f ' . $fromEmail);
 
 if ($sent) {
     send_response(200, true);

@@ -82,8 +82,10 @@ RewriteRule .* - [F,L]
 
   # Content Security Policy
   # script-src: no unsafe-inline — all JS is in external files (js/main.js)
-  # style-src:  unsafe-inline kept — Tailwind CDN injects inline styles at runtime
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' https://cdn.tailwindcss.com; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
+  # style-src:  unsafe-inline kept — critical CSS is inlined in <style> block
+  # Tailwind is self-hosted (css/tailwind.min.css); Google Fonts CSS removed —
+  # all fonts preloaded directly from fonts.gstatic.com via inline @font-face
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
 
   # Remove server fingerprinting headers
   Header always unset Server
