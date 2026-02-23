@@ -20,6 +20,8 @@ convert-png-to-jpg.js
 convert-images.ps1
 test-server.ps1
 compress-images.js
+audit.js
+delete-unused.js
 css/input.css
 
 # Claude Code
