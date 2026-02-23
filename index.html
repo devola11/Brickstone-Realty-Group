@@ -22,6 +22,7 @@
     />
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#0B1C2D" />
+    <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta
       name="apple-mobile-web-app-status-bar-style"
@@ -69,6 +70,9 @@
     <!-- Preconnect: fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Preload LCP font: Playfair Display Regular Latin — eliminates 2nd round-trip in font chain -->
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="https://fonts.gstatic.com/s/playfairdisplay/v40/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvXDXbtM.woff2" />
 
     <!-- Google Fonts — async (non-render-blocking), reduced to 4 variants -->
     <link
@@ -94,8 +98,22 @@
     <!-- PWA Web App Manifest -->
     <link rel="manifest" href="/site.webmanifest" />
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/custom.css" />
+    <!-- Critical CSS — above-fold nav + hamburger + mobile-menu (inlined, ~500 B) -->
+    <style>
+      *,*::before,*::after{box-sizing:border-box}
+      body{overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+      #navbar{background:transparent;will-change:transform;contain:layout style}
+      #navbar.scrolled{background:rgba(11,28,45,.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 24px rgba(0,0,0,.18)}
+      .hamburger-line{background-color:rgba(255,255,255,.95);display:block;transform-origin:center center;will-change:transform,opacity;transition:transform .32s cubic-bezier(.4,0,.2,1),opacity .22s ease}
+      #menu-toggle.active .hamburger-line:nth-child(1){transform:translateY(7px) rotate(45deg)}
+      #menu-toggle.active .hamburger-line:nth-child(2){opacity:0;transform:scaleX(0)}
+      #menu-toggle.active .hamburger-line:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+      .mobile-menu{position:fixed;inset:0;z-index:40;background:rgba(11,28,45,.98);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);display:flex;flex-direction:column;align-items:center;justify-content:center;transform:translateX(100%);transition:transform .45s cubic-bezier(.4,0,.2,1)}
+      .mobile-menu.open{transform:translateX(0)}
+    </style>
+    <!-- Custom CSS — minified build (14 KB), loaded async (non-render-blocking) -->
+    <link rel="preload" as="style" href="css/custom.min.css" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="css/custom.min.css" /></noscript>
 
     <!-- Schema.org — LocalBusiness structured data for Google rich results -->
     <script type="application/ld+json">
@@ -838,10 +856,6 @@
                         preload="none"
                         aria-label="Harlem 1-Bedroom video tour"
                       >
-                        <source
-                          src="https://videos.pexels.com/video-files/3696499/3696499-uhd_2560_1440_25fps.mp4"
-                          type="video/mp4"
-                        />
                       </video>
                       <span class="card-slide-label">▶ Tour</span>
                     </div>
@@ -850,10 +864,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image66.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image66.jpg"
                         alt="Harlem 1-Bed — living room"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Living Room</span>
                     </div>
@@ -862,10 +878,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image61.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image61.jpg"
                         alt="Harlem 1-Bed — bedroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Bedroom</span>
                     </div>
@@ -874,10 +892,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image63.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image63.jpg"
                         alt="Harlem 1-Bed — kitchen"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Kitchen</span>
                     </div>
@@ -886,10 +906,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image-toilet1.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image-toilet1.jpg"
                         alt="Harlem 1-Bed — bathroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Bathroom</span>
                     </div>
@@ -1076,10 +1098,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image72.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image72.jpg"
                         alt="Bed-Stuy 2-Bed — living room"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Living Room</span>
                     </div>
@@ -1087,10 +1111,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image65.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image65.jpg"
                         alt="Bed-Stuy 2-Bed — bedroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Bedroom</span>
                     </div>
@@ -1098,10 +1124,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image64.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image64.jpg"
                         alt="Bed-Stuy 2-Bed — kitchen"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Kitchen</span>
                     </div>
@@ -1109,10 +1137,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image-toilet2.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image-toilet2.jpg"
                         alt="Bed-Stuy 2-Bed — bathroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Bathroom</span>
                     </div>
@@ -1276,10 +1306,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image76.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image76.jpg"
                         alt="Astoria Studio — living space"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Living Space</span>
                     </div>
@@ -1287,10 +1319,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image69.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image69.jpg"
                         alt="Astoria Studio — sleeping area"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Sleeping Area</span>
                     </div>
@@ -1298,10 +1332,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image67.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image67.jpg"
                         alt="Astoria Studio — kitchen"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Kitchen</span>
                     </div>
@@ -1309,10 +1345,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image-toilet3.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image-toilet3.jpg"
                         alt="Astoria Studio — bathroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Bathroom</span>
                     </div>
@@ -1457,10 +1495,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image-copy-7.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image-copy-7.jpg"
                         alt="Riverdale 3-Bed — living room"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Living Room</span>
                     </div>
@@ -1468,10 +1508,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image73.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image73.jpg"
                         alt="Riverdale 3-Bed — master bedroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Master Bedroom</span>
                     </div>
@@ -1479,10 +1521,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image68.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image68.jpg"
                         alt="Riverdale 3-Bed — kitchen"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Kitchen</span>
                     </div>
@@ -1490,10 +1534,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image-toilet4.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image-toilet4.jpg"
                         alt="Riverdale 3-Bed — bathroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Bathroom</span>
                     </div>
@@ -1638,10 +1684,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image31.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image31.jpg"
                         alt="Crown Heights 2-Bed — living room"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Living Room</span>
                     </div>
@@ -1649,10 +1697,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image74.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image74.jpg"
                         alt="Crown Heights 2-Bed — bedroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Bedroom</span>
                     </div>
@@ -1660,10 +1710,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image70.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image70.jpg"
                         alt="Crown Heights 2-Bed — kitchen"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Kitchen</span>
                     </div>
@@ -1671,10 +1723,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image-toilet5.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image-toilet5.jpg"
                         alt="Crown Heights 2-Bed — bathroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Bathroom</span>
                     </div>
@@ -1819,10 +1873,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image32.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image32.jpg"
                         alt="Washington Heights 1-Bed — living room"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Living Room</span>
                     </div>
@@ -1830,10 +1886,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image75.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image75.jpg"
                         alt="Washington Heights 1-Bed — bedroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Bedroom</span>
                     </div>
@@ -1841,10 +1899,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image71.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image71.jpg"
                         alt="Washington Heights 1-Bed — kitchen"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Kitchen</span>
                     </div>
@@ -1852,10 +1912,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image-toilet6.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image-toilet6.jpg"
                         alt="Washington Heights 1-Bed — bathroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Bathroom</span>
                     </div>
@@ -2000,10 +2062,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image20.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image20.jpg"
                         alt="Jackson Heights 2-Bed — living room"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Living Room</span>
                     </div>
@@ -2011,10 +2075,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image79.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image79.jpg"
                         alt="Jackson Heights 2-Bed — bedroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Bedroom</span>
                     </div>
@@ -2022,10 +2088,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image78.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image78.jpg"
                         alt="Jackson Heights 2-Bed — kitchen"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Kitchen</span>
                     </div>
@@ -2033,10 +2101,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image-toilet7.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image-toilet7.jpg"
                         alt="Jackson Heights 2-Bed — bathroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Bathroom</span>
                     </div>
@@ -2182,10 +2252,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image-copy-8.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image-copy-8.jpg"
                         alt="St. George 1-Bed — living room"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Living Room</span>
                     </div>
@@ -2193,10 +2265,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image80.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image80.jpg"
                         alt="St. George 1-Bed — bedroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Bedroom</span>
                     </div>
@@ -2204,10 +2278,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image47.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image47.jpg"
                         alt="St. George 1-Bed — kitchen"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Kitchen</span>
                     </div>
@@ -2215,10 +2291,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image-toilet8.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image-toilet8.jpg"
                         alt="St. George 1-Bed — bathroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Bathroom</span>
                     </div>
@@ -2364,10 +2442,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image-copy-15.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image-copy-15.jpg"
                         alt="Fordham 2-Bed — living room"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Living Room</span>
                     </div>
@@ -2375,10 +2455,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image-copy-2.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image-copy-2.jpg"
                         alt="Fordham 2-Bed — bedroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Bedroom</span>
                     </div>
@@ -2386,10 +2468,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image49.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image49.jpg"
                         alt="Fordham 2-Bed — kitchen"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Kitchen</span>
                     </div>
@@ -2397,10 +2481,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image-toilet9.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image-toilet9.jpg"
                         alt="Fordham 2-Bed — bathroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Bathroom</span>
                     </div>
@@ -2545,10 +2631,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image50.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image50.jpg"
                         alt="Tottenville Studio — living space"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Living Space</span>
                     </div>
@@ -2556,10 +2644,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image48.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image48.jpg"
                         alt="Tottenville Studio — sleeping area"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Sleeping Area</span>
                     </div>
@@ -2567,10 +2657,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image54.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image54.jpg"
                         alt="Tottenville Studio — kitchen"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Kitchen</span>
                     </div>
@@ -2578,10 +2670,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image-toilet10.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image-toilet10.jpg"
                         alt="Tottenville Studio — bathroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Bathroom</span>
                     </div>
@@ -2746,10 +2840,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image39.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image39.jpg"
                         alt="Inwood 1-Bed — living room"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Living Room</span>
                     </div>
@@ -2757,10 +2853,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image-copy-3.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image-copy-3.jpg"
                         alt="Inwood 1-Bed — bedroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Bedroom</span>
                     </div>
@@ -2768,10 +2866,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image57.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image57.jpg"
                         alt="Inwood 1-Bed — kitchen"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Kitchen</span>
                     </div>
@@ -2779,10 +2879,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image-toilet11.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image-toilet11.jpg"
                         alt="Inwood 1-Bed — bathroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Bathroom</span>
                     </div>
@@ -2947,10 +3049,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image55.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image55.jpg"
                         alt="Flushing 3-Bed — living room"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Living Room</span>
                     </div>
@@ -2958,10 +3062,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image15.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image15.jpg"
                         alt="Flushing 3-Bed — master bedroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Master Bedroom</span>
                     </div>
@@ -2969,10 +3075,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image-copy-4.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image-copy-4.jpg"
                         alt="Flushing 3-Bed — kitchen"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Kitchen</span>
                     </div>
@@ -2980,10 +3088,12 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="images/image-toilet12.jpg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/image-toilet12.jpg"
                         alt="Flushing 3-Bed — bathroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        width="800"
+                        height="600"
                       />
                       <span class="card-slide-label">Bathroom</span>
                     </div>
@@ -4838,7 +4948,7 @@
       </div>
     </div>
 
-    <!-- JavaScript — defer keeps it non-render-blocking -->
-    <script src="js/main.js" defer></script>
+    <!-- JavaScript — minified build (17 KB), defer keeps it non-render-blocking -->
+    <script src="js/main.min.js" defer></script>
   </body>
 </html>

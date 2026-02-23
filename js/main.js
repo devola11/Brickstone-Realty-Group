@@ -575,7 +575,29 @@
 
     var carousels = Array.prototype.slice.call(document.querySelectorAll('.card-carousel'));
 
-    carousels.forEach(function (carousel) {
+    /* ---- Shared image lazy-loader: one observer for all property cards ---- */
+    if ('IntersectionObserver' in window) {
+      var sharedImgObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.querySelectorAll('img[data-src]').forEach(function (img) {
+            img.src = img.getAttribute('data-src');
+            img.removeAttribute('data-src');
+          });
+          sharedImgObserver.unobserve(entry.target);
+        });
+      }, { rootMargin: '400px 0px' });
+      document.querySelectorAll('.property-card').forEach(function (card) {
+        sharedImgObserver.observe(card);
+      });
+    } else {
+      document.querySelectorAll('img[data-src]').forEach(function (img) {
+        img.src = img.getAttribute('data-src');
+        img.removeAttribute('data-src');
+      });
+    }
+
+    function initCarousel(carousel) {
       var track    = carousel.querySelector('.card-slides');
       var slides   = Array.prototype.slice.call(carousel.querySelectorAll('.card-slide'));
       var dots     = Array.prototype.slice.call(carousel.querySelectorAll('.card-dot'));
@@ -728,7 +750,29 @@
       /* Init: size slides in px, then navigate to slide 0 */
       setSizes();
       goTo(0, true);
-    });
+    }
+
+    /* Batched init: prevent one long task → zero TBT from carousel setup.
+       First 2 carousels are in/near the mobile viewport — init immediately.
+       Remaining 46 are deferred in batches of 5, yielding via setTimeout(0)
+       so no single task exceeds the 50 ms TBT threshold. */
+    var BATCH_IMMEDIATE = 2;
+    var BATCH_SIZE = 5;
+    var batchIdx = BATCH_IMMEDIATE;
+
+    for (var ci = 0; ci < Math.min(BATCH_IMMEDIATE, carousels.length); ci++) {
+      initCarousel(carousels[ci]);
+    }
+
+    if (carousels.length > BATCH_IMMEDIATE) {
+      (function scheduleBatch() {
+        setTimeout(function () {
+          var end = Math.min(batchIdx + BATCH_SIZE, carousels.length);
+          while (batchIdx < end) { initCarousel(carousels[batchIdx++]); }
+          if (batchIdx < carousels.length) scheduleBatch();
+        }, 0);
+      })();
+    }
 
     /* ---- Resize / orientation: recalculate all carousel sizes ---- */
     var carouselResizeTimer = null;
@@ -924,8 +968,8 @@
               alt: ''
             };
           }
-          /* Upgrade Unsplash w= param for sharper lightbox image */
-          var rawSrc = slImg ? slImg.src : '';
+          /* Use data-src if image hasn't loaded yet (deferred lazy load) */
+          var rawSrc = slImg ? (slImg.getAttribute('data-src') || slImg.src) : '';
           var hqSrc  = rawSrc.replace(/([?&]w=)\d+/, function (m, p) {
             return p + '1600';
           });
