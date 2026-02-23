@@ -38,7 +38,7 @@ header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
 header('Pragma: no-cache');
 
 /* ── Helper: flush buffer, set status, echo JSON, exit ──────── */
-function send_response(int $code, bool $success, string $error = ''): never {
+function send_response(int $code, bool $success, string $error = ''): void {
     ob_end_clean();
     http_response_code($code);
     $payload = ['success' => $success];

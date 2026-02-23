@@ -22,7 +22,7 @@ header('Pragma: no-cache');
 header('X-Content-Type-Options: nosniff');
 
 /* ── Helper ──────────────────────────────────────────────── */
-function send_token_response(int $code, array $payload): never {
+function send_token_response(int $code, array $payload): void {
     ob_end_clean();
     http_response_code($code);
     echo json_encode($payload, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE);
