@@ -589,29 +589,7 @@
 
     var carousels = Array.prototype.slice.call(document.querySelectorAll('.card-carousel'));
 
-    /* ---- Shared image lazy-loader: one observer for all property cards ---- */
-    if ('IntersectionObserver' in window) {
-      var sharedImgObserver = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          entry.target.querySelectorAll('img[data-src]').forEach(function (img) {
-            img.src = img.getAttribute('data-src');
-            img.removeAttribute('data-src');
-          });
-          sharedImgObserver.unobserve(entry.target);
-        });
-      }, { rootMargin: '400px 0px' });
-      document.querySelectorAll('.property-card').forEach(function (card) {
-        sharedImgObserver.observe(card);
-      });
-    } else {
-      document.querySelectorAll('img[data-src]').forEach(function (img) {
-        img.src = img.getAttribute('data-src');
-        img.removeAttribute('data-src');
-      });
-    }
-
-    function initCarousel(carousel) {
+    function initCarousel(carousel, preWidth) {
       var track    = carousel.querySelector('.card-slides');
       var slides   = Array.prototype.slice.call(carousel.querySelectorAll('.card-slide'));
       var dots     = Array.prototype.slice.call(carousel.querySelectorAll('.card-dot'));
@@ -625,11 +603,13 @@
       if (!track || total === 0) return;
 
       /* Pixel-based sizing — avoids % resolving against inflated flex track */
-      var cw = 0;
+      var cw = (preWidth > 0) ? preWidth : 0;
 
       function setSizes() {
-        var container = track.parentElement;
-        cw = container ? container.offsetWidth : carousel.offsetWidth;
+        if (cw === 0) {
+          var container = track.parentElement;
+          cw = container ? container.offsetWidth : carousel.offsetWidth;
+        }
         if (cw === 0) {
           requestAnimationFrame(setSizes); /* retry once layout is painted */
           return;
@@ -734,6 +714,10 @@
         var vidObserver = new IntersectionObserver(function (entries) {
           entries.forEach(function (entry) {
             if (entry.isIntersecting) {
+              if (firstVideo.dataset.poster) {
+                firstVideo.setAttribute('poster', firstVideo.dataset.poster);
+                delete firstVideo.dataset.poster;
+              }
               firstVideo.load();
               vidObserver.unobserve(entry.target);
             }
@@ -775,15 +759,23 @@
     var BATCH_SIZE = 1;
     var batchIdx = BATCH_IMMEDIATE;
 
+    /* Pre-batch all offsetWidth reads — single layout flush for all carousels.
+       Reading all widths before any writes = 1 forced reflow instead of 48. */
+    var preWidths = carousels.map(function (c) {
+      var t = c.querySelector('.card-slides');
+      var cont = t ? t.parentElement : null;
+      return cont ? (cont.offsetWidth || 0) : (c.offsetWidth || 0);
+    });
+
     for (var ci = 0; ci < Math.min(BATCH_IMMEDIATE, carousels.length); ci++) {
-      initCarousel(carousels[ci]);
+      initCarousel(carousels[ci], preWidths[ci]);
     }
 
     if (carousels.length > BATCH_IMMEDIATE) {
       (function scheduleBatch() {
         setTimeout(function () {
           var end = Math.min(batchIdx + BATCH_SIZE, carousels.length);
-          while (batchIdx < end) { initCarousel(carousels[batchIdx++]); }
+          while (batchIdx < end) { initCarousel(carousels[batchIdx], preWidths[batchIdx]); batchIdx++; }
           if (batchIdx < carousels.length) scheduleBatch();
         }, 0);
       })();
