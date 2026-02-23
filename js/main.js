@@ -750,35 +750,36 @@
       goTo(0, true);
     }
 
-    /* Batched init: prevent one long task → zero TBT from carousel setup.
-       First 2 carousels are in/near the mobile viewport — init immediately.
-       Remaining carousels are deferred one-per-task via setTimeout(0).
-       BATCH_SIZE=1: each task = 1 carousel ≈ 20 ms on 4× throttle < 50 ms TBT threshold.
-       With BATCH_SIZE=5 each task was ~100 ms → contributed ~50 ms TBT × 9 batches = ~450 ms. */
+    /* Carousel init strategy:
+       - First 2: initialized immediately (above fold on mobile).
+       - Remaining 46: deferred via IntersectionObserver — tasks only run
+         when user scrolls near each section → ZERO TBT during page load.
+       - rootMargin '200px 0px' starts init 200px before entering viewport. */
     var BATCH_IMMEDIATE = 2;
-    var BATCH_SIZE = 1;
-    var batchIdx = BATCH_IMMEDIATE;
-
-    /* Pre-batch all offsetWidth reads — single layout flush for all carousels.
-       Reading all widths before any writes = 1 forced reflow instead of 48. */
-    var preWidths = carousels.map(function (c) {
-      var t = c.querySelector('.card-slides');
-      var cont = t ? t.parentElement : null;
-      return cont ? (cont.offsetWidth || 0) : (c.offsetWidth || 0);
-    });
 
     for (var ci = 0; ci < Math.min(BATCH_IMMEDIATE, carousels.length); ci++) {
-      initCarousel(carousels[ci], preWidths[ci]);
+      var _t = carousels[ci].querySelector('.card-slides');
+      var _c = _t ? _t.parentElement : null;
+      var _w = _c ? (_c.offsetWidth || 0) : (carousels[ci].offsetWidth || 0);
+      initCarousel(carousels[ci], _w);
     }
 
-    if (carousels.length > BATCH_IMMEDIATE) {
-      (function scheduleBatch() {
-        setTimeout(function () {
-          var end = Math.min(batchIdx + BATCH_SIZE, carousels.length);
-          while (batchIdx < end) { initCarousel(carousels[batchIdx], preWidths[batchIdx]); batchIdx++; }
-          if (batchIdx < carousels.length) scheduleBatch();
-        }, 0);
-      })();
+    if (carousels.length > BATCH_IMMEDIATE && 'IntersectionObserver' in window) {
+      var carouselObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          initCarousel(entry.target, 0); /* 0 = read fresh offsetWidth on scroll (outside TBT window) */
+          carouselObserver.unobserve(entry.target);
+        });
+      }, { rootMargin: '200px 0px' });
+      for (var di = BATCH_IMMEDIATE; di < carousels.length; di++) {
+        carouselObserver.observe(carousels[di]);
+      }
+    } else if (carousels.length > BATCH_IMMEDIATE) {
+      /* Fallback for browsers without IntersectionObserver */
+      for (var fi = BATCH_IMMEDIATE; fi < carousels.length; fi++) {
+        initCarousel(carousels[fi], 0);
+      }
     }
 
     /* ---- Resize / orientation: recalculate all carousel sizes ---- */
