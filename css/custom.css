@@ -40,6 +40,13 @@ body {
   box-shadow: 0 1px 24px rgba(0,0,0,.18);
 }
 
+.nav-logo-text {
+  color: rgba(255,255,255,.9);
+  transition: color .25s ease;
+}
+/* When hovering the logo group, match the box colour flip (B goes gold→navy) */
+.group:hover .nav-logo-text { color: #0B1C2D; }
+
 .nav-link {
   color: rgba(255,255,255,.8);
   transition: color .25s ease;
