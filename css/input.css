@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+/* Scan these files for class usage */
+@source "../index.html";
+@source "../js/main.js";
+
+/* ============================================================
+   TAILWIND v4 THEME — mirrors the inline tailwind.config
+   from the old CDN script tag
+   ============================================================ */
+@theme {
+  /* Custom breakpoint: xs = 390px (iPhone 14 Pro+) */
+  --breakpoint-xs: 390px;
+
+  /* Brand colours */
+  --color-navy:         #0B1C2D;
+  --color-navy-light:   #112740;
+  --color-charcoal:     #1A1A2E;
+  --color-gold:         #C9A84C;
+  --color-gold-light:   #D4B96A;
+  --color-gold-dark:    #B8953A;
+  --color-cream:        #F8F7F4;
+  --color-text-primary: #2C2C2C;
+  --color-text-muted:   #6B7280;
+
+  /* Font families */
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body:    "Inter", system-ui, sans-serif;
+}
