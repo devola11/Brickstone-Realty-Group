@@ -116,8 +116,8 @@ body {
 }
 
 .mobile-menu-panel.open {
-  max-height: 90svh;   /* viewport-relative so it never overflows on short screens */
   max-height: 90vh;    /* fallback for browsers without svh */
+  max-height: 90svh;   /* viewport-relative (excl. browser chrome) on modern browsers */
   overflow-y: auto;    /* scroll if content taller than viewport (e.g. iPhone SE) */
   opacity: 1;
   pointer-events: auto;
@@ -430,8 +430,15 @@ button.btn-loading {
   /* Reduce hero section min-height so search bar is reachable
      without scrolling on short phones (iPhone SE = 568px viewport) */
   #hero {
-    min-height: 100svh;
-    min-height: 100vh;
+    min-height: 100vh;    /* fallback for browsers without svh */
+    min-height: 100svh;   /* excludes browser chrome bar on mobile */
+  }
+
+  /* Prevent iOS auto-zoom on focused inputs.
+     iOS Safari zooms in when font-size < 16px on any focused input.
+     This overrides Tailwind text-sm (14px) on all form controls. */
+  input, textarea, select {
+    font-size: 16px !important;
   }
 
   /* Card padding tighter on mobile */
