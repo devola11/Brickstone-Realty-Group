@@ -66,44 +66,25 @@
     <!-- DNS Prefetch for external resources -->
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com" />
 
-    <!-- Google Fonts — preconnect first, then load -->
+    <!-- Google Fonts — non-blocking load (eliminates render-blocking) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap"
+      />
+    </noscript>
 
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            screens: {
-              xs: "390px" /* iPhone 14 Pro and up — fills gap between 320px and sm:640px */,
-            },
-            colors: {
-              navy: "#0B1C2D",
-              "navy-light": "#112740",
-              charcoal: "#1A1A2E",
-              gold: "#C9A84C",
-              "gold-light": "#D4B96A",
-              "gold-dark": "#B8953A",
-              cream: "#F8F7F4",
-              "text-primary": "#2C2C2C",
-              "text-muted": "#6B7280",
-            },
-            fontFamily: {
-              display: ["Playfair Display", "Georgia", "serif"],
-              body: ["Inter", "system-ui", "sans-serif"],
-            },
-          },
-        },
-      };
-    </script>
+    <!-- Tailwind CSS — local purged build (replaces CDN, eliminates 3s render-block) -->
+    <link rel="stylesheet" href="css/tailwind.min.css" />
 
     <!-- Favicon — SVG scales perfectly at all sizes (16px tab → 512px homescreen) -->
     <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
@@ -430,6 +411,7 @@
             <div
               class="bg-white/10 backdrop-blur-sm border border-white/20 p-2 sm:p-3 rounded-none max-w-2xl lg:max-w-3xl xl:max-w-4xl mx-auto mb-6 sm:mb-8 flex flex-col sm:flex-row gap-2 sm:gap-3"
             >
+              <label for="borough-select" class="sr-only">Select borough</label>
               <select
                 id="borough-select"
                 class="w-full sm:flex-1 bg-white text-text-primary px-3 sm:px-4 py-2.5 sm:py-3 lg:py-4 text-sm lg:text-base font-medium focus:outline-none focus:ring-2 focus:ring-gold"
@@ -441,6 +423,7 @@
                 <option value="bronx">The Bronx</option>
                 <option value="staten-island">Staten Island</option>
               </select>
+              <label for="budget-select" class="sr-only">Select budget range</label>
               <select
                 id="budget-select"
                 class="w-full sm:flex-1 bg-white text-text-primary px-3 sm:px-4 py-2.5 sm:py-3 lg:py-4 text-sm lg:text-base font-medium focus:outline-none focus:ring-2 focus:ring-gold"
@@ -894,6 +877,7 @@
                           src="https://videos.pexels.com/video-files/3696499/3696499-uhd_2560_1440_25fps.mp4"
                           type="video/mp4"
                         />
+                        <track kind="captions" srclang="en" label="English" src="data:text/vtt;base64,V0VCVlRUCg==" default />
                       </video>
                       <span class="card-slide-label">▶ Tour</span>
                     </div>
@@ -1121,6 +1105,7 @@
                           src="https://videos.pexels.com/video-files/3209828/3209828-uhd_2560_1440_25fps.mp4"
                           type="video/mp4"
                         />
+                        <track kind="captions" srclang="en" label="English" src="data:text/vtt;base64,V0VCVlRUCg==" default />
                       </video>
                       <span class="card-slide-label">▶ Tour</span>
                     </div>
@@ -2791,6 +2776,7 @@
                           src="https://videos.pexels.com/video-files/4252370/4252370-uhd_2560_1440_25fps.mp4"
                           type="video/mp4"
                         />
+                        <track kind="captions" srclang="en" label="English" src="data:text/vtt;base64,V0VCVlRUCg==" default />
                       </video>
                       <span class="card-slide-label">▶ Tour</span>
                     </div>
@@ -4009,11 +3995,11 @@
                     </svg>
                   </div>
                   <div>
-                    <h4
+                    <h3
                       class="text-white text-sm sm:text-base font-semibold mb-1"
                     >
                       Visit Us
-                    </h4>
+                    </h3>
                     <p
                       class="text-white/50 text-sm lg:text-base leading-relaxed"
                     >
@@ -4041,11 +4027,11 @@
                     </svg>
                   </div>
                   <div>
-                    <h4
+                    <h3
                       class="text-white text-sm sm:text-base font-semibold mb-1"
                     >
                       Call Us
-                    </h4>
+                    </h3>
                     <a
                       href="tel:+16469608023"
                       class="text-white/50 text-sm hover:text-gold transition-colors duration-300"
@@ -4073,11 +4059,11 @@
                     </svg>
                   </div>
                   <div>
-                    <h4
+                    <h3
                       class="text-white text-sm sm:text-base font-semibold mb-1"
                     >
                       Email Us
-                    </h4>
+                    </h3>
                     <a
                       href="mailto:info@brickstonerealtygroups.com"
                       class="text-white/50 text-sm hover:text-gold transition-colors duration-300"
@@ -4105,11 +4091,11 @@
                     </svg>
                   </div>
                   <div>
-                    <h4
+                    <h3
                       class="text-white text-sm sm:text-base font-semibold mb-1"
                     >
                       Office Hours
-                    </h4>
+                    </h3>
                     <p
                       class="text-white/50 text-sm lg:text-base leading-relaxed"
                     >
