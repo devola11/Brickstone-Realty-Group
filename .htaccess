@@ -48,10 +48,9 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 # (NOT inside <FilesMatch>) to work on shared hosts.
 # -----------------------------------------------
 
-# Block handle-contact.php unless Referer is from our domain (www, non-www, or localhost)
+# Block handle-contact.php unless Referer is from our domain (www or non-www)
 RewriteCond %{REQUEST_URI} ^/handle-contact\.php$ [NC]
 RewriteCond %{HTTP_REFERER} !^https://(www\.)?brickstonerealtygroups\.com/ [NC]
-RewriteCond %{HTTP_REFERER} !^http://localhost/ [NC]
 RewriteRule .* - [F,L]
 
 # csrf-token.php is called by JS on page load — no Referer is sent at that point.
@@ -85,7 +84,7 @@ RewriteRule .* - [F,L]
   # style-src:  unsafe-inline kept — critical CSS is inlined in <style> block
   # Tailwind is self-hosted (css/tailwind.min.css); Google Fonts CSS removed —
   # all fonts preloaded directly from fonts.gstatic.com via inline @font-face
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; media-src 'self' https://videos.pexels.com; connect-src 'self'; frame-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
 
   # Remove server fingerprinting headers
   Header always unset Server
@@ -219,6 +218,12 @@ ErrorDocument 500 /500.html
 
 # Block directory browsing
 Options -Indexes
+
+# Block development-only scripts from public access
+<FilesMatch "^(serve|audit|compress-images|convert-png-to-jpg|reassign-images|delete-unused|convert-images|fix-php-ini|get-php|start-server|test-form|test-server)\.(js|ps1)$">
+  Order Allow,Deny
+  Deny from all
+</FilesMatch>
 
 
 # -----------------------------------------------

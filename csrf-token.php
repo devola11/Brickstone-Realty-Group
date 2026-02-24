@@ -31,7 +31,6 @@ function send_token_response(int $code, array $payload): void {
 
 define('TOKEN_ALLOWED_ORIGIN',     'https://www.brickstonerealtygroups.com');
 define('TOKEN_ALLOWED_ORIGIN_ALT', 'https://brickstonerealtygroups.com');
-define('TOKEN_ALLOWED_ORIGIN_DEV', 'http://localhost');  // local XAMPP testing only
 
 /* ── 1. Method guard ─────────────────────────────────────── */
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
@@ -45,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
    explicitly foreign origin is present. */
 $origin = rtrim((string) ($_SERVER['HTTP_ORIGIN'] ?? ''), '/');
 
-$allowedTokenOrigins = [TOKEN_ALLOWED_ORIGIN, TOKEN_ALLOWED_ORIGIN_ALT, TOKEN_ALLOWED_ORIGIN_DEV];
+$allowedTokenOrigins = [TOKEN_ALLOWED_ORIGIN, TOKEN_ALLOWED_ORIGIN_ALT];
 
 if ($origin !== '' && !in_array($origin, $allowedTokenOrigins, true)) {
     send_token_response(403, ['success' => false, 'error' => 'Forbidden.']);

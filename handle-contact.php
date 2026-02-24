@@ -54,7 +54,6 @@ function send_response(int $code, bool $success, string $error = ''): void {
    at the moment of submission, which may still be non-www mid-redirect. */
 define('CONTACT_ALLOWED_ORIGIN',     'https://www.brickstonerealtygroups.com');
 define('CONTACT_ALLOWED_ORIGIN_ALT', 'https://brickstonerealtygroups.com');
-define('CONTACT_ALLOWED_ORIGIN_DEV', 'http://localhost');  // local XAMPP testing only
 
 /* ════════════════════════════════════════════════════════════════
    2. METHOD GUARD
@@ -72,13 +71,12 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $origin  = rtrim((string) ($_SERVER['HTTP_ORIGIN']  ?? ''), '/');
 $referer = (string) ($_SERVER['HTTP_REFERER'] ?? '');
 
-$allowedOrigins = [CONTACT_ALLOWED_ORIGIN, CONTACT_ALLOWED_ORIGIN_ALT, CONTACT_ALLOWED_ORIGIN_DEV];
+$allowedOrigins = [CONTACT_ALLOWED_ORIGIN, CONTACT_ALLOWED_ORIGIN_ALT];
 
 $originOk  = in_array($origin, $allowedOrigins, true);
 $refererOk = (
     strncmp($referer, CONTACT_ALLOWED_ORIGIN,     strlen(CONTACT_ALLOWED_ORIGIN))     === 0 ||
-    strncmp($referer, CONTACT_ALLOWED_ORIGIN_ALT, strlen(CONTACT_ALLOWED_ORIGIN_ALT)) === 0 ||
-    strncmp($referer, CONTACT_ALLOWED_ORIGIN_DEV, strlen(CONTACT_ALLOWED_ORIGIN_DEV)) === 0
+    strncmp($referer, CONTACT_ALLOWED_ORIGIN_ALT, strlen(CONTACT_ALLOWED_ORIGIN_ALT)) === 0
 );
 
 if (!$originOk && !$refererOk) {
