@@ -215,7 +215,7 @@ $boroughDisplay = $borough !== ''
     ? ucwords(str_replace('-', ' ', $borough))
     : 'No preference';
 
-// Subject — use UTF-8 encoded em dash (no escaped hex in double quotes)
+// Subject — literal UTF-8 em dash (single-quoted strings do not process \xNN escapes)
 $subject = 'New Rental Enquiry from ' . $name . ' — Brickstone Realty Group';
 
 $sep  = str_repeat('-', 59);

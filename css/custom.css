@@ -1,4 +1,17 @@
 /* ============================================
+   CSS CUSTOM PROPERTIES — Theme tokens
+   ============================================ */
+:root {
+  --color-gold:       #C9A84C;
+  --color-gold-dark:  #c8a951;   /* used in lightbox dots */
+  --color-navy:       #0B1C2D;
+  --color-charcoal:   #1C2B3A;
+  --color-gray-text:  #6B7280;
+  --font-display:     'Playfair Display', Georgia, serif;
+  --font-body:        'Inter', system-ui, sans-serif;
+}
+
+/* ============================================
    BRICKSTONE REALTY GROUP — Custom Styles
    Mobile-first. Production-optimised.
    80% mobile users.
@@ -123,8 +136,8 @@ body {
 }
 
 .mobile-menu-panel.open {
-  max-height: 90vh;    /* fallback for browsers without svh */
-  max-height: 90svh;   /* viewport-relative (excl. browser chrome) on modern browsers */
+  max-height: 90vh;    /* fallback for browsers without svh support */
+  max-height: 90svh;   /* preferred: small-viewport-height unit (iOS, Android) */
   overflow-y: auto;    /* scroll if content taller than viewport (e.g. iPhone SE) */
   opacity: 1;
   pointer-events: auto;
@@ -211,7 +224,7 @@ body {
   background: transparent;
   cursor: pointer;
   transition: border-color .2s ease, background .2s ease, color .2s ease;
-  min-height: 40px;   /* tap target */
+  min-height: 44px;   /* WCAG 2.5.5 tap target */
 }
 .filter-btn:hover,
 .filter-btn.active {
@@ -268,6 +281,15 @@ body {
   transform: scale(1);
 }
 
+/* Card description: clamp to 3 lines so grid rows stay level
+   Prevents tall cards from throwing off the 2-col / 3-col grid. */
+.property-card p.leading-relaxed {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 /* ----------------------------------------
    CALCULATOR RESULT PANELS
    Fade in instead of abrupt show/hide
@@ -281,10 +303,168 @@ body {
   animation: calcReveal .35s ease-out both;
 }
 
-/* ----------------------------------------
-   CARD IMAGE SHIMMER (placeholder state)
-   Subtle pulse while no real image is loaded
-   ---------------------------------------- */
+/* ============================================
+   PROPERTY CARD CAROUSEL
+   StreetEasy-style: arrows + dots + swipe
+   ============================================ */
+
+/* Images & video always fill their slide */
+.property-card img,
+.property-card video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---- Responsive aspect ratio override ----
+   HTML uses aspect-[4/3] (Tailwind) for md+ screens.
+   On xs/sm mobile we shorten to 16:10 so the image
+   doesn't consume too much viewport height.            */
+@media (max-width: 639px) {
+  .card-carousel .aspect-\[4\/3\] {
+    aspect-ratio: 16 / 10;
+  }
+}
+
+/* ---- Slide track ---- */
+.card-slide {
+  flex: 0 0 auto; /* JS controls width — do not grow/shrink */
+  min-width: 0;   /* override flex-item default that prevents shrinking below content */
+}
+
+/* ---- Room label pill (bottom-centre of each slide) ---- */
+.card-slide-label {
+  position: absolute;
+  bottom: 2.2rem;      /* dots at 0.5rem + dot height ~0.5rem + gap 1.2rem */
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(10, 26, 50, 0.72);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.22rem 0.75rem;
+  white-space: nowrap;
+  pointer-events: none;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 2px;
+  transition: opacity 0.25s;
+}
+
+/* ---- Navigation arrows ---- */
+.card-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  /* Visual size */
+  width: 2rem;
+  height: 2rem;
+  /* Extend touch area to 44×44px without changing visual size */
+  padding: 0.375rem;
+  box-sizing: content-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.92);
+  color: #0a1a32;
+  font-size: 1.5rem;
+  line-height: 1;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s, background 0.2s, transform 0.15s;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.22);
+  -webkit-tap-highlight-color: transparent;
+  padding-bottom: calc(0.375rem + 2px); /* optical centre for chevron */
+}
+.card-arrow:hover {
+  background: #fff;
+  transform: translateY(-50%) scale(1.08);
+}
+.card-arrow-prev { left: 0.3rem; }
+.card-arrow-next { right: 0.3rem; }
+
+/* Show arrows on card hover (desktop) */
+.card-carousel:hover .card-arrow {
+  opacity: 1;
+}
+
+/* Touch devices: always visible, full 44px target */
+@media (hover: none) {
+  .card-arrow {
+    opacity: 0.85;
+    /* Keep visual size at 2rem but pad to 44px touch target */
+    width: 2rem;
+    height: 2rem;
+    padding: 0.375rem;
+    font-size: 1.4rem;
+  }
+}
+
+/* Hide prev on first slide, next on last */
+.card-carousel[data-index="0"] .card-arrow-prev {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+.card-carousel[data-last="true"] .card-arrow-next {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+/* ---- Dot indicators ---- */
+.card-dots {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  z-index: 25;         /* above arrows AND badges */
+  pointer-events: none;
+}
+.card-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.45);
+  transition: background 0.25s, transform 0.25s;
+  display: block;
+}
+.card-dot.active {
+  background: #c8a951;
+  transform: scale(1.4);
+}
+
+/* ---- Badge z-index + position override ----
+   Badges sit at z-15: above carousel images (z-0),
+   below arrows and dots (z-20/z-25).
+   On mobile (shorter 16:10 image) the bottom-11 badges
+   remain inside the image frame.                     */
+.card-carousel > .absolute {
+  z-index: 15 !important;
+}
+
+/* On xs/sm, the image is shorter (16:10). Nudge bottom badges
+   from bottom-11 (2.75rem) down to bottom-9 (2.25rem) so they
+   stay within the image area and clear the dots row.          */
+@media (max-width: 639px) {
+  .card-carousel > .absolute[class*="bottom-11"] {
+    bottom: 2.25rem !important;
+  }
+}
+
+/* ---- Video tour: gold border glow on hover ---- */
+.property-card:has(.card-video):hover {
+  box-shadow: 0 0 0 2px #c8a951, 0 20px 40px -8px rgba(10,26,50,0.18);
+}
+
+/* Fallback shimmer (kept for safety) */
 @keyframes shimmer {
   0%   { background-position: -400px 0; }
   100% { background-position: 400px 0; }
@@ -455,7 +635,7 @@ button.btn-loading {
 
   /* Filter btn min tap target */
   .filter-btn {
-    min-height: 40px;
+    min-height: 44px;   /* WCAG 2.5.5 */
     min-width: 44px;
   }
 
@@ -464,10 +644,10 @@ button.btn-loading {
     min-height: 52px;
   }
 
-  /* Amenity tag row tighter gap on mobile */
+  /* Amenity tag row — legible on mobile */
   .amenity-tag {
-    font-size: 0.6rem;
-    padding: 0.15rem 0.45rem;
+    font-size: 0.7rem;    /* raised from 0.65rem for readability */
+    padding: 0.18rem 0.5rem;
   }
 
   /* Calc result boxes: smaller padding on mobile */
@@ -594,7 +774,194 @@ button.btn-loading {
   .mobile-cta-bar      { transform: none; }
   .hamburger-line      { transition: none; }
   .card-img-placeholder { animation: none; }
+  .card-video          { transition: none !important; }
+  .card-slides         { transition: none !important; }
+  .card-arrow          { transition: none !important; }
+  .card-dot            { transition: none !important; }
   .btn-spinner         { animation: none; }
   #result-rent:not(.hidden),
   #result-income:not(.hidden) { animation: none; }
+}
+
+
+/* ============================================
+   FULLSCREEN PHOTO LIGHTBOX
+   Opens on card image click — StreetEasy-style
+   ============================================ */
+
+.lb-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: rgba(0, 0, 0, 0.96);
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  /* step-end keeps it invisible while opacity fades out on close */
+  transition: opacity 0.25s ease, visibility 0s 0.25s;
+}
+.lb-overlay.lb-open {
+  opacity: 1;
+  visibility: visible;
+  /* 0s delay: immediately visible when opening */
+  transition: opacity 0.25s ease, visibility 0s;
+}
+
+/* ---- Top bar: property name + close button ---- */
+.lb-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem 0.5rem;
+  flex-shrink: 0;
+}
+.lb-title {
+  color: rgba(255, 255, 255, 0.75);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lb-close {
+  flex-shrink: 0;
+  width: 2.75rem;   /* 44px — WCAG 2.5.5 touch target */
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+.lb-close:hover { background: rgba(255, 255, 255, 0.12); color: #fff; }
+
+/* ---- Main area: arrows + image stage ---- */
+.lb-main {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0 0.75rem;
+}
+.lb-stage {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.lb-stage img,
+.lb-stage video {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  border-radius: 3px;
+}
+
+/* ---- Navigation arrows ---- */
+.lb-arrow {
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+.lb-arrow:hover { background: rgba(255, 255, 255, 0.12); color: #fff; }
+.lb-arrow:disabled { opacity: 0.15; cursor: default; pointer-events: none; }
+
+/* ---- Footer: room label + dots + counter ---- */
+.lb-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1.25rem 1.25rem;
+  flex-shrink: 0;
+  gap: 1rem;
+}
+.lb-label {
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  min-width: 5rem;
+}
+.lb-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.lb-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.lb-dot.active {
+  background: #c8a951; /* gold */
+  transform: scale(1.45);
+}
+.lb-counter {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  min-width: 5rem;
+  text-align: right;
+}
+
+/* ---- Card slides: show pointer so user knows they're clickable ---- */
+.card-slide { cursor: pointer; }
+
+/* ---- Mobile: arrows overlaid on image sides ---- */
+@media (max-width: 639px) {
+  .lb-topbar { padding: 0.75rem 1rem 0.35rem; }
+  .lb-title  { font-size: 0.8rem; }
+  .lb-main   { gap: 0; padding: 0; position: relative; }
+  .lb-arrow  {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    border: none;
+    background: rgba(0, 0, 0, 0.45);
+  }
+  .lb-arrow:hover { background: rgba(0, 0, 0, 0.65); }
+  .lb-prev { left: 0.5rem; }
+  .lb-next { right: 0.5rem; }
+  .lb-footer { padding: 0.4rem 0.75rem 1rem; gap: 0.5rem; }
+  .lb-label, .lb-counter { font-size: 0.72rem; min-width: 3.5rem; }
+}
+
+/* ---- Reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  .lb-overlay { transition: none; }
 }

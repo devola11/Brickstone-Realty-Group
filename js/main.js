@@ -39,7 +39,6 @@
     var faqBtns     = Array.prototype.slice.call(document.querySelectorAll('.faq-btn'));
 
     if (!navbar || !menuToggle || !mobileMenu) {
-      console.warn('Brickstone: critical nav elements missing.');
       return;
     }
 
@@ -50,10 +49,10 @@
     var heroHeight    = heroSection ? heroSection.offsetHeight : 400;
 
     /* Recalculate heroHeight on resize (debounced) */
-    var resizeTimer;
+    var scrollResizeTimer;
     window.addEventListener('resize', function () {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(function () {
+      clearTimeout(scrollResizeTimer);
+      scrollResizeTimer = setTimeout(function () {
         heroHeight = heroSection ? heroSection.offsetHeight : 400;
       }, 150);
     }, { passive: true });
@@ -562,6 +561,403 @@
     if (calcTabIncome)  calcTabIncome.addEventListener('click', function () { calcSwitch('income'); });
     if (calcInputRent)  calcInputRent.addEventListener('input', calcFromRent);
     if (calcInputIncome) calcInputIncome.addEventListener('input', calcFromIncome);
+
+
+    /* ================================================
+       PROPERTY CARD CAROUSEL
+       - Arrow click navigation
+       - Dot indicator sync
+       - Touch/swipe left-right
+       - Keyboard arrow keys (when focused)
+       - Video slide: play when visible, pause on leave
+       - Lazy-loads off-screen carousels via IntersectionObserver
+    ================================================ */
+
+    var carousels = Array.prototype.slice.call(document.querySelectorAll('.card-carousel'));
+
+    carousels.forEach(function (carousel) {
+      var track    = carousel.querySelector('.card-slides');
+      var slides   = Array.prototype.slice.call(carousel.querySelectorAll('.card-slide'));
+      var dots     = Array.prototype.slice.call(carousel.querySelectorAll('.card-dot'));
+      var prevBtn  = carousel.querySelector('.card-arrow-prev');
+      var nextBtn  = carousel.querySelector('.card-arrow-next');
+      var total    = slides.length;
+      var current  = 0;
+      var startX   = 0;
+      var isDragging = false;
+
+      if (!track || total === 0) return;
+
+      /* Pixel-based sizing — avoids % resolving against inflated flex track */
+      var cw = 0;
+
+      function setSizes() {
+        var container = track.parentElement;
+        cw = container ? container.offsetWidth : carousel.offsetWidth;
+        if (cw === 0) {
+          requestAnimationFrame(setSizes); /* retry once layout is painted */
+          return;
+        }
+        slides.forEach(function (s) {
+          s.style.width    = cw + 'px';
+          s.style.minWidth = cw + 'px';
+        });
+        track.style.width = (total * cw) + 'px';
+      }
+
+      /* Mark last state on init */
+      if (total <= 1) {
+        carousel.setAttribute('data-last', 'true');
+        if (prevBtn) prevBtn.style.display = 'none';
+        if (nextBtn) nextBtn.style.display = 'none';
+        return;
+      }
+
+      /* ---- Core go-to function ---- */
+      function goTo(idx, skipVideo) {
+        /* Clamp */
+        idx = Math.max(0, Math.min(total - 1, idx));
+        current = idx;
+
+        /* Translate track */
+        track.style.transform = 'translateX(-' + (idx * cw) + 'px)';
+
+        /* Update data-index for CSS arrow hiding */
+        carousel.setAttribute('data-index', idx);
+        carousel.setAttribute('data-last', idx === total - 1 ? 'true' : 'false');
+
+        /* Sync dots */
+        dots.forEach(function (d, i) {
+          d.classList.toggle('active', i === idx);
+        });
+
+        /* Handle video on this slide */
+        if (!skipVideo) {
+          var activeSlide = slides[idx];
+          var video = activeSlide ? activeSlide.querySelector('.card-video') : null;
+          if (video) {
+            video.load();
+            var p = video.play();
+            if (p && typeof p.catch === 'function') {
+              p.catch(function () {});
+            }
+          }
+          /* Pause any video on non-active slides */
+          slides.forEach(function (slide, i) {
+            if (i !== idx) {
+              var v = slide.querySelector('.card-video');
+              if (v) { v.pause(); v.currentTime = 0; }
+            }
+          });
+        }
+      }
+
+      /* ---- Arrow buttons ---- */
+      if (prevBtn) {
+        prevBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          goTo(current - 1);
+        });
+      }
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          goTo(current + 1);
+        });
+      }
+
+      /* ---- Touch / swipe ---- */
+      carousel.addEventListener('touchstart', function (e) {
+        startX = e.touches[0].clientX;
+        isDragging = true;
+      }, { passive: true });
+
+      carousel.addEventListener('touchend', function (e) {
+        if (!isDragging) return;
+        isDragging = false;
+        var diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) {
+          goTo(diff > 0 ? current + 1 : current - 1);
+        }
+      }, { passive: true });
+
+      /* ---- Keyboard (when carousel or its children are focused) ---- */
+      carousel.setAttribute('tabindex', '0');
+      carousel.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+          e.preventDefault();
+          goTo(e.key === 'ArrowRight' ? current + 1 : current - 1);
+        }
+      });
+
+      /* ---- Lazy-load: buffer first-slide video when card enters viewport ---- */
+      var card = carousel.closest('.property-card');
+      var firstVideo = slides[0] ? slides[0].querySelector('.card-video') : null;
+
+      if (firstVideo && 'IntersectionObserver' in window) {
+        var vidObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              firstVideo.load();
+              vidObserver.unobserve(entry.target);
+            }
+          });
+        }, { rootMargin: '200px 0px' });
+        vidObserver.observe(card || carousel);
+      }
+
+      /* ---- Hover: play video if slide 0 is a video, pause on leave ---- */
+      if (card) {
+        card.addEventListener('mouseenter', function () {
+          var video = slides[current] ? slides[current].querySelector('.card-video') : null;
+          if (video) {
+            var p = video.play();
+            if (p && typeof p.catch === 'function') {
+              p.catch(function () {});
+            }
+          }
+        });
+        card.addEventListener('mouseleave', function () {
+          slides.forEach(function (slide) {
+            var v = slide.querySelector('.card-video');
+            if (v) { v.pause(); v.currentTime = 0; }
+          });
+        });
+      }
+
+      /* Init: size slides in px, then navigate to slide 0 */
+      setSizes();
+      goTo(0, true);
+    });
+
+    /* ---- Resize / orientation: recalculate all carousel sizes ---- */
+    var carouselResizeTimer = null;
+    window.addEventListener('resize', function () {
+      clearTimeout(carouselResizeTimer);
+      carouselResizeTimer = setTimeout(function () {
+        carousels.forEach(function (carousel) {
+          var track   = carousel.querySelector('.card-slides');
+          var slides  = Array.prototype.slice.call(carousel.querySelectorAll('.card-slide'));
+          var total   = slides.length;
+          var current = parseInt(carousel.getAttribute('data-index') || '0', 10);
+          if (!track || total === 0) return;
+
+          var container = track.parentElement;
+          var cw = container ? container.offsetWidth : carousel.offsetWidth;
+          if (cw === 0) {
+            /* Orientation change may briefly report 0 — retry next frame */
+            requestAnimationFrame(function () {
+              var cw2 = container ? container.offsetWidth : carousel.offsetWidth;
+              if (cw2 === 0) return;
+              slides.forEach(function (s) {
+                s.style.width    = cw2 + 'px';
+                s.style.minWidth = cw2 + 'px';
+              });
+              track.style.width     = (total * cw2) + 'px';
+              track.style.transform = 'translateX(-' + (current * cw2) + 'px)';
+            });
+            return;
+          }
+
+          slides.forEach(function (s) {
+            s.style.width    = cw + 'px';
+            s.style.minWidth = cw + 'px';
+          });
+          track.style.width     = (total * cw) + 'px';
+          track.style.transform = 'translateX(-' + (current * cw) + 'px)';
+        });
+      }, 150); /* 150ms debounce — smooth on orientation change */
+    });
+
+
+    /* ================================================
+       FULLSCREEN PHOTO LIGHTBOX
+       Opens on card slide click — StreetEasy-style
+       Arrow nav · dots · counter · keyboard · swipe
+    ================================================ */
+    var lbEl       = document.getElementById('lb');
+    var lbStage    = document.getElementById('lb-stage');
+    var lbTitleEl  = document.getElementById('lb-title');
+    var lbLabelEl  = document.getElementById('lb-label');
+    var lbCounterEl = document.getElementById('lb-counter');
+    var lbDotsEl   = document.getElementById('lb-dots');
+    var lbPrevBtn  = document.getElementById('lb-prev');
+    var lbNextBtn  = document.getElementById('lb-next');
+    var lbCloseBtn = document.getElementById('lb-close');
+
+    if (lbEl && lbStage && lbPrevBtn && lbNextBtn && lbCloseBtn) {
+
+      var lbData   = [];   /* [{type, src, poster, label, alt}] */
+      var lbIdx    = 0;
+      var lbTotal  = 0;
+      var lbSX     = 0;   /* touch start X */
+      var lbOpener = null; /* element to restore focus to on close */
+
+      function lbSyncDots() {
+        var dots = lbDotsEl.querySelectorAll('.lb-dot');
+        dots.forEach(function (d, i) { d.classList.toggle('active', i === lbIdx); });
+      }
+
+      function lbGoTo(idx) {
+        idx = Math.max(0, Math.min(lbTotal - 1, idx));
+        lbIdx = idx;
+        var slide = lbData[idx];
+
+        /* Render media */
+        lbStage.innerHTML = '';
+        if (slide.type === 'video') {
+          var vid = document.createElement('video');
+          vid.controls = true;
+          vid.loop = true;
+          vid.setAttribute('playsinline', '');
+          if (slide.poster) vid.setAttribute('poster', slide.poster);
+          var vsrc = document.createElement('source');
+          vsrc.src = slide.src;
+          vsrc.type = 'video/mp4';
+          vid.appendChild(vsrc);
+          lbStage.appendChild(vid);
+          vid.load();
+          var vp = vid.play();
+          if (vp && vp.catch) vp.catch(function () {});
+        } else {
+          var img = document.createElement('img');
+          img.src = slide.src;
+          img.alt = slide.alt || '';
+          lbStage.appendChild(img);
+        }
+
+        /* Update footer */
+        if (lbLabelEl)  lbLabelEl.textContent  = slide.label || '';
+        if (lbCounterEl) lbCounterEl.textContent = (idx + 1) + ' / ' + lbTotal;
+        lbSyncDots();
+
+        /* Arrow states */
+        lbPrevBtn.disabled = (idx === 0);
+        lbNextBtn.disabled = (idx === lbTotal - 1);
+      }
+
+      function openLb(slides, startIdx, title) {
+        lbData  = slides;
+        lbTotal = slides.length;
+        if (lbTitleEl) lbTitleEl.textContent = title || '';
+
+        /* Build dots */
+        lbDotsEl.innerHTML = '';
+        for (var di = 0; di < lbTotal; di++) {
+          var dot = document.createElement('span');
+          dot.className = 'lb-dot';
+          dot.setAttribute('aria-label', 'Go to photo ' + (di + 1));
+          (function (n) {
+            dot.addEventListener('click', function () { lbGoTo(n); });
+          }(di));
+          lbDotsEl.appendChild(dot);
+        }
+
+        /* Show overlay */
+        lbEl.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        lbGoTo(startIdx || 0);
+        requestAnimationFrame(function () { lbEl.classList.add('lb-open'); });
+        lbCloseBtn.focus();
+      }
+
+      function closeLb() {
+        lbEl.classList.remove('lb-open');
+        lbEl.setAttribute('aria-hidden', 'true');
+        /* After fade-out finishes: stop media + restore scroll + refocus */
+        setTimeout(function () {
+          lbStage.innerHTML = '';
+          document.body.style.overflow = '';
+          if (lbOpener && lbOpener.focus) { lbOpener.focus(); }
+        }, 260);
+      }
+
+      /* Arrow buttons */
+      lbPrevBtn.addEventListener('click', function () { lbGoTo(lbIdx - 1); });
+      lbNextBtn.addEventListener('click', function () { lbGoTo(lbIdx + 1); });
+
+      /* Close button */
+      lbCloseBtn.addEventListener('click', closeLb);
+
+      /* Click on overlay backdrop (not inner content) to close */
+      lbEl.addEventListener('click', function (e) {
+        if (e.target === lbEl) { closeLb(); }
+      });
+
+      /* Keyboard: Escape + Arrow keys */
+      document.addEventListener('keydown', function (e) {
+        if (lbEl.getAttribute('aria-hidden') === 'true') return;
+        if (e.key === 'Escape')     { e.preventDefault(); closeLb(); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); lbGoTo(lbIdx + 1); }
+        if (e.key === 'ArrowLeft')  { e.preventDefault(); lbGoTo(lbIdx - 1); }
+      });
+
+      /* Touch swipe */
+      lbEl.addEventListener('touchstart', function (e) {
+        lbSX = e.touches[0].clientX;
+      }, { passive: true });
+      lbEl.addEventListener('touchend', function (e) {
+        var diff = lbSX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) { lbGoTo(diff > 0 ? lbIdx + 1 : lbIdx - 1); }
+      }, { passive: true });
+
+      /* ---- Wire click handlers onto every card slide ---- */
+      carousels.forEach(function (carousel) {
+        var cSlides  = Array.prototype.slice.call(carousel.querySelectorAll('.card-slide'));
+        var propCard = carousel.closest('.property-card');
+        var h3El     = propCard ? propCard.querySelector('h3') : null;
+        var propName = h3El ? h3El.textContent.trim() : '';
+
+        /* Build slide-data array for this carousel */
+        var slideData = cSlides.map(function (sl) {
+          var slImg  = sl.querySelector('img');
+          var slVid  = sl.querySelector('video');
+          var slLbl  = sl.querySelector('.card-slide-label');
+          var lText  = slLbl ? slLbl.textContent.trim() : '';
+          if (slVid) {
+            var vSrc = slVid.querySelector('source');
+            return {
+              type: 'video',
+              src: vSrc ? vSrc.src : '',
+              poster: slVid.getAttribute('poster') || '',
+              label: lText,
+              alt: ''
+            };
+          }
+          /* Upgrade Unsplash w= param for sharper lightbox image */
+          var rawSrc = slImg ? slImg.src : '';
+          var hqSrc  = rawSrc.replace(/([?&]w=)\d+/, function (m, p) {
+            return p + '1600';
+          });
+          return {
+            type: 'img',
+            src: hqSrc || rawSrc,
+            alt: slImg ? (slImg.alt || '') : '',
+            label: lText
+          };
+        });
+
+        /* Add click + keyboard-enter handler to each slide */
+        cSlides.forEach(function (sl, idx) {
+          sl.setAttribute('role', 'button');
+          sl.setAttribute('tabindex', '0');
+          sl.setAttribute('aria-label', 'View full photo');
+          sl.addEventListener('click', function () {
+            lbOpener = sl;
+            openLb(slideData, idx, propName);
+          });
+          sl.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              lbOpener = sl;
+              openLb(slideData, idx, propName);
+            }
+          });
+        });
+      });
+
+    } /* end if (lbEl) */
+
 
   } /* end init() */
 

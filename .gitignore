@@ -1,2 +1,5 @@
 node_modules/
 package-lock.json
+.claude/
+delete-unused.js
+.vscode/
