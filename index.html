@@ -18,7 +18,7 @@
     <title>Brickstone Realty Group | Affordable NYC Rentals</title>
     <meta
       name="description"
-      content="Affordable NYC rental apartments across all 5 boroughs. No hidden broker fees. Tenant-first service. FARE Act compliant. Find your home with Brickstone Realty."
+      content="Affordable NYC rentals across all 5 boroughs. No hidden broker fees. Tenant-first, FARE Act compliant. Find your next home with Brickstone Realty Group."
     />
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#0B1C2D" />
@@ -38,7 +38,6 @@
       property="og:description"
       content="Affordable rental apartments across all five NYC boroughs. No hidden fees. Tenant-first service."
     />
-    <!-- TODO: Create a 1200×630px branded image and save as images/og-image.jpg for better social sharing -->
     <meta
       property="og:image"
       content="https://www.brickstonerealtygroups.com/images/favicon.svg"
@@ -57,18 +56,32 @@
       content="https://www.brickstonerealtygroups.com/images/favicon.svg"
     />
 
-    <!-- DNS Prefetch for external resources -->
+    <!-- DNS Prefetch + preconnect for external resources -->
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     <link rel="dns-prefetch" href="https://cdn.tailwindcss.com" />
+    <!-- Preconnect to Tailwind CDN — establishes TCP/TLS handshake before
+         the browser encounters the script tag, shaving ~100-300 ms on first load -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin />
 
-    <!-- Google Fonts — preconnect first, then load -->
+    <!-- Google Fonts — preconnect + non-render-blocking preload
+         display=swap keeps text visible while fonts download (FOUT prevention).
+         onload swaps the preload link to a full stylesheet asynchronously so
+         fonts never block the initial render (Lighthouse: eliminate render-blocking). -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -168,7 +181,7 @@
   <body class="font-body text-text-primary bg-white antialiased">
     <!-- Skip to main content — screen reader & keyboard accessibility -->
     <a
-      href="#hero"
+      href="#main-content"
       class="skip-link sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[200] focus:px-5 focus:py-3 focus:bg-gold focus:text-navy focus:text-sm focus:font-semibold focus:tracking-wide focus:uppercase"
     >
       Skip to main content
@@ -327,6 +340,9 @@
         </div>
       </div>
     </nav>
+
+    <!-- Primary content landmark — required for skip-link + Lighthouse accessibility -->
+    <main id="main-content">
 
     <!-- ============================================
        HERO SECTION
@@ -2085,6 +2101,7 @@
               <input
                 id="input-rent"
                 type="number"
+                inputmode="decimal"
                 min="1"
                 max="99999"
                 placeholder="e.g. 2100"
@@ -2143,6 +2160,7 @@
               <input
                 id="input-income"
                 type="number"
+                inputmode="decimal"
                 min="1"
                 max="9999999"
                 placeholder="e.g. 75000"
@@ -3051,6 +3069,8 @@
         </div>
       </div>
     </section>
+
+    </main><!-- end #main-content -->
 
     <!-- ============================================
        FOOTER

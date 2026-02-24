@@ -123,8 +123,10 @@ if (
     send_response(403, false, 'Invalid request. Please reload the page and try again.');
 }
 
-/* Rotate immediately — one token per submission */
-$_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+/* Token rotation is deferred until after the email is sent successfully.
+   Rotating here (before validation) would invalidate the user's token on
+   a 422 validation error, causing their next retry to get a false 403.
+   Rotation happens inside the send_response(200) block below. */
 
 /* ════════════════════════════════════════════════════════════════
    7. RATE LIMITING — 3 attempts per 10-minute window
@@ -214,7 +216,7 @@ $boroughDisplay = $borough !== ''
     : 'No preference';
 
 // Subject — use UTF-8 encoded em dash (no escaped hex in double quotes)
-$subject = 'New Rental Enquiry from ' . $name . ' \xe2\x80\x94 Brickstone Realty Group';
+$subject = 'New Rental Enquiry from ' . $name . ' — Brickstone Realty Group';
 
 $sep  = str_repeat('-', 59);
 $body = implode("\n", [
@@ -254,6 +256,10 @@ $headers = implode("\r\n", [
 $sent = mail($recipientEmail, $subject, $body, $headers);
 
 if ($sent) {
+    /* Rotate CSRF token only on successful send — prevents the token from
+       being consumed by a failed validation attempt (422), which would
+       lock the user out of resubmitting with a false 403. */
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     send_response(200, true);
 } else {
     send_response(500, false, 'We could not send your message right now. Please email us directly at info@brickstonerealtygroups.com.');
