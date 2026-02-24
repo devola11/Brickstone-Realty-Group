@@ -83,7 +83,10 @@ RewriteRule .* - [F,L]
   # Content Security Policy
   # script-src: no unsafe-inline — all JS is in external files (js/main.js)
   # style-src:  unsafe-inline kept for any residual inline styles; fonts.googleapis.com for font preload onload
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; media-src 'self' https://videos.pexels.com; connect-src 'self'; frame-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
+
+  # Cross-Origin-Opener-Policy — isolate top-level browsing context from pop-ups
+  Header always set Cross-Origin-Opener-Policy "same-origin-allow-popups"
 
   # Remove server fingerprinting headers
   Header always unset Server

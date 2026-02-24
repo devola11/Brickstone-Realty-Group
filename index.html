@@ -22,6 +22,7 @@
     />
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#0B1C2D" />
+    <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta
       name="apple-mobile-web-app-status-bar-style"
@@ -94,7 +95,7 @@
     <link rel="manifest" href="/site.webmanifest" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/custom.css" />
+    <link rel="stylesheet" href="css/custom.min.css" />
 
     <!-- Schema.org — LocalBusiness structured data for Google rich results -->
     <script type="application/ld+json">
@@ -716,7 +717,9 @@
               <!-- Main photo -->
               <div class="aspect-[4/5] relative overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1534430480872-3498386e7856?w=800&q=80&auto=format&fit=crop"
+                  src="https://images.unsplash.com/photo-1534430480872-3498386e7856?w=400&q=75&auto=format&fit=crop"
+                  srcset="https://images.unsplash.com/photo-1534430480872-3498386e7856?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1534430480872-3498386e7856?w=800&q=75&auto=format&fit=crop 800w"
+                  sizes="(max-width: 640px) 400px, 800px"
                   alt="New York City skyline — Brickstone Realty Group serves all 5 boroughs"
                   class="w-full h-full object-cover"
                   loading="lazy"
@@ -873,10 +876,7 @@
                         preload="none"
                         aria-label="Harlem 1-Bedroom video tour"
                       >
-                        <source
-                          src="https://videos.pexels.com/video-files/3696499/3696499-uhd_2560_1440_25fps.mp4"
-                          type="video/mp4"
-                        />
+                        <!-- TODO: Replace with self-hosted video file e.g. src="videos/harlem-tour.mp4" -->
                         <track kind="captions" srclang="en" label="English" src="data:text/vtt;base64,V0VCVlRUCg==" default />
                       </video>
                       <span class="card-slide-label">▶ Tour</span>
@@ -886,7 +886,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Harlem 1-Bed — living room"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -898,7 +900,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Harlem 1-Bed — bedroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -910,7 +914,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Harlem 1-Bed — kitchen"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -922,7 +928,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Harlem 1-Bed — bathroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -1101,10 +1109,7 @@
                         preload="none"
                         aria-label="Bed-Stuy 2-Bedroom video tour"
                       >
-                        <source
-                          src="https://videos.pexels.com/video-files/3209828/3209828-uhd_2560_1440_25fps.mp4"
-                          type="video/mp4"
-                        />
+                        <!-- TODO: Replace with self-hosted video file e.g. src="videos/bedstuy-tour.mp4" -->
                         <track kind="captions" srclang="en" label="English" src="data:text/vtt;base64,V0VCVlRUCg==" default />
                       </video>
                       <span class="card-slide-label">▶ Tour</span>
@@ -1113,7 +1118,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Bed-Stuy 2-Bed — living room"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -1124,7 +1131,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Bed-Stuy 2-Bed — bedroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -1135,7 +1144,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Bed-Stuy 2-Bed — kitchen"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -1146,7 +1157,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Bed-Stuy 2-Bed — bathroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -1313,7 +1326,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Astoria Studio — living space"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -1324,7 +1339,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Astoria Studio — sleeping area"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -1335,7 +1352,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Astoria Studio — kitchen"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -1346,7 +1365,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Astoria Studio — bathroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -1494,7 +1515,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Riverdale 3-Bed — living room"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -1505,7 +1528,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Riverdale 3-Bed — master bedroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -1516,7 +1541,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Riverdale 3-Bed — kitchen"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -1527,7 +1554,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Riverdale 3-Bed — bathroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -1675,7 +1704,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Crown Heights 2-Bed — living room"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -1686,7 +1717,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Crown Heights 2-Bed — bedroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -1697,7 +1730,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Crown Heights 2-Bed — kitchen"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -1708,7 +1743,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Crown Heights 2-Bed — bathroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -1856,7 +1893,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Washington Heights 1-Bed — living room"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -1867,7 +1906,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Washington Heights 1-Bed — bedroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -1878,7 +1919,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Washington Heights 1-Bed — kitchen"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -1889,7 +1932,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Washington Heights 1-Bed — bathroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -2037,7 +2082,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Jackson Heights 2-Bed — living room"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -2048,7 +2095,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Jackson Heights 2-Bed — bedroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -2059,7 +2108,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Jackson Heights 2-Bed — kitchen"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -2070,7 +2121,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Jackson Heights 2-Bed — bathroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -2219,7 +2272,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1513694203232-719a280e022f?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1513694203232-719a280e022f?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="St. George 1-Bed — living room"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -2230,7 +2285,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="St. George 1-Bed — bedroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -2241,7 +2298,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="St. George 1-Bed — kitchen"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -2252,7 +2311,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="St. George 1-Bed — bathroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -2401,7 +2462,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Fordham 2-Bed — living room"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -2412,7 +2475,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Fordham 2-Bed — bedroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -2423,7 +2488,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Fordham 2-Bed — kitchen"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -2434,7 +2501,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Fordham 2-Bed — bathroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -2582,7 +2651,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Tottenville Studio — living space"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -2593,7 +2664,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Tottenville Studio — sleeping area"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -2604,7 +2677,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Tottenville Studio — kitchen"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -2615,7 +2690,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Tottenville Studio — bathroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -2772,10 +2849,7 @@
                         preload="none"
                         aria-label="Inwood 1-Bedroom video tour"
                       >
-                        <source
-                          src="https://videos.pexels.com/video-files/4252370/4252370-uhd_2560_1440_25fps.mp4"
-                          type="video/mp4"
-                        />
+                        <!-- TODO: Replace with self-hosted video file e.g. src="videos/inwood-tour.mp4" -->
                         <track kind="captions" srclang="en" label="English" src="data:text/vtt;base64,V0VCVlRUCg==" default />
                       </video>
                       <span class="card-slide-label">▶ Tour</span>
@@ -2784,7 +2858,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Inwood 1-Bed — living room"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -2795,7 +2871,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Inwood 1-Bed — bedroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -2806,7 +2884,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Inwood 1-Bed — kitchen"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -2817,7 +2897,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Inwood 1-Bed — bathroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -2985,7 +3067,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Flushing 3-Bed — living room"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -2996,7 +3080,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Flushing 3-Bed — master bedroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -3007,7 +3093,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Flushing 3-Bed — kitchen"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -3018,7 +3106,9 @@
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=75&auto=format&fit=crop"
+                        srcset="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=75&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=75&auto=format&fit=crop 800w"
+                        sizes="(max-width: 640px) 400px, 800px"
                         alt="Flushing 3-Bed — bathroom"
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -4877,6 +4967,6 @@
     </div>
 
     <!-- JavaScript — defer keeps it non-render-blocking -->
-    <script src="js/main.js" defer></script>
+    <script src="js/main.min.js" defer></script>
   </body>
 </html>
