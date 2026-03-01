@@ -22,6 +22,7 @@
     />
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#0B1C2D" />
+    <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta
       name="apple-mobile-web-app-status-bar-style"
@@ -66,8 +67,6 @@
     <!-- DNS Prefetch for external resources -->
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com" />
-
     <!-- Google Fonts — preconnect first, then load -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -76,34 +75,8 @@
       rel="stylesheet"
     />
 
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            screens: {
-              xs: "390px" /* iPhone 14 Pro and up — fills gap between 320px and sm:640px */,
-            },
-            colors: {
-              navy: "#0B1C2D",
-              "navy-light": "#112740",
-              charcoal: "#1A1A2E",
-              gold: "#C9A84C",
-              "gold-light": "#D4B96A",
-              "gold-dark": "#B8953A",
-              cream: "#F8F7F4",
-              "text-primary": "#2C2C2C",
-              "text-muted": "#6B7280",
-            },
-            fontFamily: {
-              display: ["Playfair Display", "Georgia", "serif"],
-              body: ["Inter", "system-ui", "sans-serif"],
-            },
-          },
-        },
-      };
-    </script>
+    <!-- Tailwind CSS — compiled production build -->
+    <link rel="stylesheet" href="css/tailwind.css" />
 
     <!-- Favicon — SVG scales perfectly at all sizes (16px tab → 512px homescreen) -->
     <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
@@ -621,25 +594,6 @@
                     <div
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
-                      <video
-                        class="w-full h-full object-cover card-video"
-                        poster="images/image.jpg"
-                        muted
-                        loop
-                        playsinline
-                        preload="none"
-                        aria-label="Harlem 1-Bedroom video tour"
-                      >
-                        <source
-                          src="https://videos.pexels.com/video-files/3696499/3696499-uhd_2560_1440_25fps.mp4"
-                          type="video/mp4"
-                        />
-                      </video>
-                      <span class="card-slide-label">&#9654; Tour</span>
-                    </div>
-                    <div
-                      class="card-slide flex-shrink-0 w-full h-full relative"
-                    >
                       <img
                         src="images/image.jpg"
                         alt="Harlem 1-Bedroom — living room"
@@ -802,8 +756,7 @@
                     ><span class="card-dot"></span><span class="card-dot"></span
                     ><span class="card-dot"></span><span class="card-dot"></span
                     ><span class="card-dot"></span><span class="card-dot"></span
-                    ><span class="card-dot"></span><span class="card-dot"></span
-                    ><span class="card-dot"></span>
+                    ><span class="card-dot"></span><span class="card-dot"></span>
                   </div>
                 </div>
                 <!-- Badges -->
@@ -943,25 +896,6 @@
                   <div
                     class="card-slides flex h-full transition-transform duration-500 ease-in-out will-change-transform"
                   >
-                    <div
-                      class="card-slide flex-shrink-0 w-full h-full relative"
-                    >
-                      <video
-                        class="w-full h-full object-cover card-video"
-                        poster="images/image14.jpg"
-                        muted
-                        loop
-                        playsinline
-                        preload="none"
-                        aria-label="Bed-Stuy 2-Bedroom video tour"
-                      >
-                        <source
-                          src="https://videos.pexels.com/video-files/3209828/3209828-uhd_2560_1440_25fps.mp4"
-                          type="video/mp4"
-                        />
-                      </video>
-                      <span class="card-slide-label">&#9654; Tour</span>
-                    </div>
                     <div
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
@@ -1125,8 +1059,7 @@
                     ><span class="card-dot"></span><span class="card-dot"></span
                     ><span class="card-dot"></span><span class="card-dot"></span
                     ><span class="card-dot"></span><span class="card-dot"></span
-                    ><span class="card-dot"></span><span class="card-dot"></span
-                    ><span class="card-dot"></span>
+                    ><span class="card-dot"></span><span class="card-dot"></span>
                   </div>
                 </div>
                 <span
@@ -3551,25 +3484,6 @@
                     <div
                       class="card-slide flex-shrink-0 w-full h-full relative"
                     >
-                      <video
-                        class="w-full h-full object-cover card-video"
-                        poster="images/image133.jpg"
-                        muted
-                        loop
-                        playsinline
-                        preload="none"
-                        aria-label="Inwood 1-Bedroom video tour"
-                      >
-                        <source
-                          src="https://videos.pexels.com/video-files/4252370/4252370-uhd_2560_1440_25fps.mp4"
-                          type="video/mp4"
-                        />
-                      </video>
-                      <span class="card-slide-label">&#9654; Tour</span>
-                    </div>
-                    <div
-                      class="card-slide flex-shrink-0 w-full h-full relative"
-                    >
                       <img
                         src="images/image133.jpg"
                         alt="Inwood 1-Bedroom — living room"
@@ -3719,7 +3633,6 @@
                     ><span class="card-dot"></span><span class="card-dot"></span
                     ><span class="card-dot"></span><span class="card-dot"></span
                     ><span class="card-dot"></span><span class="card-dot"></span
-                    ><span class="card-dot"></span
                     ><span class="card-dot"></span>
                   </div>
                 </div>

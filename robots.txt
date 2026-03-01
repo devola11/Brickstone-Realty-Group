@@ -10,12 +10,14 @@ Disallow: /.htaccess
 Disallow: /.htpasswd
 Disallow: /.env
 
-# Block development / build-time scripts
+# Block development / build-time scripts and build sources
 Disallow: /fix_labels.js
 Disallow: /audit.js
 Disallow: /compress-images.js
 Disallow: /convert-png-to-jpg.js
 Disallow: /reassign-images.js
 Disallow: /serve.js
+Disallow: /package.json
+Disallow: /css/input.css
 
 Sitemap: https://www.brickstonerealtygroups.com/sitemap.xml
