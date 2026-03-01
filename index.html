@@ -306,6 +306,7 @@
         class="lg:hidden mobile-menu-panel"
         aria-hidden="true"
         role="dialog"
+        aria-modal="true"
         aria-label="Navigation menu"
       >
         <div class="px-6 py-6 flex flex-col gap-5">
@@ -419,16 +420,6 @@
                 <option value="queens">Queens</option>
                 <option value="bronx">The Bronx</option>
                 <option value="staten-island">Staten Island</option>
-              </select>
-              <select
-                id="budget-select"
-                class="w-full sm:flex-1 bg-white text-text-primary px-3 sm:px-4 py-2.5 sm:py-3 lg:py-4 text-sm lg:text-base font-medium focus:outline-none focus:ring-2 focus:ring-gold"
-              >
-                <option value="">Any Budget</option>
-                <option value="under-2000">Under $2,000/mo</option>
-                <option value="2000-3000">$2,000–$3,000/mo</option>
-                <option value="3000-5000">$3,000–$5,000/mo</option>
-                <option value="over-5000">$5,000+/mo</option>
               </select>
               <button
                 id="hero-search-btn"

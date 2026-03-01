@@ -610,8 +610,8 @@ button.btn-loading {
   /* Reduce hero section min-height so search bar is reachable
      without scrolling on short phones (iPhone SE = 568px viewport) */
   #hero {
-    min-height: 100svh;
-    min-height: 100vh;
+    min-height: 100vh;   /* fallback for browsers without svh support */
+    min-height: 100svh;  /* preferred: small-viewport-height unit (iOS, Android) */
   }
 
   /* Card padding tighter on mobile */

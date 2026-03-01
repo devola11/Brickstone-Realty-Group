@@ -1,5 +1,19 @@
 node_modules/
 package-lock.json
 .claude/
-delete-unused.js
 .vscode/
+
+# Development / build-time scripts — not for production
+delete-unused.js
+fix_labels.js
+audit.js
+compress-images.js
+convert-images.ps1
+convert-png-to-jpg.js
+reassign-images.js
+serve.js
+fix-php-ini.ps1
+get-php.ps1
+start-server.ps1
+test-form.ps1
+test-server.ps1
