@@ -508,6 +508,11 @@ button.btn-loading {
 .form-group textarea.error {
   border-color: #f87171 !important;
 }
+.form-group input.error:focus-visible,
+.form-group textarea.error:focus-visible {
+  outline: 2px solid #f87171;
+  outline-offset: 2px;
+}
 
 /* Error messages fade in */
 .error-message {
@@ -716,9 +721,10 @@ button.btn-loading {
    ---------------------------------------- */
 @media (min-width: 1024px) {
 
-  /* Hard-hide hamburger and mobile panel at desktop widths */
+  /* Hard-hide hamburger, mobile panel, and mobile CTA at desktop widths */
   #menu-toggle        { display: none !important; }
   .mobile-menu-panel  { display: none !important; }
+  #mobile-cta         { display: none !important; }
 
   /* Release the forced 16px on desktop — let Tailwind classes control it */
   input, textarea, select {
