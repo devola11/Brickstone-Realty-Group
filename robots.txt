@@ -19,5 +19,7 @@ Disallow: /reassign-images.js
 Disallow: /serve.js
 Disallow: /package.json
 Disallow: /css/input.css
+Disallow: /convert-to-webp.js
+Disallow: /minify-css.js
 
 Sitemap: https://www.brickstonerealtygroups.com/sitemap.xml

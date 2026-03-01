@@ -64,16 +64,27 @@
       content="https://www.brickstonerealtygroups.com/images/favicon.svg"
     />
 
+    <!-- Preload LCP hero image — served as WebP via .htaccess content negotiation -->
+    <link rel="preload" as="image" href="images/hero-image.jpg" fetchpriority="high" />
+
     <!-- DNS Prefetch for external resources -->
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-    <!-- Google Fonts — preconnect first, then load -->
+    <!-- Google Fonts — preconnect + async load (non-render-blocking) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="preload"
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
 
     <!-- Tailwind CSS — compiled production build -->
     <link rel="stylesheet" href="css/tailwind.css" />
@@ -86,7 +97,7 @@
     <link rel="manifest" href="/site.webmanifest" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/custom.css" />
+    <link rel="stylesheet" href="css/custom.min.css" />
 
     <!-- Schema.org — LocalBusiness structured data for Google rich results -->
     <script type="application/ld+json">
@@ -5992,6 +6003,6 @@
     </div>
 
     <!-- JavaScript — defer keeps it non-render-blocking -->
-    <script src="js/main.js" defer></script>
+    <script src="js/main.min.js" defer></script>
   </body>
 </html>

@@ -4,10 +4,14 @@
   "private": true,
   "scripts": {
     "build:css": "tailwindcss -i css/input.css -o css/tailwind.css --minify",
-    "watch:css": "tailwindcss -i css/input.css -o css/tailwind.css --watch"
+    "watch:css": "tailwindcss -i css/input.css -o css/tailwind.css --watch",
+    "build:js": "terser js/main.js -o js/main.min.js --compress --mangle",
+    "build:css:custom": "node minify-css.js",
+    "build": "npm run build:css && npm run build:js && npm run build:css:custom"
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.2.0",
-    "tailwindcss": "^4.2.0"
+    "tailwindcss": "^4.2.0",
+    "terser": "^5.46.0"
   }
 }

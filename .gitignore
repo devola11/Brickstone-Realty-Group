@@ -6,6 +6,8 @@ package-lock.json
 # Development / build-time scripts — not for production
 delete-unused.js
 fix_labels.js
+convert-to-webp.js
+minify-css.js
 audit.js
 compress-images.js
 convert-images.ps1

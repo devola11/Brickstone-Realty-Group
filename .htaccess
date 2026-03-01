@@ -41,6 +41,25 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
 
 # -----------------------------------------------
+# WEBP CONTENT NEGOTIATION
+# Transparently serve .webp when the browser
+# advertises image/webp support and a .webp file
+# exists alongside the original JPEG.
+# No HTML changes required — works for all img tags.
+# -----------------------------------------------
+RewriteCond %{HTTP_ACCEPT} image/webp
+RewriteCond %{REQUEST_FILENAME} (.*)\.(jpe?g)$
+RewriteCond %1\.webp -f
+RewriteRule ^ %1.webp [T=image/webp,L]
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(jpe?g)$">
+    Header append Vary Accept
+  </FilesMatch>
+</IfModule>
+
+
+# -----------------------------------------------
 # PROTECT PHP BACKEND ENDPOINTS
 # Block direct browser navigation and cross-origin
 # access to the contact form PHP files.
@@ -83,7 +102,7 @@ RewriteRule .* - [F,L]
   # Content Security Policy
   # script-src: no unsafe-inline — all JS is in external files (js/main.js)
   # style-src:  unsafe-inline kept — Tailwind CDN injects inline styles at runtime
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' https://cdn.tailwindcss.com; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
 
   # Remove server fingerprinting headers
   Header always unset Server
