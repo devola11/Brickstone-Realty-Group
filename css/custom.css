@@ -619,10 +619,11 @@ button.btn-loading {
     padding: 1rem;
   }
 
-  /* Filter btn min tap target */
+  /* Filter btn min tap target + readable font size */
   .filter-btn {
     min-height: 44px;   /* WCAG 2.5.5 */
     min-width: 44px;
+    font-size: 0.75rem; /* raise from 0.65rem — 10px is below 12px minimum */
   }
 
   /* FAQ tap targets always comfortable */
@@ -690,7 +691,18 @@ button.btn-loading {
   input, textarea, select {
     font-size: 16px !important;
   }
+}
 
+/* iOS auto-zoom prevention on mobile (< 768px)
+   iOS Safari zooms the page when any focused input has font-size < 16px.
+   This overrides Tailwind's text-sm (14px) on all form controls.          */
+@media (max-width: 767px) {
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+}
+
+@media (min-width: 768px) {
   /* Hamburger tap target — slightly larger on tablet */
   #menu-toggle {
     width: 48px;
