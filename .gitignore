@@ -8,6 +8,9 @@ delete-unused.js
 fix_labels.js
 convert-to-webp.js
 minify-css.js
+
+# Lighthouse reports
+lighthouse-report.json
 audit.js
 compress-images.js
 convert-images.ps1
